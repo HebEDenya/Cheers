@@ -1,0 +1,7 @@
+{
+  "name": "cheers_pjr",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

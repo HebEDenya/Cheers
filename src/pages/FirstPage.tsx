@@ -1,15 +1,15 @@
+import {IonToolbar, IonImg , IonPage,  } from '@ionic/react';
+import hotocheerse from  '../photos/photocheerse.png';
 
-import { useState } from 'react';
-import {  IonPage,  } from '@ionic/react';
-import hotocheerse from  './photos/photocheerse.png';
-import { IonToolbar, IonImg } from '@ionic/react';
-// import './FirstPage.scss';
-const FirstPage: React.FC = (props) => {
-  
+interface ContainerProps {
+  setPageSwitcher: any,
+}
+
+const FirstPage: React.FC<ContainerProps>  = ({setPageSwitcher}) => {
     return (
       <IonPage>
         <IonToolbar></IonToolbar>
-        <IonImg src={hotocheerse} onClick={()=> {props.setPageSwitcher(true)}}/>
+        <IonImg src={hotocheerse} onClick={()=> {setPageSwitcher(true)}}/>
       </IonPage>
     );
   };

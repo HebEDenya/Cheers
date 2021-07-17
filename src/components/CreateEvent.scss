@@ -1,3 +1,39 @@
 .location_height_create {
     height: 4rem  !important;
+    width: 90%;
+    display: flex;
+    margin-left: 1rem;
+}
+
+.color_title_create {
+    color: #ce93d8 ;
+}
+
+.color_subtitle_create {
+    color: #505164 ;
+}
+
+.progrssiveBar_createEvent{
+    width: 90%;
+    display: flex;
+    margin-left: 1rem;
+}
+
+.input_create_Event {
+    width: 90%;
+}
+
+.button_create_event {
+    background-color: #ce93d8 ;
+    margin-right: 1.5rem;
+    width: 50%;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 0.2rem;
+}
+
+.button_create_event:hover {
+    background-color: #ce93d8 ;
+    transform: translateY(-2px);
+
+
 }

@@ -4,7 +4,8 @@ import {IonApp,IonIcon,IonLabel,IonRouterOutlet,IonTabBar,IonTabButton,IonTabs,}
 import { IonReactRouter } from '@ionic/react-router';
 import { heart, person, home, chatboxEllipses, search } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
-import CreateEventComponenet from './components/CreateEvent';
+import CreateEventComponenetPart1 from './components/CreateEvent.Part1';
+
 import Tab3 from './pages/Tab3';
 import FirstPage from './pages/FirstPage';
 import '@ionic/react/css/core.css';
@@ -36,10 +37,10 @@ const App: React.FC = () => {
         <Tab1 />
       </Route>
       <Route exact path="/tab2">
-        <CreateEventComponenet />
+        <CreateEventComponenetPart1 />
       </Route>
-      <Route path="/tab3">
-        <Tab3 />
+      <Route exact path="/tab3">
+        <h1>hi</h1>
       </Route>
       <Route exact path="/">
         <Redirect to="/tab1" />
@@ -52,13 +53,13 @@ const App: React.FC = () => {
           <IonTabButton tab="tab2" href="/tab2" >
             <IonIcon icon={person} />
           </IonTabButton>
-          <IonTabButton tab="tab3" href="#" >
+          <IonTabButton tab="tab3" href="/tab3" >
             <IonIcon icon={heart} />
           </IonTabButton>
-          <IonTabButton tab="tab3" href="#" >
+          <IonTabButton tab="" href="#" >
             <IonIcon icon={chatboxEllipses} />
           </IonTabButton>
-          <IonTabButton tab="tab3" href="#" >
+          <IonTabButton tab="" href="#" >
             <IonIcon icon={search} />
           </IonTabButton>
         </IonTabBar>

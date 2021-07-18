@@ -35,5 +35,28 @@
     background-color: #ce93d8 ;
     transform: translateY(-2px);
 
+}
+.icon_next_createEvent {
+    position: relative;
+    display: flex;
+    left: 9.2rem;
+   
+}
 
+@media (max-width: 350px) {
+    .icon_next_createEvent {
+        left: 7.5rem;
+    }
+}
+
+@media (min-width: 414px) {
+    .icon_next_createEvent {
+        left: 10.5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .icon_next_createEvent {
+        left: 21rem;
+    }
 }

@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
-import {IonToolbar, IonLabel ,IonFooter, IonPage, IonHeader,IonProgressBar,IonText,IonContent, IonInput,IonSelectOption, IonItem, IonList, IonSegment, IonIcon,IonSegmentButton, IonTextarea,IonListHeader, IonSelect, IonDatetime, IonButton } from '@ionic/react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import {IonToolbar,useIonAlert, IonLabel ,IonFooter, IonPage, IonHeader,IonProgressBar,IonText,IonContent, IonInput,IonSelectOption, IonItem, IonList, IonSegment, IonIcon,IonSegmentButton, IonTextarea,IonListHeader, IonSelect, IonDatetime, IonButton } from '@ionic/react';
 import { locate, wifi,card, star,chevronForwardOutline,  chevronBackOutline,calendar, time } from 'ionicons/icons';
 import './CreateEvent.scss'
 import ImageContainer from './CreateEventImage';
+import axios from 'axios';
+import { StringTypeAnnotation } from '@babel/types';
 
-interface ContainerProps {
-  
-}
 
-const CreateEventComponenet: React.FC<ContainerProps> = () => {
+
+const CreateEventComponenet: React.FC= () => {
+  const [present] = useIonAlert();
   const [title, setTitle] = useState<string>();
   const [description, setDescription] = useState<string>();
   const [categorie, setCategorie] = useState<string>('');
@@ -18,10 +20,51 @@ const CreateEventComponenet: React.FC<ContainerProps> = () => {
   const [selectEndDate,setSelectEndDate]= useState<string>('');
   const [selectPrice,setSelectPrice]= useState<string>('');
   const [quantity, setQuantity] = useState<number | null>(null);
-  const [buttonClick, setButtonClick] = useState<boolean | null>(null)
-  const [switchPagesCreateEvent, setSwitchPageCreateEvent]= useState<boolean>(false)
-  const [image, setImage] = useState<string>('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png')
+  const [price, setPrice] = useState<number | null>(null);
+  const [buttonClick, setButtonClick] = useState<boolean | null>(null);
+  const [switchPagesCreateEvent, setSwitchPageCreateEvent]= useState<boolean>(false);
+  const [image, setImage] = useState<string>('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png');
 
+  
+
+  //Verify if the mandatory fields are filled 
+  const verifyInput = () => {
+    let verify = true;
+    if (!title || !description || !categorie || !location  || !selectedStartDate || !selectEndDate || !selectPrice ) {
+      verify = false;
+    } if (selectPrice !=="free" && !price) {
+      verify = false;
+    } if (location ==="venue" && !adress) {
+      verify= false;
+    }
+    return verify;
+  }
+  //to post an event 
+  const postReaquestHandler = () => {
+    let selectedAdress = adress;
+    let eventPrice = ""+price;
+    if (location === "online") {
+      selectedAdress = "online"
+    } if (selectPrice === "free") {
+        eventPrice = selectPrice;
+    }
+    let infoStore = {
+      title: title, 
+      description: description, 
+      category:categorie, 
+      location: selectedAdress,
+      price:eventPrice,
+      start_time: selectedStartDate,
+      end_time: selectEndDate,
+      available_places : quantity,
+      image: image
+    } 
+    axios.post('http://localhost:3001/api/postEvent', infoStore).then((result) => {
+      console.log(result); 
+    })
+  }
+
+  
 
   return (
     <>
@@ -37,20 +80,20 @@ const CreateEventComponenet: React.FC<ContainerProps> = () => {
         <IonList>
         <IonListHeader>
              <IonLabel className="color_title_create">
-             Basic Info
+             Basic Info<span className="obligatoire">*</span>
          </IonLabel>
          </IonListHeader>
          <IonItem lines="none">
          <IonText className="color_subtitle_create" > Add details that highlight what makes it unique.</IonText>
          </IonItem>
        <IonItem className="input_create_Event">
-         <IonLabel position="floating" className="color_subtitle_create">Title</IonLabel>
-         <IonInput type="text" name="title" value={title} onIonChange={e => setTitle(e.detail.value!)} 
+         <IonLabel position="floating" className="color_subtitle_create">Title<span className="obligatoire">*</span></IonLabel>
+         <IonInput type="text" name="title" value={title} onIonChange={e => {setTitle(e.detail.value!);}} 
          clearInput required spellcheck  maxlength= {50} > 
          </IonInput>
          </IonItem>
          <IonItem className="input_create_Event">
-             <IonLabel position="floating" className="color_subtitle_create">Description</IonLabel>
+             <IonLabel position="floating" className="color_subtitle_create">Description <span className="obligatoire">*</span></IonLabel>
              <IonTextarea name="description" value={description} onIonChange={e => {setDescription(e.detail.value!); 
              }} clearOnEdit required spellcheck autoGrow maxlength= {2000}></IonTextarea>
            </IonItem>      
@@ -59,8 +102,8 @@ const CreateEventComponenet: React.FC<ContainerProps> = () => {
  
         <IonItem className="input_create_Event">
          &nbsp;
-             <IonLabel className="color_subtitle_create">Categories </IonLabel>
-             <IonSelect value={categorie} okText="Okay" cancelText="Dismiss" onIonChange={e => {setCategorie(e.detail.value); console.log(categorie);
+             <IonLabel className="color_subtitle_create">Categories <span className="obligatoire">*</span> </IonLabel>
+             <IonSelect value={categorie} okText="Okay"  onIonChange={e => {setCategorie(e.detail.value); console.log(categorie);
              }}>
                <IonSelectOption value="music">Music</IonSelectOption>
                <IonSelectOption value="food&drink">Food & Drink</IonSelectOption>
@@ -80,7 +123,7 @@ const CreateEventComponenet: React.FC<ContainerProps> = () => {
            <IonList>
         <IonListHeader>
            <IonLabel className="color_title_create">
-             Localisation
+             Localisation<span className="obligatoire">*</span>
          </IonLabel>
          </IonListHeader>
          <IonItem lines="none">
@@ -97,7 +140,7 @@ const CreateEventComponenet: React.FC<ContainerProps> = () => {
            </IonSegmentButton>
          </IonSegment>
          {location === "venue" ? <IonItem className="input_create_Event">
-         <IonLabel position="floating" className="color_subtitle_create">Adress of the event </IonLabel>
+         <IonLabel position="floating" className="color_subtitle_create">Adress of the event<span className="obligatoire">*</span> </IonLabel>
          <IonInput type="text" name="adress" value={adress} onIonChange={e => setAdress(e.detail.value!) } 
          clearInput required > 
          </IonInput>
@@ -110,7 +153,7 @@ const CreateEventComponenet: React.FC<ContainerProps> = () => {
         <IonList>
        <IonListHeader>
             <IonLabel className="color_title_create">
-            Date and Time
+            Date and Time<span className="obligatoire">*</span>
         </IonLabel>
         </IonListHeader>
         <IonItem lines="none">
@@ -141,7 +184,7 @@ const CreateEventComponenet: React.FC<ContainerProps> = () => {
        <IonList>
        <IonListHeader>
             <IonLabel className="color_title_create">
-            Price or Free
+            Price or Free<span className="obligatoire">*</span>
         </IonLabel>
         </IonListHeader>
         <IonItem lines="none">
@@ -158,18 +201,24 @@ const CreateEventComponenet: React.FC<ContainerProps> = () => {
           </IonSegmentButton>
         </IonSegment>
         &nbsp;
+        {selectPrice === "paied" ? <IonItem className="input_create_Event">
+        <IonLabel position="floating" className="color_subtitle_create"> Price <span className="obligatoire">*</span></IonLabel>
+        <IonInput type="number"  name="price" value={price} onIonChange={e => setPrice(+e.detail.value!) } 
+        clearInput required > 
+        </IonInput>
+        </IonItem> : ""}
         <IonItem className="input_create_Event">
         <IonLabel position="floating" className="color_subtitle_create"> Available places or quantities  </IonLabel>
-        <IonInput  name="quantity" value={quantity} onIonChange={e => setQuantity(+e.detail.value!) } 
-        clearInput required > 
+        <IonInput type="number" name="quantity" value={quantity} onIonChange={e => setQuantity(+e.detail.value!) } 
+        clearInput  > 
         </IonInput>
         </IonItem>
         &nbsp;
         <IonItem lines="none"  >
         &nbsp;
-        <button   className="second_button_create_event"   onClick={()=> setButtonClick(false)}>Cancel</button>
-        <IonButton size="default"  className="button_create_event" onClick={()=> setButtonClick(true)}>Confirme</IonButton>
-        </IonItem>
+        <button   className="second_button_create_event"   onClick={()=> {setButtonClick(false); }}>Cancel</button>
+        <IonButton size="default"  type="submit" className="button_create_event" onClick={()=> {if (verifyInput()) {postReaquestHandler(); setButtonClick(true)} else { present('All mandatory * fields must be filled', [{ text: 'Ok' }]) }}}>Confirme</IonButton>
+       </IonItem>
         &nbsp;
       </IonContent> 
     }

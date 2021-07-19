@@ -5,7 +5,6 @@ import './CreateEvent.scss'
 import React, { useState } from 'react';
 
 
-
 interface ContainerProps {
   image: string;
   setImage: any;
@@ -24,7 +23,7 @@ const ImageContainer: React.FC<ContainerProps> = ({ image, setImage}) => {
       }
   return (
     <>
-     <IonLabel className="color_subtitle_create" onClick={()=>{takeProfilePicture()}}>Place you image </IonLabel>
+     <IonLabel className="color_subtitle_create" onClick={()=>{takeProfilePicture()}}>Place you image<span className="obligatoire">*</span> </IonLabel>
      <IonIcon icon={camera} onClick={()=>{takeProfilePicture()}}/>
      <IonPopover
         cssClass='my-custom-class'

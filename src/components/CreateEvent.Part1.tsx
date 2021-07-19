@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import {IonToolbar,useIonAlert, IonLabel ,IonFooter, IonPage, IonHeader,IonProgressBar,IonText,IonContent, IonInput,IonSelectOption, IonItem, IonList, IonSegment, IonIcon,IonSegmentButton, IonTextarea,IonListHeader, IonSelect, IonDatetime, IonButton } from '@ionic/react';
+import {IonToolbar,useIonAlert, IonLabel ,IonFooter, IonPage, IonCol,IonProgressBar,IonText,IonContent, IonInput,IonSelectOption, IonItem, IonList, IonSegment, IonIcon,IonSegmentButton, IonTextarea,IonListHeader, IonSelect, IonDatetime, IonButton, IonCard } from '@ionic/react';
 import { locate, wifi,card, star,chevronForwardOutline,  chevronBackOutline,calendar, time } from 'ionicons/icons';
 import './CreateEvent.scss'
 import ImageContainer from './CreateEventImage';
@@ -21,11 +21,29 @@ const CreateEventComponenet: React.FC= () => {
   const [selectPrice,setSelectPrice]= useState<string>('');
   const [quantity, setQuantity] = useState<number | null>(null);
   const [price, setPrice] = useState<number | null>(null);
-  const [buttonClick, setButtonClick] = useState<boolean | null>(null);
+  const [buttonClick, setButtonClick] = useState<boolean | null>(false);
   const [switchPagesCreateEvent, setSwitchPageCreateEvent]= useState<boolean>(false);
   const [image, setImage] = useState<string>('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png');
 
-  
+  const history = useHistory()
+  if(buttonClick === null) {
+    history.push('/tab2')
+    setButtonClick(false)
+  }
+
+  //refresh 
+  const refreshInfoAfterSubmit = () => {
+    setTitle('');
+    setDescription('');
+    setCategorie('');
+    setLocation('');
+    setAdress(null);
+    setSelectedStartDate('');
+    setSelectEndDate('');
+    setSelectPrice('');
+    setQuantity(null);
+    setPrice(null);
+  }
 
   //Verify if the mandatory fields are filled 
   const verifyInput = () => {
@@ -214,12 +232,19 @@ const CreateEventComponenet: React.FC= () => {
         &nbsp;
         <IonItem lines="none"  >
         &nbsp;
-        <button   className="second_button_create_event"   onClick={()=> {setButtonClick(false); }}>Cancel</button>
-        <IonButton size="default"  type="submit" className="button_create_event" onClick={()=> {if (verifyInput()) {postReaquestHandler(); setButtonClick(true)} else { present('All mandatory * fields must be filled', [{ text: 'Ok' }]) }}}>Confirme</IonButton>
-       </IonItem>
+        {!buttonClick ? <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false);refreshInfoAfterSubmit() }} className="second_button_create_event" >Cancel</button>
+         <IonButton  size="default"  type="submit" className="button_create_event" onClick={()=> {if (verifyInput()) {postReaquestHandler(); setButtonClick(true);present('Event created successfully');refreshInfoAfterSubmit()  } else { present('All mandatory * fields must be filled', [{ text: 'Ok' }]) }}}>Confirme</IonButton>
+        </>:
+        <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false);}} className="second_button_create_event" > Account</button>
+        <IonButton  size="default" routerLink="/tab2"  className="button_create_event" onClick={()=> {setButtonClick(false); setSwitchPageCreateEvent(false);}}>View Events</IonButton>
+       </>
+      
+      }
+      </IonItem>
         &nbsp;
       </IonContent> 
     }
+    {!buttonClick?
     <IonFooter className="ion-no-border">
       <IonToolbar>
       {!switchPagesCreateEvent? <IonItem className="icon_next_createEvent" lines="none" onClick={() =>{setSwitchPageCreateEvent(true)}}>
@@ -228,7 +253,7 @@ const CreateEventComponenet: React.FC= () => {
       <IonIcon size="large" color="dark" icon={chevronBackOutline}  /> 
       </IonItem>}
       </IonToolbar>
-    </IonFooter>
+    </IonFooter> :""}
     </IonPage>
     </>
   );

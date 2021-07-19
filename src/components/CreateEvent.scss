@@ -51,7 +51,7 @@
 }
 
 .second_button_create_event {
-    background-color: white ;
+    background-color: white !important;
     margin-right: 1.5rem !important;
     width: 50% !important;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
@@ -68,7 +68,26 @@
 .second_button_create_event:active {
     transform: translateY(-2px) scale(1.2);
 }
+.check_create {
+    position: relative;
+    left: 2.3rem;
+    width: 80%;
+    bottom: 3rem;
+    border: 2px solid;
+    color: #ce93d8;
+}
 
+.check_create:hover {
+    
+    border: 2px solid;
+    background-color: #ce93d8;
+    transform: scale(1.05);
+}
+
+.flech_icon_create{
+    position: relative;
+    left: 5.5rem;
+}
 
 .icon_next_createEvent {
     position: relative !important;

@@ -69,11 +69,9 @@ const CreateEventComponenet: React.FC= () => {
   return (
     <>
     <IonPage>
-      <IonHeader>
         <IonToolbar>
       {!switchPagesCreateEvent? <IonProgressBar value={0.5} className="progrssiveBar_createEvent"> </IonProgressBar> : <IonProgressBar value={1} className="progrssiveBar_createEvent"> </IonProgressBar> }
         </IonToolbar>
-      </IonHeader>
       {!switchPagesCreateEvent? 
        <IonContent>
            {/* {For the basic info} */}

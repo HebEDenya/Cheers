@@ -2,11 +2,14 @@ import {useState} from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import {IonApp,IonIcon,IonLabel,IonRouterOutlet,IonTabBar,IonTabButton,IonTabs,} from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+import CreateEventComponenetPart1 from './components/CreateEvent.Part1';
+import './App.css';
 import { heart, person, home, chatboxEllipses, search } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
-import CreateEventComponenetPart1 from './components/CreateEvent.Part1';
-
+import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
+import UpdateProfil from './components/UpdateProfil'
+
 import FirstPage from './pages/FirstPage';
 import '@ionic/react/css/core.css';
 import '@ionic/react/css/normalize.css';
@@ -32,34 +35,38 @@ const App: React.FC = () => {
     <IonRouterOutlet>          
     </IonRouterOutlet>
       <IonTabs>
-    <IonRouterOutlet>
-      <Route exact path="/tab1">
-        <Tab1 />
-      </Route>
-      <Route exact path="/tab2">
-        <CreateEventComponenetPart1 />
-      </Route>
-      <Route exact path="/tab3">
-        <h1>hi</h1>
-      </Route>
-      <Route exact path="/">
-        <Redirect to="/tab1" />
-      </Route>
-    </IonRouterOutlet>
-    <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1" >
+        <IonRouterOutlet>
+          <Route exact path="/tab1">
+            <Tab1 />
+          </Route>
+          <Route exact path="/tab2">
+            <Tab2 />
+          </Route>
+          <Route path="/tab3">
+            <Tab3 />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/tab1" />
+          </Route>
+          <Route path="/Update" component={UpdateProfil}>
+          </Route>
+          <Route path="/CreateEvent" component={CreateEventComponenetPart1}>
+          </Route>
+        </IonRouterOutlet>
+        <IonTabBar slot="bottom">
+          <IonTabButton tab="tab1" href="/tab1">
             <IonIcon icon={home} />
           </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2" >
+          <IonTabButton tab="tab2" href="/tab2">
             <IonIcon icon={person} />
           </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3" >
+          <IonTabButton tab="tab3" href="/tab3">
             <IonIcon icon={heart} />
           </IonTabButton>
-          <IonTabButton tab="" href="#" >
+          <IonTabButton tab="tab3" href="/tab3">
             <IonIcon icon={chatboxEllipses} />
           </IonTabButton>
-          <IonTabButton tab="" href="#" >
+          <IonTabButton tab="tab3" href="/tab3">
             <IonIcon icon={search} />
           </IonTabButton>
         </IonTabBar>

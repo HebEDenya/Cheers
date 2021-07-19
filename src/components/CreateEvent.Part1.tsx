@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import {IonToolbar,useIonAlert, IonLabel ,IonFooter, IonPage, IonCol,IonProgressBar,IonText,IonContent, IonInput,IonSelectOption, IonItem, IonList, IonSegment, IonIcon,IonSegmentButton, IonTextarea,IonListHeader, IonSelect, IonDatetime, IonButton, IonCard } from '@ionic/react';
+import {IonToolbar,useIonAlert, IonLabel ,IonFooter, IonPage, IonCol,IonProgressBar,IonText,IonContent, IonInput,IonSelectOption, IonItem, IonList, IonSegment, IonIcon,IonSegmentButton, IonTextarea,IonListHeader, IonSelect, IonDatetime, IonButton } from '@ionic/react';
 import { locate, wifi,card, star,chevronForwardOutline,  chevronBackOutline,calendar, time } from 'ionicons/icons';
 import './CreateEvent.scss'
 import ImageContainer from './CreateEventImage';
 import axios from 'axios';
-import { StringTypeAnnotation } from '@babel/types';
 
 
 
@@ -78,7 +77,17 @@ const CreateEventComponenet: React.FC= () => {
       image: image
     } 
     axios.post('http://localhost:3001/api/postEvent', infoStore).then((result) => {
-      console.log(result); 
+      console.log(result.statusText);
+      
+      if(result.statusText === "Created") {
+        setButtonClick(true)
+        refreshInfoAfterSubmit()
+        present('Event created successfully')
+      } else {
+        present('An error has occurred', [{ text: 'Ok' }])
+      }
+     
+    }).catch(e=> {console.log(e);
     })
   }
 
@@ -232,11 +241,13 @@ const CreateEventComponenet: React.FC= () => {
         &nbsp;
         <IonItem lines="none"  >
         &nbsp;
-        {!buttonClick ? <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false);refreshInfoAfterSubmit() }} className="second_button_create_event" >Cancel</button>
-         <IonButton  size="default"  type="submit" className="button_create_event" onClick={()=> {if (verifyInput()) {postReaquestHandler(); setButtonClick(true);present('Event created successfully');refreshInfoAfterSubmit()  } else { present('All mandatory * fields must be filled', [{ text: 'Ok' }]) }}}>Confirme</IonButton>
+        {!buttonClick ? <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false);refreshInfoAfterSubmit();}} className="second_button_create_event" >Cancel</button>
+         <IonButton  size="default"  type="submit" className="button_create_event" 
+         onClick={()=> { if (verifyInput()) {  postReaquestHandler()} 
+          else if (!verifyInput()){ present('All mandatory * fields must be filled', [{ text: 'Ok' }]) } }}>Confirme</IonButton>
         </>:
-        <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false);}} className="second_button_create_event" > Account</button>
-        <IonButton  size="default" routerLink="/tab2"  className="button_create_event" onClick={()=> {setButtonClick(false); setSwitchPageCreateEvent(false);}}>View Events</IonButton>
+        <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false); }} className="second_button_create_event" > Account</button>
+        <IonButton  size="default" routerLink="/tab2"  className="button_create_event" onClick={()=> {setButtonClick(false); setSwitchPageCreateEvent(false); }}>View Events</IonButton>
        </>
       
       }

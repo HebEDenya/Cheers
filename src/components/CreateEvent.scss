@@ -1,44 +1,70 @@
 .location_height_create {
     height: 4rem  !important;
-    width: 90%;
+    width: 90% !important;
     display: flex;
     margin-left: 1rem;
+
+}
+
+#second_button {
+    background: transparent;
 }
 
 .color_title_create {
     color: #ce93d8 ;
+    font-size: 22px;
 }
 
 .color_subtitle_create {
-    color: #505164 ;
+    color: #505164 !important;
 }
 
 .progrssiveBar_createEvent{
-    width: 90%;
-    display: flex;
-    margin-left: 1rem;
+    width: 90% !important;
+    display: flex !important;
+    margin-left: 1rem !important;
 }
 
 .input_create_Event {
-    width: 90%;
+    width: 90% !important;
+    margin-left: 1rem;
+
 }
 
 .button_create_event {
     background-color: #ce93d8 ;
-    margin-right: 1.5rem;
-    width: 50%;
+    margin-right: 1.5rem !important;
+    width: 50% !important;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 0.2rem;
+    border-radius: 0.2rem !important;
 }
 
 .button_create_event:hover {
-    background-color: #ce93d8 ;
+    background-color: #ce93d8 !important;
     transform: translateY(-2px);
-
 }
+
+.second_button_create_event {
+    background-color: white ;
+    margin-right: 1.5rem !important;
+    width: 50% !important;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 0.2rem !important;
+    height: 86%;
+    border: 1px solid #222428;
+}
+
+.second_button_create_event:hover {
+    background-color: #ce93d8 !important;
+    transform: translateY(-2px);
+    color: white;
+    border: none;
+}
+
+
 .icon_next_createEvent {
-    position: relative;
-    display: flex;
+    position: relative !important;
+    display: flex !important;
     left: 9.2rem;
    
 }
@@ -58,5 +84,10 @@
 @media (min-width: 768px) {
     .icon_next_createEvent {
         left: 21rem;
+    }
+
+    .image_create_event{
+        position: relative;
+        left:24rem;
     }
 }

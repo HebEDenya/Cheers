@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import {IonToolbar, IonLabel ,IonFooter, IonPage, IonHeader, IonTitle,IonProgressBar,IonText,IonContent, IonInput,IonSelectOption, IonItem, IonList, IonSegment, IonIcon,IonSegmentButton, IonTextarea,IonListHeader, IonSelect, IonDatetime, IonButton } from '@ionic/react';
-import { locate, wifi,card, star,chevronForwardOutline,  chevronBackOutline } from 'ionicons/icons';
+import {IonToolbar, IonLabel ,IonFooter, IonPage, IonHeader,IonProgressBar,IonText,IonContent, IonInput,IonSelectOption, IonItem, IonList, IonSegment, IonIcon,IonSegmentButton, IonTextarea,IonListHeader, IonSelect, IonDatetime, IonButton } from '@ionic/react';
+import { locate, wifi,card, star,chevronForwardOutline,  chevronBackOutline,calendar, time } from 'ionicons/icons';
 import './CreateEvent.scss'
+import ImageContainer from './CreateEventImage';
 
 interface ContainerProps {
   
@@ -19,6 +20,7 @@ const CreateEventComponenet: React.FC<ContainerProps> = () => {
   const [quantity, setQuantity] = useState<number | null>(null);
   const [buttonClick, setButtonClick] = useState<boolean | null>(null)
   const [switchPagesCreateEvent, setSwitchPageCreateEvent]= useState<boolean>(false)
+  const [image, setImage] = useState<string>('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png')
 
 
   return (
@@ -27,11 +29,8 @@ const CreateEventComponenet: React.FC<ContainerProps> = () => {
       <IonHeader>
         <IonToolbar>
       {!switchPagesCreateEvent? <IonProgressBar value={0.5} className="progrssiveBar_createEvent"> </IonProgressBar> : <IonProgressBar value={1} className="progrssiveBar_createEvent"> </IonProgressBar> }
-          
         </IonToolbar>
       </IonHeader>
-    
-      
       {!switchPagesCreateEvent? 
        <IonContent>
            {/* {For the basic info} */}
@@ -45,13 +44,13 @@ const CreateEventComponenet: React.FC<ContainerProps> = () => {
          <IonText className="color_subtitle_create" > Add details that highlight what makes it unique.</IonText>
          </IonItem>
        <IonItem className="input_create_Event">
-         <IonLabel position="floating">Title</IonLabel>
+         <IonLabel position="floating" className="color_subtitle_create">Title</IonLabel>
          <IonInput type="text" name="title" value={title} onIonChange={e => setTitle(e.detail.value!)} 
          clearInput required spellcheck  maxlength= {50} > 
          </IonInput>
          </IonItem>
          <IonItem className="input_create_Event">
-             <IonLabel position="floating">Description</IonLabel>
+             <IonLabel position="floating" className="color_subtitle_create">Description</IonLabel>
              <IonTextarea name="description" value={description} onIonChange={e => {setDescription(e.detail.value!); 
              }} clearOnEdit required spellcheck autoGrow maxlength= {2000}></IonTextarea>
            </IonItem>      
@@ -60,7 +59,7 @@ const CreateEventComponenet: React.FC<ContainerProps> = () => {
  
         <IonItem className="input_create_Event">
          &nbsp;
-             <IonLabel>Categories </IonLabel>
+             <IonLabel className="color_subtitle_create">Categories </IonLabel>
              <IonSelect value={categorie} okText="Okay" cancelText="Dismiss" onIonChange={e => {setCategorie(e.detail.value); console.log(categorie);
              }}>
                <IonSelectOption value="music">Music</IonSelectOption>
@@ -72,10 +71,10 @@ const CreateEventComponenet: React.FC<ContainerProps> = () => {
              </IonSelect>
            </IonItem>
         &nbsp;
-           <IonItem lines="none">
-         <IonButton size="default"  className="button_create_event" onClick={()=> setButtonClick(true)}>Open Gallery</IonButton>
- 
-           </IonItem>
+           <IonItem className="input_create_Event">
+         <ImageContainer  image ={image} setImage={setImage}/>
+         
+         </IonItem>
          &nbsp;
        {/* {For the localisation} */}
            <IonList>
@@ -98,7 +97,7 @@ const CreateEventComponenet: React.FC<ContainerProps> = () => {
            </IonSegmentButton>
          </IonSegment>
          {location === "venue" ? <IonItem className="input_create_Event">
-         <IonLabel position="floating">Adress of the event </IonLabel>
+         <IonLabel position="floating" className="color_subtitle_create">Adress of the event </IonLabel>
          <IonInput type="text" name="adress" value={adress} onIonChange={e => setAdress(e.detail.value!) } 
          clearInput required > 
          </IonInput>
@@ -119,22 +118,22 @@ const CreateEventComponenet: React.FC<ContainerProps> = () => {
         </IonItem>     
        </IonList>  
        &nbsp;
-       {/* {Start and end date of the event  } */}
+       {/* {Start time and date of the event  } */}
         <IonItem lines="none" className="input_create_Event">
-          <IonLabel>Event Start</IonLabel>
+          <IonLabel className="color_subtitle_create">Event Start</IonLabel><IonIcon size="small" icon={calendar} />
           <IonDatetime displayFormat=" MMM D, YYYY"  max="2099" min="2021" value={selectedStartDate} onIonChange={e => setSelectedStartDate(e.detail.value!)}></IonDatetime>
         </IonItem>
-        <IonItem  className="input_create_Event">
-          <IonLabel>Event End</IonLabel>
-          <IonDatetime displayFormat=" MMM D, YYYY"  max="2099" min="2021" value={selectEndDate} onIonChange={e => setSelectEndDate(e.detail.value!)}></IonDatetime>
-        </IonItem>
-        {/* {start and ent time of the event } */}
-        <IonItem className="input_create_Event"  lines="none">
-          <IonLabel>Start time</IonLabel>
+        <IonItem className="input_create_Event"  >
+          <IonLabel className="color_subtitle_create">Start time</IonLabel><IonIcon size="small" icon={time} />
           <IonDatetime displayFormat="h:mm a" value={selectedStartDate} onIonChange={e => setSelectedStartDate(e.detail.value!)}></IonDatetime>
         </IonItem>
+        {/* {ent date and time of the event } */}
+        <IonItem  className="input_create_Event" lines="none">
+          <IonLabel className="color_subtitle_create">Event End</IonLabel><IonIcon size="small"icon={calendar} />
+          <IonDatetime displayFormat=" MMM D, YYYY"  max="2099" min="2021" value={selectEndDate} onIonChange={e => setSelectEndDate(e.detail.value!)}></IonDatetime>
+        </IonItem>
         <IonItem className="input_create_Event" lines="none">
-          <IonLabel>End time</IonLabel>
+          <IonLabel className="color_subtitle_create">End time</IonLabel><IonIcon size="small" icon={time} />
           <IonDatetime displayFormat="h:mm a" value={selectEndDate} onIonChange={e => setSelectEndDate(e.detail.value!)}></IonDatetime>
         </IonItem>
        &nbsp;
@@ -160,7 +159,7 @@ const CreateEventComponenet: React.FC<ContainerProps> = () => {
         </IonSegment>
         &nbsp;
         <IonItem className="input_create_Event">
-        <IonLabel position="floating"> Available places or quantities  </IonLabel>
+        <IonLabel position="floating" className="color_subtitle_create"> Available places or quantities  </IonLabel>
         <IonInput  name="quantity" value={quantity} onIonChange={e => setQuantity(+e.detail.value!) } 
         clearInput required > 
         </IonInput>
@@ -168,7 +167,7 @@ const CreateEventComponenet: React.FC<ContainerProps> = () => {
         &nbsp;
         <IonItem lines="none"  >
         &nbsp;
-        <IonButton size="default"  className="button_create_event" onClick={()=> setButtonClick(false)}>Cancel</IonButton>
+        <button   className="second_button_create_event"   onClick={()=> setButtonClick(false)}>Cancel</button>
         <IonButton size="default"  className="button_create_event" onClick={()=> setButtonClick(true)}>Confirme</IonButton>
         </IonItem>
         &nbsp;

@@ -3,9 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@capacitor/android": "^3.1.1",
     "@capacitor/app": "1.0.2",
-    "@capacitor/core": "3.1.1",
+    "@capacitor/camera": "^1.0.3",
+    "@capacitor/core": "^3.1.1",
     "@capacitor/haptics": "1.0.2",
+    "@capacitor/ios": "^3.1.1",
     "@capacitor/keyboard": "1.0.2",
     "@capacitor/status-bar": "1.0.2",
     "@ionic/react": "^5.5.0",
@@ -31,6 +34,7 @@
     "prohairesis": "^1.2.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-icons": "^4.2.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
@@ -76,7 +80,8 @@
     ]
   },
   "devDependencies": {
-    "@capacitor/cli": "3.1.1",
+    "@capacitor/cli": "^3.1.1",
+    "@iconify-icons/bx": "^1.1.0",
     "@iconify-icons/ion": "^1.1.2",
     "@iconify/react": "^1.1.4",
     "nodemon": "^2.0.12"

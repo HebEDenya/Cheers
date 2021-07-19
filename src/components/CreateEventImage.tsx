@@ -30,7 +30,7 @@ const ImageContainer: React.FC<ContainerProps> = ({ image, setImage}) => {
         event={popoverState.event}
         isOpen={popoverState.showPopover}
         onDidDismiss={() => setShowPopover({ showPopover: false, event: undefined })}>  
-        <img src={image} />
+        <img src={image} alt="" />
       </IonPopover>
       <IonIcon icon={caretDownOutline} onClick={
         (e: any) => {

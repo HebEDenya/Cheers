@@ -1,4 +1,4 @@
-const { handle } = require("../queries/query_user/queryM.js");
+const {handle, queryPostRequestCreateEvent} = require('../queries/query_user/queryM.js')
 
 const selectRequest = (req, res) => {
   handle().then((result) => {
@@ -6,6 +6,12 @@ const selectRequest = (req, res) => {
   });
 };
 
+const handlePostReaquestCreateEvent = (req,res) => {    
+    queryPostRequestCreateEvent(req.body).then((result) => {console.log(result);})
+}
+
 module.exports = {
-  selectRequest,
-};
+    selectRequest,
+    handlePostReaquestCreateEvent,
+    
+}

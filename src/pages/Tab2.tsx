@@ -22,6 +22,7 @@ const Tab2: React.FC = () => {
   // const[data, setData] = useState();
   return (
     <IonPage>
+        &nbsp;
       <IonContent>
     <IonHeader class="ion-margin">
       
@@ -35,15 +36,15 @@ const Tab2: React.FC = () => {
         <IonCard routerLink="/Update">
           <IonCardContent>
           Update Profil
-          <div>
+          <div className="userDasbord_icon">
       <IonIcon icon={chevronForwardOutline} className= "icon-card"/>
       </div>      </IonCardContent>
         </IonCard>
 
-        <IonCard>
+        <IonCard routerLink="/CreateEvent">
           <IonCardContent>
           Create Event
-          <div>
+          <div className="userDasbord_icon">
       <IonIcon icon={chevronForwardOutline} className= "icon-card"/>
       </div>      </IonCardContent>
         </IonCard>
@@ -51,7 +52,7 @@ const Tab2: React.FC = () => {
         <IonCard>
           <IonCardContent>
           My Events
-          <div>
+          <div className="userDasbord_icon">
       <IonIcon icon={chevronForwardOutline} className= "icon-card"/>
       </div>      </IonCardContent>
         </IonCard>
@@ -59,8 +60,8 @@ const Tab2: React.FC = () => {
         <IonCard>
           <IonCardContent>
           My Coins 
-      <IonBadge color="tertiary">50</IonBadge>
-      <div>
+      <IonBadge color="primary" className="coins_position">50</IonBadge>
+      <div className="userDasbord_icon">
       <IonIcon icon={chevronForwardOutline} className= "icon-card"/>
       </div>
       </IonCardContent>
@@ -68,7 +69,7 @@ const Tab2: React.FC = () => {
         <IonCard>
           <IonCardContent>
           Log Out
-          <div>
+          <div className="userDasbord_icon">
       <IonIcon icon={chevronForwardOutline} className= "icon-card"/>
       </div>
       </IonCardContent>

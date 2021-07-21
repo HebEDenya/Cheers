@@ -3,6 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 import {IonApp,IonIcon,IonLabel,IonRouterOutlet,IonTabBar,IonTabButton,IonTabs,} from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import CreateEventComponenetPart1 from './components/CreateEvent.Part1';
+import CoinsPurchaser from './components/Coins';
 import './App.css';
 import { heart, person, home, chatboxEllipses, search } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
@@ -51,6 +52,8 @@ const App: React.FC = () => {
           <Route path="/Update" component={UpdateProfil}>
           </Route>
           <Route path="/CreateEvent" component={CreateEventComponenetPart1}>
+          </Route>
+          <Route path="/CoinsPurchase" component={CoinsPurchaser}>
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">

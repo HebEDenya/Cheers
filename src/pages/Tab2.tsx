@@ -57,7 +57,7 @@ const Tab2: React.FC = () => {
       </div>      </IonCardContent>
         </IonCard>
 
-        <IonCard>
+        <IonCard routerLink="/CoinsPurchase">
           <IonCardContent>
           My Coins 
       <IonBadge color="primary" className="coins_position">50</IonBadge>

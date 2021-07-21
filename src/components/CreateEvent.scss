@@ -14,6 +14,20 @@
     color: #ce93d8 ;
     font-size: 22px;
 }
+.text_size_coins {
+    font-size:18px
+}
+.coins_card_size {
+    height: 11rem;
+}
+.coins_card_title_info{
+    font-size:20px;
+    color: #383a3e;
+}
+
+.coins_icon_size {
+    font-size: 22px;
+}
 
 .color_subtitle_create {
     color: #505164 !important;
@@ -95,7 +109,11 @@
     left: 9.5rem;
    
 }
-
+.color_title_coins {
+    color: #ce93d8 ;
+    font-size: 30px;
+    margin-left: 0.4rem;
+}
 @media (max-width: 350px) {
     .icon_next_createEvent {
         left: 7.5rem;

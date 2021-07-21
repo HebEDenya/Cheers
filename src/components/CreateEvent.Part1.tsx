@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import {IonToolbar,useIonAlert, IonLabel ,IonFooter, IonPage, IonCol,IonProgressBar,IonText,IonContent, IonInput,IonSelectOption, IonItem, IonList, IonSegment, IonIcon,IonSegmentButton, IonTextarea,IonListHeader, IonSelect, IonDatetime, IonButton } from '@ionic/react';
+import {IonToolbar,useIonAlert, IonLabel ,IonFooter, IonTitle,IonPage, IonBackButton, IonButtons,IonHeader,IonProgressBar,IonText,IonContent, IonInput,IonSelectOption, IonItem, IonList, IonSegment, IonIcon,IonSegmentButton, IonTextarea,IonListHeader, IonSelect, IonDatetime, IonButton } from '@ionic/react';
 import { locate, wifi,card, star,chevronForwardOutline,  chevronBackOutline,calendar, time } from 'ionicons/icons';
 import './CreateEvent.scss'
 import ImageContainer from './CreateEventImage';
@@ -18,12 +18,12 @@ const CreateEventComponenet: React.FC= () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>('');
   const [selectEndDate,setSelectEndDate]= useState<string>('');
   const [selectPrice,setSelectPrice]= useState<string>('');
-  const [quantity, setQuantity] = useState<number | null>(null);
+  const [quantity, setQuantity] = useState<number >(-1);
   const [price, setPrice] = useState<number | null>(null);
   const [buttonClick, setButtonClick] = useState<boolean | null>(false);
   const [switchPagesCreateEvent, setSwitchPageCreateEvent]= useState<boolean>(false);
   const [image, setImage] = useState<string>('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png');
-
+  
   const history = useHistory()
   if(buttonClick === null) {
     history.push('/tab2')
@@ -53,7 +53,7 @@ const CreateEventComponenet: React.FC= () => {
       verify = false;
     } if (location ==="venue" && !adress) {
       verify= false;
-    }
+    } 
     return verify;
   }
   //to post an event 
@@ -64,7 +64,7 @@ const CreateEventComponenet: React.FC= () => {
       selectedAdress = "online"
     } if (selectPrice === "free") {
         eventPrice = selectPrice;
-    }
+    } 
     let infoStore = {
       title: title, 
       description: description, 
@@ -83,11 +83,11 @@ const CreateEventComponenet: React.FC= () => {
         setButtonClick(true)
         refreshInfoAfterSubmit()
         present('Event created successfully')
-      } else {
-        present('An error has occurred', [{ text: 'Ok' }])
-      }
+      } 
+        
+      
      
-    }).catch(e=> {console.log(e);
+    }).catch(e=> {console.log(e); present('An error has occurred', [{ text: 'Ok' }])
     })
   }
 
@@ -96,11 +96,21 @@ const CreateEventComponenet: React.FC= () => {
   return (
     <>
     <IonPage>
-        <IonToolbar>
-      {!switchPagesCreateEvent? <IonProgressBar value={0.5} className="progrssiveBar_createEvent"> </IonProgressBar> : <IonProgressBar value={1} className="progrssiveBar_createEvent"> </IonProgressBar> }
-        </IonToolbar>
+    <IonHeader>
+      <IonToolbar>
+    <IonTitle>Create Event</IonTitle>
+    <IonButtons slot="start">
+      <IonBackButton text="Back" color="dark"/>
+      </IonButtons>
+            
+      </IonToolbar>
+    </IonHeader>
+        
       {!switchPagesCreateEvent? 
        <IonContent>
+         <IonToolbar>
+      {!switchPagesCreateEvent? <IonProgressBar value={0.5} className="progrssiveBar_createEvent"> </IonProgressBar> : <IonProgressBar value={1} className="progrssiveBar_createEvent"> </IonProgressBar> }
+        </IonToolbar>
            {/* {For the basic info} */}
         <IonList>
         <IonListHeader>
@@ -140,7 +150,7 @@ const CreateEventComponenet: React.FC= () => {
            </IonItem>
         &nbsp;
            <IonItem className="input_create_Event">
-         <ImageContainer  image ={image} setImage={setImage}/>
+         <ImageContainer image={image} setImage={setImage}/>
          
          </IonItem>
          &nbsp;
@@ -174,6 +184,9 @@ const CreateEventComponenet: React.FC= () => {
 
          </IonContent> 
       : <IonContent>
+        <IonToolbar>
+      {!switchPagesCreateEvent? <IonProgressBar value={0.5} className="progrssiveBar_createEvent"> </IonProgressBar> : <IonProgressBar value={1} className="progrssiveBar_createEvent"> </IonProgressBar> }
+        </IonToolbar>
       {/* {For the Date and time} */}
         <IonList>
        <IonListHeader>

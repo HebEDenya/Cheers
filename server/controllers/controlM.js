@@ -1,5 +1,5 @@
 const {handle, queryPostRequestCreateEvent, selectCoinsFromUsers, updateCoinsUsers, getCoinsUser,getFavoriteEventsOfThUser,
-  selectEventById} = require('../queries/query_user/queryM.js')
+  selectEventById,removeEventFromFavorite} = require('../queries/query_user/queryM.js')
 const {cloudinary} =require('../../cloudinary')
 
 const selectRequest = (req, res) => {
@@ -37,7 +37,8 @@ const getTheCoinsFromUser = (req, res) => {
 } 
 //to select all the favorite event of one user 
 const selectFavoriteEventsForUser =  (req, res) => {
-  getFavoriteEventsOfThUser().then((result)=> {
+  const {user_id} = req.params
+  getFavoriteEventsOfThUser(user_id).then((result)=> {
      let favorite = result.map((element) => {
       return selectEventById(element.event_id).then(item => {
         return item[0]
@@ -50,9 +51,18 @@ const selectFavoriteEventsForUser =  (req, res) => {
   .catch(err=> {res.status(401).send(err)})
 }
 
+//Remove event from favorite 
+const deleteEventFromFavorite = (req, res) => {
+  const {event_id, user_id} =req.params;
+  removeEventFromFavorite(event_id, user_id).then((result)=> {
+    res.status(200).json('Event removed')
+  }).catch((err)=> {res.status(401).send(err)})
+}
+
 module.exports = {
     handlePostReaquestCreateEvent,
     selectRequest,
     getTheCoinsFromUser,
     selectFavoriteEventsForUser,
+    deleteEventFromFavorite,
 }

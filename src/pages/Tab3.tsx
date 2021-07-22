@@ -1,20 +1,33 @@
-import { IonContent, IonHeader, IonNote,IonItem,IonPage,IonCardContent,IonIcon,IonButton,IonImg,IonDatetime, IonCardHeader, IonCard,IonListHeader,IonList,IonLabel,IonCardSubtitle,IonCardTitle } from '@ionic/react';
-import { heart, heartOutline } from 'ionicons/icons';
+import { IonContent, IonHeader, IonNote,IonItem,IonPage,IonCardContent,IonIcon,IonButton,IonImg,IonDatetime,useIonAlert, IonCardHeader, IonCard,IonListHeader,IonList,IonLabel,IonCardSubtitle,IonCardTitle } from '@ionic/react';
+import { heart, heartCircleOutline, heartOutline } from 'ionicons/icons';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from "moment";
-import { home, person, clipboard, walk } from 'ionicons/icons';
+import { homeOutline, personOutline, clipboardOutline, walkOutline } from 'ionicons/icons';
 import './Tab3.scss';
 
 const Tab3: React.FC = () => {
   const [heartButtonClick, setHeartButtonClick]= useState<{clicked:boolean, btn_Id: number | null}>({clicked:false, btn_Id:null })
   const [favoriteEvent, setFavoriteEvent]=useState<Array<any>>([])
+  const [user_id, setUser_id]=useState<number>(1)
+  const [present] = useIonAlert();
 
   useEffect(()=> {
-    axios.get('/api/favoriteevent').then((result) => {
+    axios.get(`/api/favoriteevent/${user_id}`).then((result) => {
       setFavoriteEvent(result.data) 
     })
   }, [])
+
+  useEffect(() => {
+    setFavoriteEvent(favoriteEvent.filter((item)=> item.event_id !==heartButtonClick.btn_Id))
+    if(heartButtonClick.btn_Id) {
+      axios.delete(`/api/removefromfavorite/${heartButtonClick.btn_Id}/${user_id}`).then((result)=> {
+         if (result.data ="Event removed") {
+           present('Event removed successfully from favorite')
+         }
+      })
+    }
+  }, [heartButtonClick.btn_Id])
 
   return (
     <IonPage>
@@ -34,9 +47,10 @@ const Tab3: React.FC = () => {
         <IonCard key={index}>
             <img src={item.image} alt=""  className="favorite_img_size" />
         <IonCardHeader>
-        <IonItem lines="none">
-          <IonButton fill="outline" slot="end" onClick={()=> setHeartButtonClick({clicked:true, btn_Id:index})}> {!heartButtonClick.clicked ?<IonIcon icon={heart}className="date_favoritr_color" />:<IonIcon icon={heartOutline} className="date_favoritr_color"/> }</IonButton>
+        <IonItem >
+          <IonButton fill="outline" slot="end" onClick={()=> {setHeartButtonClick({clicked:true, btn_Id:item.event_id})}}> <IonIcon icon={heart} className="date_favoritr_color"/> </IonButton>
            </IonItem>
+      &nbsp;
             <IonCardSubtitle>{item.title}</IonCardSubtitle>
             <IonCardTitle className="event_title">{item.location}</IonCardTitle>
             <IonDatetime className="event_time" value={moment(item.start_time).format("MMM D YYYY")} display-timezone="utc"></IonDatetime>
@@ -53,22 +67,22 @@ const Tab3: React.FC = () => {
           <IonLabel id="favorite_title_emptypage">Your favorite liste is empty </IonLabel>
         <IonCard>
           <IonItem href="/tab1" routerLink="/tab1">
-            <IonIcon icon={home} slot="start" />
+            <IonIcon icon={homeOutline} slot="start" />
             <IonLabel>Go to home page</IonLabel>
           </IonItem>
 
           <IonItem href="#" routerLink="/tab2">
-            <IonIcon icon={person} slot="start" />
+            <IonIcon icon={personOutline} slot="start" />
             <IonLabel>Go to your account</IonLabel>
           </IonItem>
 
           <IonItem href="#" routerLink="/myevents">
-            <IonIcon icon={clipboard} slot="start" />
+            <IonIcon icon={clipboardOutline} slot="start" />
             <IonLabel>Go to my event</IonLabel>
           </IonItem>
 
           <IonItem href="#" routerLink="/CreateEvent">
-            <IonIcon icon={walk} slot="start" />
+            <IonIcon icon={walkOutline} slot="start" />
             <IonLabel>Create an event</IonLabel>
           </IonItem>
         </IonCard>

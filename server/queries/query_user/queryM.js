@@ -26,13 +26,18 @@ const getCoinsUser = (id) => {
 }
 
 // get the favorit event
-const getFavoriteEventsOfThUser = () => {
-    return database.query(`SELECT event_id FROM FAVORITE WHERE user_id =3`)
+const getFavoriteEventsOfThUser = (user_id) => {
+    return database.query(`SELECT event_id FROM FAVORITE WHERE user_id =${user_id}`)
 }
 
 //select specefic event 
 const selectEventById = (event_id) => {
     return database.query(`SELECT * FROM EVENT WHERE event_id=${event_id}`)
+}
+
+//remove event from favorite
+const removeEventFromFavorite = (event_id, user_id) => {
+    return database.query(`DELETE FROM FAVORITE WHERE user_id=${user_id} AND event_id=${event_id}`)
 }
 
 module.exports = {
@@ -43,4 +48,5 @@ module.exports = {
     getCoinsUser,
     getFavoriteEventsOfThUser,
     selectEventById,
+    removeEventFromFavorite,
 }

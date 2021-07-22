@@ -34,7 +34,7 @@ import {
         </IonListHeader>
         &nbsp;
         <IonCard>
-            <img src="https://resize.programme-television.ladmedia.fr/r/670,670/img/var/premiere/storage/images/tele-7-jours/news-tv/marrakech-du-rire-un-edition-2019-survoltee-en-prime-sur-m6-4642827/95601501-1-fre-FR/Marrakech-du-rire-Un-edition-2019-survoltee-en-prime-sur-M6.jpg" alt="" />
+            <img className="favorite_img_size" src="https://resize.programme-television.ladmedia.fr/r/670,670/img/var/premiere/storage/images/tele-7-jours/news-tv/marrakech-du-rire-un-edition-2019-survoltee-en-prime-sur-m6-4642827/95601501-1-fre-FR/Marrakech-du-rire-Un-edition-2019-survoltee-en-prime-sur-M6.jpg" alt="" />
         <IonCardHeader>
             <IonCardSubtitle>Marrakech du Rire</IonCardSubtitle>
             <IonCardTitle className="event_title">Marrakech</IonCardTitle>

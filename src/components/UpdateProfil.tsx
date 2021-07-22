@@ -12,6 +12,7 @@ import {
   IonListHeader,
   IonContent,
   IonTextarea,
+  IonButton,
 } from "@ionic/react";
 import "./UpdateProfil.scss";
 import ImageContainer from "./CreateEventImage";
@@ -21,15 +22,15 @@ const UpdateProfil: React.FC = () => {
   const [image, setImage] = useState<string>(
     "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png"
   );
-  const [data, setdata] = useState<any | null>([]);
+  const [img, setImg] = useState<string>('');
   const [description, setDescription] = useState<string>();
-
   // Get the image of the user
   const getUserData = () => {
     axios
       .get("http://localhost:3001/api/user/5")
       .then((res) => {
-        setdata(res.data[0]);
+        setImg(res.data[0].image);
+        setDescription(res.data[0].description);
       })
       .catch((err) => {
         console.log(err);
@@ -51,8 +52,8 @@ const UpdateProfil: React.FC = () => {
           <IonAvatar className="profil_photo">
             <img
               src={
-                data.image !== null
-                  ? data.image
+                img !== null
+                  ? img
                   : "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png"
               }
               alt="profil-face"
@@ -69,10 +70,11 @@ const UpdateProfil: React.FC = () => {
             <IonTextarea
               placeholder="Update your description..."
               clearOnEdit={true}
-              value={data.description}
+              value={description}
               onIonChange={(e) => setDescription(e.detail.value!)}
             ></IonTextarea>
           </IonItem>
+          <IonButton size="default"  type="submit" className="button_update_profil">Confirm</IonButton>
         </IonContent>
       </IonPage>
     </>

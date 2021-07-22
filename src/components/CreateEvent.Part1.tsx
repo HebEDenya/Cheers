@@ -23,7 +23,8 @@ const CreateEventComponenet: React.FC= () => {
   const [buttonClick, setButtonClick] = useState<boolean | null>(false);
   const [switchPagesCreateEvent, setSwitchPageCreateEvent]= useState<boolean>(false);
   const [image, setImage] = useState<string>('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png');
-  
+  const [user_id, setuser_id] = useState<number>(2)
+
   const history = useHistory()
   if(buttonClick === null) {
     history.push('/tab2')
@@ -75,7 +76,8 @@ const CreateEventComponenet: React.FC= () => {
       start_time: selectedStartDate,
       end_time: selectEndDate,
       available_places : quantity,
-      image: image
+      image: image,
+      user_id:user_id,
     } 
     axios.post('/api/postEvent', infoStore).then((result) => {
       console.log(result.statusText);

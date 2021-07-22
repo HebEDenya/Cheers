@@ -11,12 +11,14 @@ interface ContainerProps {
 const CoinsPurchaser: React.FC<ContainerProps> = () => {
     const coinsInfo = {0:[50, 1, "Coins, coins, coins!", ""], 1:[100, 2, "Coins and new friends!", ""], 2:[150, 3, "More coins, more fun !", ""]}
     const [coinsUser, setCoinsUser] = useState<number>(40)
+     const [user_id, setuser_id] = useState<number>(2)
+    
     // to get the users coins 
     const handleGettingUserCoinsInfo = () => {
-      axios.get('/api/getCoins').then((result) => {
+      axios.get(`/api/getCoins/${user_id}`).then((result) => {
         setCoinsUser(result.data[0].coins_quantity)
         console.log(result.data[0].coins_quantity);
-        
+      }).catch(err=>{console.log(err);
       })
     }
 

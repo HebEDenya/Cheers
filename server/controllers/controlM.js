@@ -18,9 +18,9 @@ const handlePostReaquestCreateEvent =  (req,res) => {
         queryPostRequestCreateEvent(req.body, image)
         .then((result)=> {
           if (result.affectedRows!==0) {
-            selectCoinsFromUsers().then((result) => {
+            selectCoinsFromUsers(req.body.user_id).then((result) => {
               let coins = result[0].coins_quantity -2;
-              updateCoinsUsers(coins).then(() => { console.log('updated');})
+              updateCoinsUsers(coins,req.body.user_id).then(() => { console.log('updated');})
             }).catch(() => { res.status(400).send('Error in update coins')})
           }
           res.status(201).json(result) 
@@ -31,7 +31,8 @@ const handlePostReaquestCreateEvent =  (req,res) => {
 
 //to get the coins of the users 
 const getTheCoinsFromUser = (req, res) => {
-  getCoinsUser().then((result)=> {
+  const{user_id}= req.params;
+  getCoinsUser(user_id).then((result)=> {
     res.status(200).json(result)
   }).catch((err)=> { res.status(404).json(err)})
 } 

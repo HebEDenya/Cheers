@@ -1,15 +1,32 @@
 import {IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle,IonThumbnail, IonImg, IonCardContent , IonToolbar,IonRow, IonLabel ,IonBadge, IonTitle,IonPage, IonBackButton, IonButtons,IonHeader,IonProgressBar,IonText,IonContent, IonInput,IonSelectOption, IonItem, IonList, IonSegment, IonIcon,IonSegmentButton, IonTextarea,IonListHeader, IonSelect, IonDatetime, IonButton, IonGrid, IonCol } from '@ionic/react';
 import { diamondOutline } from 'ionicons/icons';
-import './CreateEvent.scss'
-
+import axios from "axios";
+import './CreateEvent.scss';
+import {useState, useEffect} from 'react';
 
 interface ContainerProps {
   
 }
 
 const CoinsPurchaser: React.FC<ContainerProps> = () => {
-    const coinsInfo = {0:[50, 1000, "Coins, coins, coins!", "https://cdn.dribbble.com/users/285475/screenshots/2672719/kickflip_1.gif"], 1:[100, 2000, "Coins and new friends!", ""], 2:[150, 3000, "More coins, more fun !", ""]}
-  return (
+    const coinsInfo = {0:[50, 1, "Coins, coins, coins!", ""], 1:[100, 2, "Coins and new friends!", ""], 2:[150, 3, "More coins, more fun !", ""]}
+   
+    //to get the users coins 
+    // const handleGettingUserCoinsInfo = () => {
+    //   axios.get('/api/getCoins').then((result) => {
+    //     console.log(result);
+        
+    //   })
+    // }
+
+    // useEffect(()=> {
+    //   handleGettingUserCoinsInfo()
+    // }, [])
+
+    
+  
+  
+    return (
     <IonPage>
     <IonHeader>
     <IonToolbar>

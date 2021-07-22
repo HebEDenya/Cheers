@@ -20,9 +20,14 @@ const updateCoinsUsers = ( coins) => {
     return database.query(`UPDATE USERS SET coins_quantity = '${coins}' WHERE user_id =2`)
 }
 
+const getCoinsUser = (id) => {
+    return database.query(`SELECT coins_quantity FROM USERS WHERE user_id = 2`)
+}
+
 module.exports = {
     handle,
     queryPostRequestCreateEvent,
     selectCoinsFromUsers,
-    updateCoinsUsers
+    updateCoinsUsers,
+    getCoinsUser,
 }

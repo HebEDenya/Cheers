@@ -36,7 +36,7 @@ export default ({setImage, image})  => {
           return resolve({ fssid: rate.toString().slice(-6) });
         }
         reject('error while loading');
-      }, 3000);
+      }, 5000);
     });
   };
  

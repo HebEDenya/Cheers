@@ -1,4 +1,4 @@
-const {handle, queryPostRequestCreateEvent, selectCoinsFromUsers, updateCoinsUsers} = require('../queries/query_user/queryM.js')
+const {handle, queryPostRequestCreateEvent, selectCoinsFromUsers, updateCoinsUsers, getCoinsUser} = require('../queries/query_user/queryM.js')
 const {cloudinary} =require('../../cloudinary')
 
 const selectRequest = (req, res) => {
@@ -14,26 +14,24 @@ const handlePostReaquestCreateEvent =  (req,res) => {
       upload_preset :'dev_setups'})
       .then((result) => { 
         let image =result.url;
-        console.log(image);
         queryPostRequestCreateEvent(req.body, image)
         .then((result)=> {
-          res.status(201).send(result) }) 
-          selectCoinsFromUsers()
-          .then((result) => {
-            let coins = result[0].coins_quantity -20;
-            updateCoinsUsers(coins)
-            .then(() => {
-              res.status(201).send('coins updated')
-            })
-            .catch(() => {
-              res.status(400).send('error in update')
-            })
-          })
-          .catch(()=>{
-            res.status(400).send('eroor')
-          })
-        }).catch((err)=> { res.status(402).send('cloudinary error')})
+          if (result.affectedRows!==0) {
+            selectCoinsFromUsers().then((result) => {
+              let coins = result[0].coins_quantity -2;
+              updateCoinsUsers(coins).then(() => { console.log('updated');})
+            }).catch(() => { res.status(400).send('Error in update coins')})
+          }
+          res.status(201).json(result) 
+        }).catch(()=> {res.status(401).send('error in post request')})
+          
+        }).catch(()=> { res.status(401).send('erro in cloudinary')})
 }
+
+//to get the coins of the users 
+const getTheCoinsFromUser = (req, res) => {
+  
+} 
 
 module.exports = {
     handlePostReaquestCreateEvent,

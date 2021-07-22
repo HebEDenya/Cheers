@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   IonHeader,
   IonPage,
@@ -11,49 +11,70 @@ import {
   IonText,
   IonListHeader,
   IonContent,
-  IonTextarea
-  
+  IonTextarea,
 } from "@ionic/react";
-import './UpdateProfil.scss';
-import ImageContainer from './CreateEventImage';
-
-
-
+import "./UpdateProfil.scss";
+import ImageContainer from "./CreateEventImage";
+import axios from "axios";
 
 const UpdateProfil: React.FC = () => {
-  const [image, setImage] = useState<string>('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png');
+  const [image, setImage] = useState<string>(
+    "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png"
+  );
+  const [data, setdata] = useState<any | null>([]);
   const [description, setDescription] = useState<string>();
 
+  // Get the image of the user
+  const getUserData = () => {
+    axios
+      .get("http://localhost:3001/api/user/5")
+      .then((res) => {
+        setdata(res.data[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  
+  useEffect(() => {
+    getUserData();
+  }, []);
+
   return (
     <>
-    <IonPage>
-    <IonContent>
-      <IonListHeader>
-        <IonLabel className="color_update_profil">
-          Profil Photo
-        </IonLabel>
-      </IonListHeader>
-      &nbsp;
-      <IonAvatar className="profil_photo">
-      <img src="https://www.pngkey.com/png/full/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png" alt="" />
-    </IonAvatar>
-    &nbsp;
-      <IonItem className="input_create_Event">
-         <ImageContainer  image ={image} setImage={setImage}/>
-         </IonItem>
-        &nbsp;
-        <IonLabel className="description_title">
-          Description
-        </IonLabel>
-        &nbsp;
-        <IonItem className="input_description">
-            <IonTextarea placeholder="Update your description..." clearOnEdit={true} value={description} onIonChange={e => setDescription(e.detail.value!)}></IonTextarea>
+      <IonPage>
+        <IonContent>
+          <IonListHeader>
+            <IonLabel className="color_update_profil">Profil Photo</IonLabel>
+          </IonListHeader>
+          &nbsp;
+          <IonAvatar className="profil_photo">
+            <img
+              src={
+                data.image !== null
+                  ? data.image
+                  : "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png"
+              }
+              alt="profil-face"
+            />
+          </IonAvatar>
+          &nbsp;
+          <IonItem className="input_create_Event">
+            <ImageContainer image={image} setImage={setImage} />
           </IonItem>
-
-      </IonContent>
-    </IonPage>
+          &nbsp;
+          <IonLabel className="description_title">Description</IonLabel>
+          &nbsp;
+          <IonItem className="input_description">
+            <IonTextarea
+              placeholder="Update your description..."
+              clearOnEdit={true}
+              value={data.description}
+              onIonChange={(e) => setDescription(e.detail.value!)}
+            ></IonTextarea>
+          </IonItem>
+        </IonContent>
+      </IonPage>
     </>
   );
 };

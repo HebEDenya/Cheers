@@ -1,4 +1,5 @@
-const {handle, queryPostRequestCreateEvent, selectCoinsFromUsers, updateCoinsUsers, getCoinsUser} = require('../queries/query_user/queryM.js')
+const {handle, queryPostRequestCreateEvent, selectCoinsFromUsers, updateCoinsUsers, getCoinsUser,getFavoriteEventsOfThUser,
+  selectEventById} = require('../queries/query_user/queryM.js')
 const {cloudinary} =require('../../cloudinary')
 
 const selectRequest = (req, res) => {
@@ -30,11 +31,28 @@ const handlePostReaquestCreateEvent =  (req,res) => {
 
 //to get the coins of the users 
 const getTheCoinsFromUser = (req, res) => {
-  
+  getCoinsUser().then((result)=> {
+    res.status(200).json(result)
+  }).catch((err)=> { res.status(404).json(err)})
 } 
+//to select all the favorite event of one user 
+const selectFavoriteEventsForUser =  (req, res) => {
+  getFavoriteEventsOfThUser().then((result)=> {
+     let favorite = result.map((element) => {
+      return selectEventById(element.event_id).then(item => {
+        return item[0]
+      }).catch(err=> {res.status(402).send(err)})
+    })
+    Promise.all(favorite)
+    .then(result=> {res.status(200).send(result)})
+    .catch(err=> {res.status(400).send(err)})
+  })
+  .catch(err=> {res.status(401).send(err)})
+}
 
 module.exports = {
     handlePostReaquestCreateEvent,
     selectRequest,
-    
+    getTheCoinsFromUser,
+    selectFavoriteEventsForUser,
 }

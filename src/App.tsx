@@ -66,10 +66,10 @@ const App: React.FC = () => {
           <IonTabButton tab="tab3" href="/tab3">
             <IonIcon icon={heart} />
           </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
+          <IonTabButton tab="tab4" href="#">
             <IonIcon icon={chatboxEllipses} />
           </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
+          <IonTabButton tab="tab5" href="#">
             <IonIcon icon={search} />
           </IonTabButton>
         </IonTabBar>

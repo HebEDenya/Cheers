@@ -10,18 +10,19 @@ interface ContainerProps {
 
 const CoinsPurchaser: React.FC<ContainerProps> = () => {
     const coinsInfo = {0:[50, 1, "Coins, coins, coins!", ""], 1:[100, 2, "Coins and new friends!", ""], 2:[150, 3, "More coins, more fun !", ""]}
-   
-    //to get the users coins 
-    // const handleGettingUserCoinsInfo = () => {
-    //   axios.get('/api/getCoins').then((result) => {
-    //     console.log(result);
+    const [coinsUser, setCoinsUser] = useState<number>(40)
+    // to get the users coins 
+    const handleGettingUserCoinsInfo = () => {
+      axios.get('/api/getCoins').then((result) => {
+        setCoinsUser(result.data[0].coins_quantity)
+        console.log(result.data[0].coins_quantity);
         
-    //   })
-    // }
+      })
+    }
 
-    // useEffect(()=> {
-    //   handleGettingUserCoinsInfo()
-    // }, [])
+    useEffect(()=> {
+      handleGettingUserCoinsInfo()
+    }, [coinsUser])
 
     
   
@@ -42,7 +43,7 @@ const CoinsPurchaser: React.FC<ContainerProps> = () => {
       <IonRow > 
          &nbsp;
         <IonCol size="8.5" className="color_title_coins">Coins</IonCol>
-        <IonCol size="3"> <IonBadge className="coins_icon_size"> <IonIcon icon={diamondOutline} /> 40</IonBadge></IonCol>
+        <IonCol size="3"> <IonBadge className="coins_icon_size"> <IonIcon icon={diamondOutline} /> {coinsUser}</IonBadge></IonCol>
       </IonRow>
       </IonGrid>
       
@@ -56,7 +57,7 @@ const CoinsPurchaser: React.FC<ContainerProps> = () => {
             <IonCardSubtitle> </IonCardSubtitle>
             <IonGrid>
             <IonRow>
-            <IonCol size="7"><IonCardTitle className="coins_card_title_info">{coinsInfo[index][0] }<IonIcon icon={diamondOutline} size="small" /></IonCardTitle></IonCol>
+            <IonCol size="10"><IonCardTitle className="coins_card_title_info">{coinsInfo[index][0] }<IonIcon icon={diamondOutline} size="small" /></IonCardTitle></IonCol>
             <IonCol><IonCardTitle className="coins_card_title_info" >{coinsInfo[index][1]}DT</IonCardTitle></IonCol>
             </IonRow>
             </IonGrid>

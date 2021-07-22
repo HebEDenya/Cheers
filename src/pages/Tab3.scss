@@ -1,0 +1,53 @@
+.favorite_title_size {
+    font-size: 2.3rem;
+}
+
+.favorite_img_size {
+    height: 17rem;
+    
+}
+#favorite_title_emptypage {
+    font-size: 1.5rem;
+    position: relative;
+    left: 1.2rem;
+    color: #251f11;
+}
+
+#title_favorite_color {
+    color: #251f11;
+    font-size: 1.2rem;
+}
+
+.date_favoritr_color {
+    color:rgb(216, 130, 144);
+    font-size: 1.04rem;
+}
+
+.event_title {
+    position: relative;
+    top: 0.1rem;
+    font-weight: 10px;
+    font-size: 22px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #5d5d5d;
+}
+
+.event_time {
+    position: relative;
+    color: #ce93d8;
+    right: 1.3rem;
+}
+
+@media (width: 360px) {
+    .favorite_img_size {
+    width: 25rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .favorite_img_size {
+    width: 55rem;
+    height: 22rem;
+
+    }
+}

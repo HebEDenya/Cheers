@@ -1,8 +1,8 @@
 const {database} = require('../../database/db.js')
 
-
+// to test thing with this
 const handle = () => {
-    return database.query(`SELECT * FROM EVENT`)
+    return database.query(`SELECT * FROM USERS WHERE user_id=2`)
 }
 
 // to post an event
@@ -20,8 +20,19 @@ const updateCoinsUsers = ( coins) => {
     return database.query(`UPDATE USERS SET coins_quantity = '${coins}' WHERE user_id =2`)
 }
 
+// get the quantity of coins
 const getCoinsUser = (id) => {
     return database.query(`SELECT coins_quantity FROM USERS WHERE user_id = 2`)
+}
+
+// get the favorit event
+const getFavoriteEventsOfThUser = () => {
+    return database.query(`SELECT event_id FROM FAVORITE WHERE user_id =3`)
+}
+
+//select specefic event 
+const selectEventById = (event_id) => {
+    return database.query(`SELECT * FROM EVENT WHERE event_id=${event_id}`)
 }
 
 module.exports = {
@@ -30,4 +41,6 @@ module.exports = {
     selectCoinsFromUsers,
     updateCoinsUsers,
     getCoinsUser,
+    getFavoriteEventsOfThUser,
+    selectEventById,
 }

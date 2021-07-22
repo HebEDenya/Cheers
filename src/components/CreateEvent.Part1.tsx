@@ -40,8 +40,9 @@ const CreateEventComponenet: React.FC= () => {
     setSelectedStartDate('');
     setSelectEndDate('');
     setSelectPrice('');
-    setQuantity(null);
+    setQuantity(-1);
     setPrice(null);
+    setImage('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png')
   }
 
   //Verify if the mandatory fields are filled 
@@ -76,7 +77,7 @@ const CreateEventComponenet: React.FC= () => {
       available_places : quantity,
       image: image
     } 
-    axios.post('http://localhost:3001/api/postEvent', infoStore).then((result) => {
+    axios.post('/api/postEvent', infoStore).then((result) => {
       console.log(result.statusText);
       
       if(result.statusText === "Created") {
@@ -84,9 +85,6 @@ const CreateEventComponenet: React.FC= () => {
         refreshInfoAfterSubmit()
         present('Event created successfully')
       } 
-        
-      
-     
     }).catch(e=> {console.log(e); present('An error has occurred', [{ text: 'Ok' }])
     })
   }
@@ -247,7 +245,7 @@ const CreateEventComponenet: React.FC= () => {
         </IonItem> : ""}
         <IonItem className="input_create_Event">
         <IonLabel position="floating" className="color_subtitle_create"> Available places or quantities  </IonLabel>
-        <IonInput type="number" name="quantity" value={quantity} onIonChange={e => setQuantity(+e.detail.value!) } 
+        <IonInput type="number" name="quantity"  value={quantity} onIonChange={e => setQuantity(+e.detail.value!) } 
         clearInput  > 
         </IonInput>
         </IonItem>

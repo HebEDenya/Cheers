@@ -9,6 +9,7 @@ import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
 import UpdateProfil from './components/UpdateProfil'
+import MyEvents from './components/MyEvents';
 
 import FirstPage from './pages/FirstPage';
 import '@ionic/react/css/core.css';
@@ -48,9 +49,11 @@ const App: React.FC = () => {
           <Route exact path="/">
             <Redirect to="/tab1" />
           </Route>
-          <Route path="/Update" component={UpdateProfil}>
+          <Route path="/update" component={UpdateProfil}>
           </Route>
           <Route path="/CreateEvent" component={CreateEventComponenetPart1}>
+          </Route>
+          <Route path="/myevents" component={MyEvents}>
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">

@@ -88,5 +88,6 @@
     "@iconify/react": "^1.1.4",
     "nodemon": "^2.0.12"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "proxy": "http://localhost:3001/"
 }

@@ -1,34 +1,25 @@
-// .category-photos {
-//     display: flex;
-// }
+.category-photos {
+    display: flex;
+}
 .categoryImg {
     justify-content : 55px;
     height : 120px !important;
     width: 60px !important;
 }
-// .hommie{
-//     display: flex;
-// }
-.items{
-    display: flex;
-    // justify-content: 120px;
+
+
+.event_title {
+    position: relative;
+    top: 0.1rem;
+    font-weight: 10px;
+    font-size: 22px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #5d5d5d;
 }
-.favorite_title_size {     font-size: 2.3rem; }
-.icone ::before{
-    height: 30px;
-    width : 30px;
-    color : gray;
-    padding-right: 1%;
-    border-color: black;
-    right: 0%;
-}
-.icone  ::after {
-    height: 30px;
-    width : 30px;
-    color : red;
-    padding-right: 1%;
-    border-color: black;
-    right: 0%;
+
+.date_favoritr_color {
+    color:rgb(216, 130, 144);
+    font-size: 1.04rem;
 }
 .event_title {
     position: relative;
@@ -47,3 +38,38 @@
 // .details{
 //     display: block;
 // }
+.favorite_img_size {
+    height: 17rem;
+    width: 22rem;
+
+}    
+        .favorite_img_size {
+        width: 55rem;
+        height: 22rem;
+    
+        }
+    
+    #title_favorite_color {
+        color: #251f11;
+        font-size: 1.2rem;
+    }
+    
+    .date_favoritr_color {
+        color:rgb(216, 130, 144);
+        font-size: 1.04rem;
+    }
+    
+    .event_title {
+        position: relative;
+        top: 0.1rem;
+        font-weight: 10px;
+        font-size: 22px;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        color: #5d5d5d;
+    }
+    
+    .event_time {
+        position: relative;
+        color: #ce93d8;
+        right: 1.3rem;
+    }

@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonNote,IonItem,IonPage,IonCardContent,IonIcon,IonButton,IonImg,IonDatetime,useIonAlert, IonCardHeader, IonCard,IonListHeader,IonList,IonLabel,IonCardSubtitle,IonCardTitle } from '@ionic/react';
+import { IonContent, IonHeader, IonCol,IonItem,IonPage,IonCardContent,IonIcon,IonButton,IonImg,IonDatetime,useIonAlert, IonCardHeader, IonCard,IonListHeader,IonList,IonLabel,IonCardSubtitle,IonCardTitle, IonGrid, IonRow } from '@ionic/react';
 import { heart, heartCircleOutline, heartOutline } from 'ionicons/icons';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -47,14 +47,26 @@ const Tab3: React.FC = () => {
         <IonCard key={index}>
             <img src={item.image} alt=""  className="favorite_img_size" />
         <IonCardHeader>
-        <IonItem >
-          <IonButton fill="outline" slot="end" onClick={()=> {setHeartButtonClick({clicked:true, btn_Id:item.event_id})}}> <IonIcon icon={heart} className="date_favoritr_color"/> </IonButton>
-           </IonItem>
-      &nbsp;
-            <IonCardSubtitle>{item.title}</IonCardSubtitle>
-            <IonCardTitle className="event_title">{item.location}</IonCardTitle>
-            <IonDatetime className="event_time" value={moment(item.start_time).format("MMM D YYYY")} display-timezone="utc"></IonDatetime>
+        <IonGrid>
+          <IonRow>
+          <IonCol size ="10.4">
             <IonLabel>{item.price=== "free"? "Free" : item.price +'Dt'}</IonLabel>
+            </IonCol>
+            <IonCol >
+          <IonIcon onClick={()=> {setHeartButtonClick({clicked:true, btn_Id:item.event_id})}} icon={heart}  id="heart_favorite-hover"/> 
+          </IonCol>
+            </IonRow>
+            <IonCardSubtitle>{item.title}</IonCardSubtitle>
+            <IonRow>
+            </IonRow>
+            <IonRow>
+            <IonCardTitle className="event_title">{item.location}</IonCardTitle>
+            </IonRow>
+            <IonRow>
+            <IonDatetime className="event_time" value={moment(item.start_time).format("MMM D YYYY")} display-timezone="utc"></IonDatetime>
+            </IonRow>
+            </IonGrid>
+            
         </IonCardHeader>
         </IonCard>
       
@@ -62,30 +74,18 @@ const Tab3: React.FC = () => {
         }) : 
         <>
         &nbsp;
-        <IonContent>
+        <IonContent fullscreen>
            &nbsp;
           <IonLabel id="favorite_title_emptypage">Your favorite liste is empty </IonLabel>
-        <IonCard>
-          <IonItem href="/tab1" routerLink="/tab1">
-            <IonIcon icon={homeOutline} slot="start" />
-            <IonLabel>Go to home page</IonLabel>
-          </IonItem>
-
-          <IonItem href="#" routerLink="/tab2">
-            <IonIcon icon={personOutline} slot="start" />
-            <IonLabel>Go to your account</IonLabel>
-          </IonItem>
-
-          <IonItem href="#" routerLink="/myevents">
-            <IonIcon icon={clipboardOutline} slot="start" />
-            <IonLabel>Go to my event</IonLabel>
-          </IonItem>
-
-          <IonItem href="#" routerLink="/CreateEvent">
-            <IonIcon icon={walkOutline} slot="start" />
-            <IonLabel>Create an event</IonLabel>
-          </IonItem>
+          <IonCard>
+          <img src="https://i.gifer.com/r8e.gif" alt=""  className="favorite_img_size" />
+          <IonCardHeader>
+        
+          <IonButton fill="outline" expand="full" routerLink="/tab1"> Check some events </IonButton>
+           
+        </IonCardHeader>
         </IonCard>
+        
         </IonContent>
         </>
     }

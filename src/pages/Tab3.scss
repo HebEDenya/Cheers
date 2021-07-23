@@ -19,6 +19,14 @@
     font-size: 1.2rem;
 }
 
+#heart_favorite-hover {
+    font-size: 1.5rem;
+    color:rgb(216, 130, 144);
+}
+#heart_favorite-hover:hover {
+    transform: scale(1.5);
+}
+
 .date_favoritr_color {
     color:rgb(216, 130, 144);
     font-size: 1.04rem;

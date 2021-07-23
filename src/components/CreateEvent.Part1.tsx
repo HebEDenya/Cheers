@@ -5,7 +5,6 @@ import { locate, wifi,card, star,chevronForwardOutline,  chevronBackOutline,cale
 import './CreateEvent.scss'
 import ImageContainer from './CreateEventImage';
 import axios from 'axios';
-import { StringTypeAnnotation } from '@babel/types';
 
 
 

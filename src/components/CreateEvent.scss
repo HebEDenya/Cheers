@@ -14,6 +14,20 @@
     color: #ce93d8 ;
     font-size: 22px;
 }
+.text_size_coins {
+    font-size:18px
+}
+.coins_card_size {
+    height: 11rem;
+}
+.coins_card_title_info{
+    font-size:20px;
+    color: #383a3e;
+}
+
+.coins_icon_size {
+    font-size: 22px;
+}
 
 .color_subtitle_create {
     color: #505164 !important;
@@ -51,7 +65,7 @@
 }
 
 .second_button_create_event {
-    background-color: white ;
+    background-color: white !important;
     margin-right: 1.5rem !important;
     width: 50% !important;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
@@ -68,7 +82,26 @@
 .second_button_create_event:active {
     transform: translateY(-2px) scale(1.2);
 }
+.check_create {
+    position: relative;
+    left: 2.3rem;
+    width: 80%;
+    bottom: 3rem;
+    border: 2px solid;
+    color: #ce93d8;
+}
 
+.check_create:hover {
+    
+    border: 2px solid;
+    background-color: #ce93d8;
+    transform: scale(1.05);
+}
+
+.flech_icon_create{
+    position: relative;
+    left: 5.5rem;
+}
 
 .icon_next_createEvent {
     position: relative !important;
@@ -76,7 +109,11 @@
     left: 9.5rem;
    
 }
-
+.color_title_coins {
+    color: #ce93d8 ;
+    font-size: 30px;
+    margin-left: 0.4rem;
+}
 @media (max-width: 350px) {
     .icon_next_createEvent {
         left: 7.5rem;
@@ -97,5 +134,11 @@
     .image_create_event{
         position: relative;
         left:24rem;
+    }
+}
+
+@media (width: 360px) {
+    .icon_next_createEvent {
+        left: 8.8rem;
     }
 }

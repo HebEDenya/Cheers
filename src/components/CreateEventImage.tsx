@@ -1,31 +1,59 @@
+import  { useState , useEffect, useMemo} from 'react';
 import {IonContent,IonList,IonItem, IonThumbnail,IonImg , IonLabel, IonButton, IonIcon,IonPopover} from '@ionic/react';
-import { Camera, CameraResultType } from '@capacitor/camera';
+import ImagePicker from 'image-picker-mobile';
 import { camera, caretDownOutline } from 'ionicons/icons';
-import './CreateEvent.scss'
-import React, { useState } from 'react';
 
-
-interface ContainerProps {
-  image: string;
-  setImage: any;
+interface Files {
+  url: string,
+  preview?: string, 
+  loading?: boolean, 
+  errorTip?: string, 
+  name?: string, 
+  [index: string]: any,
+}
+interface props {
+  setImage: any,
+  image: string,
 }
 
-const ImageContainer: React.FC<ContainerProps> = ({ image, setImage}) => {
-    const [popoverState, setShowPopover] = useState({ showPopover: false, event: undefined });
-
-    async function takeProfilePicture() {
-        const image = await Camera.getPhoto({
-            quality: 90,
-            allowEditing: true,
-            resultType: CameraResultType.Uri
-        });
-        setImage(image.webPath) 
-      }
+export default ({setImage, image})  => {
+  const [filesList, setFilesList] = useState<Array<Files>>([]);
+  const [popoverState, setShowPopover] = useState<{showPopover:boolean, event:any}>({ showPopover: false, event: undefined });
+ 
+  useEffect(() => {
+    if(filesList.length) {
+    setImage(filesList[0].url)}
+  },[filesList])
+  
+  const onChange = (arr: Array<Files>) => {
+    setFilesList(arr);
+  };
+  const onUpload = (item: any): Promise<object | undefined> => {
+    return new Promise((resolve, reject) => {
+      const rate = Math.random();
+      setTimeout(() => {
+        if (rate > 0.3) {
+          return resolve({ fssid: rate.toString().slice(-6) });
+        }
+        reject('error while loading');
+      }, 5000);
+    });
+  };
+ 
+ 
   return (
     <>
-     <IonLabel className="color_subtitle_create" onClick={()=>{takeProfilePicture()}}>Place you image<span className="obligatoire">*</span> </IonLabel>
-     <IonIcon icon={camera} onClick={()=>{takeProfilePicture()}}/>
-     <IonPopover
+<IonLabel className="color_subtitle_create" >Place you image<span className="obligatoire">*</span> </IonLabel>
+<ImagePicker
+      filesList={filesList}
+      onChange={onChange}
+      multiple
+      max={1}
+      mode="cover"
+      onUpload={onUpload}
+      size ={124290}
+    />
+      <IonPopover
         cssClass='my-custom-class'
         event={popoverState.event}
         isOpen={popoverState.showPopover}
@@ -37,11 +65,6 @@ const ImageContainer: React.FC<ContainerProps> = ({ image, setImage}) => {
           e.persist();
           setShowPopover({ showPopover: true, event: e })
         }}/>
-
-
-
     </>
   );
 };
-
-export default ImageContainer;

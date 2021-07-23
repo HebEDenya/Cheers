@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import {IonToolbar,useIonAlert, IonLabel ,IonFooter, IonPage, IonHeader,IonProgressBar,IonText,IonContent, IonInput,IonSelectOption, IonItem, IonList, IonSegment, IonIcon,IonSegmentButton, IonTextarea,IonListHeader, IonSelect, IonDatetime, IonButton } from '@ionic/react';
+import {IonToolbar,useIonAlert, IonLabel ,IonFooter, IonTitle,IonPage, IonBackButton, IonButtons,IonHeader,IonProgressBar,IonText,IonContent, IonInput,IonSelectOption, IonItem, IonList, IonSegment, IonIcon,IonSegmentButton, IonTextarea,IonListHeader, IonSelect, IonDatetime, IonButton } from '@ionic/react';
 import { locate, wifi,card, star,chevronForwardOutline,  chevronBackOutline,calendar, time } from 'ionicons/icons';
 import './CreateEvent.scss'
 import ImageContainer from './CreateEventImage';
@@ -18,24 +18,44 @@ const CreateEventComponenet: React.FC= () => {
   const [selectedStartDate, setSelectedStartDate] = useState<string>('');
   const [selectEndDate,setSelectEndDate]= useState<string>('');
   const [selectPrice,setSelectPrice]= useState<string>('');
-  const [quantity, setQuantity] = useState<number | null>(null);
+  const [quantity, setQuantity] = useState<number >(-1);
   const [price, setPrice] = useState<number | null>(null);
-  const [buttonClick, setButtonClick] = useState<boolean | null>(null);
+  const [buttonClick, setButtonClick] = useState<boolean | null>(false);
   const [switchPagesCreateEvent, setSwitchPageCreateEvent]= useState<boolean>(false);
   const [image, setImage] = useState<string>('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png');
-
+  const [user_id, setuser_id] = useState<number>(5)
   
+  const history = useHistory()
+  if(buttonClick === null) {
+    history.push('/tab2')
+    setButtonClick(false)
+  }
+
+  //refresh 
+  const refreshInfoAfterSubmit = () => {
+    setTitle('');
+    setDescription('');
+    setCategorie('');
+    setLocation('');
+    setAdress(null);
+    setSelectedStartDate('');
+    setSelectEndDate('');
+    setSelectPrice('');
+    setQuantity(-1);
+    setPrice(null);
+    setImage('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png')
+  }
 
   //Verify if the mandatory fields are filled 
   const verifyInput = () => {
     let verify = true;
     if (!title || !description || !categorie || !location  || !selectedStartDate || !selectEndDate || !selectPrice ) {
       verify = false;
-    } if (selectPrice !=="free" && !price) {
+    } if (selectPrice !=="Free" && !price) {
       verify = false;
     } if (location ==="venue" && !adress) {
       verify= false;
-    }
+    } 
     return verify;
   }
   //to post an event 
@@ -44,9 +64,9 @@ const CreateEventComponenet: React.FC= () => {
     let eventPrice = ""+price;
     if (location === "online") {
       selectedAdress = "online"
-    } if (selectPrice === "free") {
+    } if (selectPrice === "Free") {
         eventPrice = selectPrice;
-    }
+    } 
     let infoStore = {
       title: title, 
       description: description, 
@@ -56,10 +76,18 @@ const CreateEventComponenet: React.FC= () => {
       start_time: selectedStartDate,
       end_time: selectEndDate,
       available_places : quantity,
-      image: image
+      image: image,
+      user_id:user_id,
     } 
-    axios.post('http://localhost:3001/api/postEvent', infoStore).then((result) => {
-      console.log(result); 
+    axios.post('/api/postEvent', infoStore).then((result) => {
+
+      
+      if(result.statusText === "Created") {
+        setButtonClick(true)
+        refreshInfoAfterSubmit()
+        present('Event created successfully')
+      } 
+    }).catch(e=> {console.log(e); present('An error has occurred', [{ text: 'Ok' }])
     })
   }
 
@@ -68,11 +96,21 @@ const CreateEventComponenet: React.FC= () => {
   return (
     <>
     <IonPage>
-        <IonToolbar>
-      {!switchPagesCreateEvent? <IonProgressBar value={0.5} className="progrssiveBar_createEvent"> </IonProgressBar> : <IonProgressBar value={1} className="progrssiveBar_createEvent"> </IonProgressBar> }
-        </IonToolbar>
+    <IonHeader>
+      <IonToolbar>
+    <IonTitle>Create Event</IonTitle>
+    <IonButtons slot="start">
+      <IonBackButton text="Back" color="dark"/>
+      </IonButtons>
+            
+      </IonToolbar>
+    </IonHeader>
+        
       {!switchPagesCreateEvent? 
        <IonContent>
+         <IonToolbar>
+      {!switchPagesCreateEvent? <IonProgressBar value={0.5} className="progrssiveBar_createEvent"> </IonProgressBar> : <IonProgressBar value={1} className="progrssiveBar_createEvent"> </IonProgressBar> }
+        </IonToolbar>
            {/* {For the basic info} */}
         <IonList>
         <IonListHeader>
@@ -112,7 +150,7 @@ const CreateEventComponenet: React.FC= () => {
            </IonItem>
         &nbsp;
            <IonItem className="input_create_Event">
-         <ImageContainer  image ={image} setImage={setImage}/>
+         <ImageContainer image={image} setImage={setImage}/>
          
          </IonItem>
          &nbsp;
@@ -137,7 +175,7 @@ const CreateEventComponenet: React.FC= () => {
            </IonSegmentButton>
          </IonSegment>
          {location === "venue" ? <IonItem className="input_create_Event">
-         <IonLabel position="floating" className="color_subtitle_create">Adress of the event<span className="obligatoire">*</span> </IonLabel>
+         <IonLabel position="floating" className="color_subtitle_create">Address of the event<span className="obligatoire">*</span> </IonLabel>
          <IonInput type="text" name="adress" value={adress} onIonChange={e => setAdress(e.detail.value!) } 
          clearInput required > 
          </IonInput>
@@ -146,6 +184,9 @@ const CreateEventComponenet: React.FC= () => {
 
          </IonContent> 
       : <IonContent>
+        <IonToolbar>
+      {!switchPagesCreateEvent? <IonProgressBar value={0.5} className="progrssiveBar_createEvent"> </IonProgressBar> : <IonProgressBar value={1} className="progrssiveBar_createEvent"> </IonProgressBar> }
+        </IonToolbar>
       {/* {For the Date and time} */}
         <IonList>
        <IonListHeader>
@@ -190,7 +231,7 @@ const CreateEventComponenet: React.FC= () => {
        </IonList> 
        &nbsp;
         <IonSegment onIonChange={e => {setSelectPrice( e.detail.value);}} color="primary" className="location_height_create " >
-          <IonSegmentButton value="free" >
+          <IonSegmentButton value="Free" >
             <IonLabel>Free</IonLabel><IonIcon icon={star} />
           </IonSegmentButton>
           <IonSegmentButton value="paied">
@@ -206,19 +247,28 @@ const CreateEventComponenet: React.FC= () => {
         </IonItem> : ""}
         <IonItem className="input_create_Event">
         <IonLabel position="floating" className="color_subtitle_create"> Available places or quantities  </IonLabel>
-        <IonInput type="number" name="quantity" value={quantity} onIonChange={e => setQuantity(+e.detail.value!) } 
+        <IonInput type="number" name="quantity"  value={quantity} onIonChange={e => setQuantity(+e.detail.value!) } 
         clearInput  > 
         </IonInput>
         </IonItem>
         &nbsp;
         <IonItem lines="none"  >
         &nbsp;
-        <button   className="second_button_create_event"   onClick={()=> {setButtonClick(false); }}>Cancel</button>
-        <IonButton size="default"  type="submit" className="button_create_event" onClick={()=> {if (verifyInput()) {postReaquestHandler(); setButtonClick(true)} else { present('All mandatory * fields must be filled', [{ text: 'Ok' }]) }}}>Confirme</IonButton>
-       </IonItem>
+        {!buttonClick ? <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false);refreshInfoAfterSubmit();}} className="second_button_create_event" >Cancel</button>
+         <IonButton  size="default"  type="submit" className="button_create_event" 
+         onClick={()=> { if (verifyInput()) {  postReaquestHandler()} 
+          else if (!verifyInput()){ present('All mandatory * fields must be filled', [{ text: 'Ok' }]) } }}>Confirme</IonButton>
+        </>:
+        <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false); }} className="second_button_create_event" > Account</button>
+        <IonButton  size="default" routerLink="/myevents"  className="button_create_event" onClick={()=> {setButtonClick(false); setSwitchPageCreateEvent(false); }}>View Events</IonButton>
+       </>
+      
+      }
+      </IonItem>
         &nbsp;
       </IonContent> 
     }
+    {!buttonClick?
     <IonFooter className="ion-no-border">
       <IonToolbar>
       {!switchPagesCreateEvent? <IonItem className="icon_next_createEvent" lines="none" onClick={() =>{setSwitchPageCreateEvent(true)}}>
@@ -227,7 +277,7 @@ const CreateEventComponenet: React.FC= () => {
       <IonIcon size="large" color="dark" icon={chevronBackOutline}  /> 
       </IonItem>}
       </IonToolbar>
-    </IonFooter>
+    </IonFooter> :""}
     </IonPage>
     </>
   );

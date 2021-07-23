@@ -48,13 +48,13 @@ const MyEvents: React.FC = () => {
               <IonCard key={key}>
                 <img
                   className="favorite_img_size"
-                  src="https://resize.programme-television.ladmedia.fr/r/670,670/img/var/premiere/storage/images/tele-7-jours/news-tv/marrakech-du-rire-un-edition-2019-survoltee-en-prime-sur-m6-4642827/95601501-1-fre-FR/Marrakech-du-rire-Un-edition-2019-survoltee-en-prime-sur-M6.jpg"
+                  src={event.image}
                   alt=""
                 />
                 <IonCardHeader>
                   <IonCardSubtitle>{event.title}</IonCardSubtitle>
                   <IonCardTitle className="event_title">
-                    {event.title}
+                    {event.location}
                   </IonCardTitle>
                   <IonDatetime
                     className="event_time"

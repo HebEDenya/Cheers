@@ -18,7 +18,12 @@ import { chevronForwardOutline } from "ionicons/icons";
 import "./Tab2.scss";
 import axios from "axios";
 
-const Tab2: React.FC = () => {
+interface ContainerProps {
+  coinsUser: number,
+}
+
+
+const Tab2: React.FC<ContainerProps> = ({coinsUser}) => {
   const [data, setData] = useState<any | null>([]);
 
   // Get the user Data from the Database
@@ -76,16 +81,14 @@ const Tab2: React.FC = () => {
           </IonCardContent>
         </IonCard>
 
-        <IonCard>
-          <IonCardContent className="my_account_text">
-            My Coins
-            <IonBadge color="primary" className="coins_position">
-              50
-            </IonBadge>
-            <div className="userDasbord_icon">
-              <IonIcon icon={chevronForwardOutline} className="icon-card" />
-            </div>
-          </IonCardContent>
+        <IonCard routerLink="/CoinsPurchase">
+          <IonCardContent>
+          My Coins 
+      <IonBadge color="primary" className="coins_position">{coinsUser}</IonBadge>
+      <div className="userDasbord_icon">
+      <IonIcon icon={chevronForwardOutline} className= "icon-card"/>
+      </div>
+      </IonCardContent>
         </IonCard>
 
         <IonCard>

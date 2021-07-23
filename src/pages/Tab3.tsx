@@ -8,7 +8,7 @@ import './Tab3.scss';
 const Tab3: React.FC = () => {
   const [heartButtonClick, setHeartButtonClick]= useState<{clicked:boolean, btn_Id: number | null}>({clicked:false, btn_Id:null })
   const [favoriteEvent, setFavoriteEvent]=useState<Array<any>>([])
-  const [user_id, setUser_id]=useState<number>(1)
+  const [user_id, setUser_id]=useState<number>(5)
   const [present] = useIonAlert();
 
   useEffect(()=> {

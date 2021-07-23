@@ -58,7 +58,7 @@ export default ({setImage, image})  => {
         event={popoverState.event}
         isOpen={popoverState.showPopover}
         onDidDismiss={() => setShowPopover({ showPopover: false, event: undefined })}>  
-        <img src={image} />
+        <img src={image} alt="" />
       </IonPopover>
       <IonIcon icon={caretDownOutline} onClick={
         (e: any) => {

@@ -2,11 +2,6 @@ const {handle, queryPostRequestCreateEvent, selectCoinsFromUsers, updateCoinsUse
   selectEventById,removeEventFromFavorite} = require('../queries/query_user/queryM.js')
 const {cloudinary} =require('../../cloudinary')
 
-const selectRequest = (req, res) => {
-  handle().then((result) => {
-    res.send(result);
-  });
-};
 
 // post event + update the coins (-20 for each event created)
 const handlePostReaquestCreateEvent =  (req,res) => {    
@@ -62,7 +57,6 @@ const deleteEventFromFavorite = (req, res) => {
 
 module.exports = {
     handlePostReaquestCreateEvent,
-    selectRequest,
     getTheCoinsFromUser,
     selectFavoriteEventsForUser,
     deleteEventFromFavorite,

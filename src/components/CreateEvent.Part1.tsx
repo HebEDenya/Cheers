@@ -23,7 +23,7 @@ const CreateEventComponenet: React.FC= () => {
   const [buttonClick, setButtonClick] = useState<boolean | null>(false);
   const [switchPagesCreateEvent, setSwitchPageCreateEvent]= useState<boolean>(false);
   const [image, setImage] = useState<string>('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png');
-  const [user_id, setuser_id] = useState<number>(2)
+  const [user_id, setuser_id] = useState<number>(5)
   
   const history = useHistory()
   if(buttonClick === null) {
@@ -51,7 +51,7 @@ const CreateEventComponenet: React.FC= () => {
     let verify = true;
     if (!title || !description || !categorie || !location  || !selectedStartDate || !selectEndDate || !selectPrice ) {
       verify = false;
-    } if (selectPrice !=="free" && !price) {
+    } if (selectPrice !=="Free" && !price) {
       verify = false;
     } if (location ==="venue" && !adress) {
       verify= false;
@@ -64,7 +64,7 @@ const CreateEventComponenet: React.FC= () => {
     let eventPrice = ""+price;
     if (location === "online") {
       selectedAdress = "online"
-    } if (selectPrice === "free") {
+    } if (selectPrice === "Free") {
         eventPrice = selectPrice;
     } 
     let infoStore = {
@@ -175,7 +175,7 @@ const CreateEventComponenet: React.FC= () => {
            </IonSegmentButton>
          </IonSegment>
          {location === "venue" ? <IonItem className="input_create_Event">
-         <IonLabel position="floating" className="color_subtitle_create">Adress of the event<span className="obligatoire">*</span> </IonLabel>
+         <IonLabel position="floating" className="color_subtitle_create">Address of the event<span className="obligatoire">*</span> </IonLabel>
          <IonInput type="text" name="adress" value={adress} onIonChange={e => setAdress(e.detail.value!) } 
          clearInput required > 
          </IonInput>
@@ -231,7 +231,7 @@ const CreateEventComponenet: React.FC= () => {
        </IonList> 
        &nbsp;
         <IonSegment onIonChange={e => {setSelectPrice( e.detail.value);}} color="primary" className="location_height_create " >
-          <IonSegmentButton value="free" >
+          <IonSegmentButton value="Free" >
             <IonLabel>Free</IonLabel><IonIcon icon={star} />
           </IonSegmentButton>
           <IonSegmentButton value="paied">
@@ -260,7 +260,7 @@ const CreateEventComponenet: React.FC= () => {
           else if (!verifyInput()){ present('All mandatory * fields must be filled', [{ text: 'Ok' }]) } }}>Confirme</IonButton>
         </>:
         <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false); }} className="second_button_create_event" > Account</button>
-        <IonButton  size="default" routerLink="/tab2"  className="button_create_event" onClick={()=> {setButtonClick(false); setSwitchPageCreateEvent(false); }}>View Events</IonButton>
+        <IonButton  size="default" routerLink="/myevents"  className="button_create_event" onClick={()=> {setButtonClick(false); setSwitchPageCreateEvent(false); }}>View Events</IonButton>
        </>
       
       }

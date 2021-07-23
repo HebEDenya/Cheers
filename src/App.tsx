@@ -12,6 +12,7 @@ import Tab3 from './pages/Tab3';
 import Tab5 from './pages/Tab5';
 import UpdateProfil from './components/UpdateProfil'
 import axios from 'axios';
+import MyEvents from './components/MyEvents';
 import FirstPage from './pages/FirstPage';
 import '@ionic/react/css/core.css';
 import '@ionic/react/css/normalize.css';
@@ -29,7 +30,7 @@ import './theme/variables.css';
 const App: React.FC = () => {
   const [pageswitcher, setPageSwitcher] = useState<boolean>(false)
   const [coinsUser, setCoinsUser] = useState<number>(40)
-  const [user_id, setuser_id] = useState<number>(2)
+  const [user_id, setuser_id] = useState<number>(5)
 
   ///// to get the users coins 
   const handleGettingUserCoinsInfo = () => {
@@ -67,12 +68,14 @@ const App: React.FC = () => {
           <Route exact path="/">
             <Redirect to="/tab1" />
           </Route>
-          <Route path="/Update" component={UpdateProfil}>
+          <Route path="/update" component={UpdateProfil}>
           </Route>
           <Route path="/CreateEvent" component={CreateEventComponenetPart1}>
           </Route>
           <Route path="/CoinsPurchase" >
             <CoinsPurchaser  coinsUser= {coinsUser}setCoinsUser={setCoinsUser} />
+            </Route>
+          <Route path="/myevents" component={MyEvents}>
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">

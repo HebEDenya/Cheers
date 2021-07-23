@@ -16,7 +16,7 @@ interface props {
   image: string,
 }
 
-export default ({setImage, image})  => {
+const ImageContainer: React.FC <props>= ({setImage, image})  => {
   const [filesList, setFilesList] = useState<Array<Files>>([]);
   const [popoverState, setShowPopover] = useState<{showPopover:boolean, event:any}>({ showPopover: false, event: undefined });
  
@@ -68,3 +68,5 @@ export default ({setImage, image})  => {
     </>
   );
 };
+
+export default ImageContainer;

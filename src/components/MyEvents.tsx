@@ -26,7 +26,8 @@ const MyEvents: React.FC = () => {
 
   // Get events for the user
   const getEvents = () => {
-    axios.get("http://localhost:3001/api/events/5").then((res) => { // Hard coded ID
+    axios.get("http://localhost:3001/api/events/5").then((res) => {
+      // Hard coded ID
       setData(res.data);
     });
   };
@@ -46,11 +47,7 @@ const MyEvents: React.FC = () => {
           {data.map((event, key) => {
             return (
               <IonCard key={key}>
-                <img
-                  className="favorite_img_size"
-                  src={event.image}
-                  alt=""
-                />
+                <img className="favorite_img_size" src={event.image} alt="" />
                 <IonCardHeader>
                   <IonCardSubtitle>{event.title}</IonCardSubtitle>
                   <IonCardTitle className="event_title">
@@ -61,7 +58,9 @@ const MyEvents: React.FC = () => {
                     value={event.start_time}
                     display-timezone="utc"
                   ></IonDatetime>
-                  <IonLabel>{event.price}</IonLabel>
+                  <IonLabel>
+                    {event.price === "Free" ? "Free" : event.price + "DT"}
+                  </IonLabel>
                 </IonCardHeader>
               </IonCard>
             );

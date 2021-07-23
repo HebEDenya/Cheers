@@ -47,8 +47,8 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser}) => {
       &nbsp;
       <IonContent>
         <IonHeader class="ion-margin">
-          <IonTitle class="ion-margin">{data.username}</IonTitle>
-          <IonAvatar class="ion-margin">
+          <IonTitle class="ion-margin" className="avatar_username">{data.username}</IonTitle>
+          <IonAvatar class="ion-margin" className="avatar_image">
             <img src={data.image} alt="" />
           </IonAvatar>
         </IonHeader>
@@ -82,7 +82,7 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser}) => {
         </IonCard>
 
         <IonCard routerLink="/CoinsPurchase">
-          <IonCardContent>
+          <IonCardContent className="my_account_text">
           My Coins 
       <IonBadge color="primary" className="coins_position">{coinsUser}</IonBadge>
       <div className="userDasbord_icon">

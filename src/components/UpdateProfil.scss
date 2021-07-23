@@ -1,0 +1,35 @@
+.color_update_profil {
+    color: #ce93d8 ;
+    font-size: 22px;
+}
+
+.description_title {
+    position: absolute;
+    color: #ce93d8 ;
+    font-size: 22px;
+    font-weight: bold;
+    margin-left: 1.4rem;
+    top: 400px;
+}
+.input_description {
+    position: relative;
+    margin-left: 0.5rem;
+    top: 200px;
+}
+.profil_photo {
+    margin-left: 8rem;
+    width: 100px;
+    height: 100px;
+}
+
+.button_update_profil {
+    position: relative;
+    top: 18rem;
+    left: 5.5rem;
+    background-color: #ce93d8 ;
+    margin-right: 1.5rem !important;
+    width: 50% !important;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 0.2rem !important;
+}
+

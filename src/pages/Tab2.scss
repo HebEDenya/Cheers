@@ -1,0 +1,55 @@
+.email-address {
+    height: 4rem  !important;
+    width: 90%;
+    // display: flex;
+    margin-left: 7rem;
+}
+
+.icon-card {
+    margin-left: 17rem;
+    display: flex;
+    height: 1rem;
+}
+
+.coins_position {
+    position:relative;
+    left: 10rem;
+    top: 0.5rem;
+    
+}
+
+.userDasbord_icon{
+ position:relative;
+  bottom: 0.9rem;
+
+}
+
+.my_account_text {
+    color: black;
+    font-size: 16px;
+}
+
+@media (min-width: 414px) {
+    .userDasbord_icon {
+        left: 2rem;
+    }
+    .coins_position{
+        left: 12rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .userDasbord_icon {
+        left: 25rem;
+    }
+    .coins_position{
+        left: 35rem;
+    }
+}
+
+@media (width: 320px) {
+    
+    .coins_position{
+        left: 9rem;
+    }
+}

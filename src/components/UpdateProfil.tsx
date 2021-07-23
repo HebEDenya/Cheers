@@ -13,17 +13,19 @@ import {
   IonContent,
   IonTextarea,
   IonButton,
+  useIonAlert
 } from "@ionic/react";
 import "./UpdateProfil.scss";
 import ImageContainer from "./CreateEventImage";
 import axios from "axios";
 
 const UpdateProfil: React.FC = () => {
+  const [present] = useIonAlert();
   const [image, setImage] = useState<string>(
     "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png"
   );
   const [img, setImg] = useState<string>('');
-  const [description, setDescription] = useState<string>();
+  const [description, setDescription] = useState<string>('');
   // Get the image of the user
   const getUserData = () => {
     axios
@@ -37,9 +39,23 @@ const UpdateProfil: React.FC = () => {
       });
   };
 
+  const confirmUpdate = () => {
+    axios.put('http://localhost:3001/api/user/5/updateprofil', {description}).then((result) => {
+      console.log(result); 
+    }).catch((err) => {
+      console.log(err);
+      
+    })
+  }
+
   useEffect(() => {
     getUserData();
   }, []);
+
+  const onClickBtn = () => {
+    present('Your description have been Updated', [{ text: 'Done' }]);
+    confirmUpdate();
+  }
 
   return (
     <>
@@ -74,7 +90,7 @@ const UpdateProfil: React.FC = () => {
               onIonChange={(e) => setDescription(e.detail.value!)}
             ></IonTextarea>
           </IonItem>
-          <IonButton size="default"  type="submit" className="button_update_profil">Confirm</IonButton>
+          <IonButton size="default"  type="submit" className="button_update_profil" onClick={() => {onClickBtn()}}>Confirm</IonButton>
         </IonContent>
       </IonPage>
     </>

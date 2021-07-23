@@ -1,4 +1,4 @@
-const { handle } = require('../queries/query_user/queriesAz.js')
+const { handle, update } = require('../queries/query_user/queriesAz.js')
 
 const selectRequest = (req, res) => {
   handle(req).then((result) => {
@@ -6,7 +6,16 @@ const selectRequest = (req, res) => {
   });
 };
 
+const updateRequest = (req, res) => {
+  let params = req.params
+  let body = req.body
+  update(params, body).then((result) => {
+    res.send(result);
+  });
+};
+
 
 module.exports = {
-    selectRequest, 
+    selectRequest,
+    updateRequest,
 }

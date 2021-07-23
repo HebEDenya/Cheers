@@ -17,6 +17,8 @@ import {
   IonCardSubtitle,
   IonCardTitle,
   IonDatetime,
+  IonButtons,
+  IonBackButton
 } from "@ionic/react";
 import "./MyEvents.scss";
 import axios from "axios";
@@ -39,10 +41,15 @@ const MyEvents: React.FC = () => {
   return (
     <>
       <IonPage>
+      <IonHeader>
+    <IonToolbar>
+    <IonTitle>My Events</IonTitle>
+    <IonButtons slot="start">
+    <IonBackButton text="Back" color="dark"/> 
+    </IonButtons>
+    </IonToolbar>
+    </IonHeader>
         <IonContent fullscreen>
-          <IonListHeader>
-            <IonLabel className="color_update_profil">My Events</IonLabel>
-          </IonListHeader>
           &nbsp;
           {data.map((event, key) => {
             return (

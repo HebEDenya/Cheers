@@ -14,6 +14,8 @@ import {
   IonTextarea,
   IonButton,
   useIonAlert,
+  IonButtons,
+  IonBackButton,
 } from "@ionic/react";
 import "./UpdateProfil.scss";
 import ImageContainer from "./CreateEventImage";
@@ -43,8 +45,7 @@ const UpdateProfil: React.FC = () => {
   const confirmUpdate = () => {
     axios
       .put("http://localhost:3001/api/user/5/updateprofil", { description })
-      .then((result) => {
-      })
+      .then((result) => {})
       .catch((err) => {
         console.log(err);
       });
@@ -63,10 +64,15 @@ const UpdateProfil: React.FC = () => {
   return (
     <>
       <IonPage>
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>Update Profil</IonTitle>
+            <IonButtons slot="start">
+              <IonBackButton text="Back" color="dark" />
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
         <IonContent>
-          <IonListHeader>
-            <IonLabel className="color_update_profil">Profil Photo</IonLabel>
-          </IonListHeader>
           &nbsp;
           <IonAvatar className="profil_photo">
             <img

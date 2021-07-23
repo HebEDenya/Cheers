@@ -64,6 +64,7 @@ const MyEvents: React.FC = () => {
                     className="event_time"
                     value={event.start_time}
                     display-timezone="utc"
+                    disabled={true}
                   ></IonDatetime>
                   <IonLabel>
                     {event.price === "Free" ? "Free" : event.price + "DT"}

@@ -11,6 +11,7 @@ import {
   IonCard,
   IonCardContent,
   IonIcon,
+  useIonAlert
 } from "@ionic/react";
 import { useState, useEffect } from "react";
 import ExploreContainer from "../components/ExploreContainer";
@@ -25,6 +26,8 @@ interface ContainerProps {
 
 const Tab2: React.FC<ContainerProps> = ({coinsUser}) => {
   const [data, setData] = useState<any | null>([]);
+  const [present] = useIonAlert();
+
 
   // Get the user Data from the Database
   const getUserData = () => {
@@ -85,15 +88,23 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser}) => {
           </IonCardContent>
         </IonCard>
 
-        <IonCard routerLink="/CoinsPurchase">
-          <IonCardContent className="my_account_text">
-          My Coins 
-      <IonBadge color="primary" className="coins_position">{coinsUser}</IonBadge>
-      <div className="userDasbord_icon">
-      <IonIcon icon={chevronForwardOutline} className= "icon-card"/>
-      </div>
+        {coinsUser?
+      <IonCard routerLink="/CreateEvent">
+      <IonCardContent className="my_account_text">
+        Create Event
+        <div className="userDasbord_icon">
+          <IonIcon icon={chevronForwardOutline} className="icon-card" />
+        </div>{" "}
       </IonCardContent>
+    </IonCard> : <IonCard onClick={() => present("You don't have enough coins", [{ text: 'Ok' }])}>
+          <IonCardContent className="my_account_text">
+            Create Event 
+            <div className="userDasbord_icon">
+              <IonIcon icon={chevronForwardOutline} className="icon-card" />
+            </div>{" "}
+          </IonCardContent>
         </IonCard>
+    }
 
         <IonCard>
           <IonCardContent className="my_account_text">

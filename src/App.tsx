@@ -9,6 +9,7 @@ import { heart, person, home, chatboxEllipses, search } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
+import Tab5 from './pages/Tab5';
 import UpdateProfil from './components/UpdateProfil'
 import axios from 'axios';
 import FirstPage from './pages/FirstPage';
@@ -60,6 +61,9 @@ const App: React.FC = () => {
           <Route path="/tab3">
             <Tab3 />
           </Route>
+          <Route path="/tab5">
+            <Tab5 />
+          </Route>
           <Route exact path="/">
             <Redirect to="/tab1" />
           </Route>
@@ -84,7 +88,7 @@ const App: React.FC = () => {
           <IonTabButton tab="tab4" href="#">
             <IonIcon icon={chatboxEllipses} />
           </IonTabButton>
-          <IonTabButton tab="tab5" href="#">
+          <IonTabButton tab="tab5" href="/tab5">
             <IonIcon icon={search} />
           </IonTabButton>
         </IonTabBar>

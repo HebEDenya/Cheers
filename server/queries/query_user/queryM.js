@@ -1,9 +1,6 @@
 const {database} = require('../../database/db.js')
 
-// to test thing with this
-const handle = () => {
-    return database.query(`SELECT * FROM USERS WHERE user_id=2`)
-}
+
 
 // to post an event
 const queryPostRequestCreateEvent = (body, newImage) => {
@@ -41,7 +38,6 @@ const removeEventFromFavorite = (event_id, user_id) => {
 }
 
 module.exports = {
-    handle,
     queryPostRequestCreateEvent,
     selectCoinsFromUsers,
     updateCoinsUsers,

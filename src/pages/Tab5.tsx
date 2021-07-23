@@ -19,7 +19,7 @@ import './Tab3.scss'
         <IonSearchbar value={searchText} onIonChange={e => setSearchText(e.detail.value!)}></IonSearchbar>
       </IonToolbar>
       
-
+      
     </IonContent>
     </IonPage>
     );

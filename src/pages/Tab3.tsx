@@ -48,11 +48,11 @@ const Tab3: React.FC = () => {
             <IonCardSubtitle>{item.title}</IonCardSubtitle>
             <IonCardTitle className="event_title">{item.location}</IonCardTitle>
             <IonRow>
-            <IonDatetime className="event_time" value={moment(item.start_time).format("MMM D YYYY")} display-timezone="utc"></IonDatetime>
+            <IonDatetime className="event_time" value={moment(item.start_time).format("MMM D YYYY")} display-timezone="utc" disabled={true}></IonDatetime>
             </IonRow>
             <IonRow>
             <IonCol size="10.5">
-            <IonLabel id="price_favorite_size">{item.price=== "free"? "Free" : item.price +'Dt'}</IonLabel>
+            <IonLabel id="price_favorite_size">{item.price=== "Free"? "Free" : item.price +'Dt'}</IonLabel>
           </IonCol>
             <IonCol>
           <IonIcon onClick={()=> {setHeartButtonClick({clicked:true, btn_Id:item.event_id})}} icon={heart}  id="heart_favorite-hover"/> 

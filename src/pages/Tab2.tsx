@@ -82,7 +82,7 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser}) => {
         </IonCard>
 
         <IonCard routerLink="/CoinsPurchase">
-          <IonCardContent>
+          <IonCardContent className="my_account_text">
           My Coins 
       <IonBadge color="primary" className="coins_position">{coinsUser}</IonBadge>
       <div className="userDasbord_icon">

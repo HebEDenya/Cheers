@@ -18,7 +18,11 @@ import ExploreContainer from '../components/ExploreContainer';
 import { chevronForwardOutline } from 'ionicons/icons';
 import "./Tab2.scss";
 
-const Tab2: React.FC = () => {
+interface ContainerProps {
+  coinsUser: number,
+}
+
+const Tab2: React.FC<ContainerProps> = ({coinsUser}) => {
   // const[data, setData] = useState();
   return (
     <IonPage>
@@ -60,7 +64,7 @@ const Tab2: React.FC = () => {
         <IonCard routerLink="/CoinsPurchase">
           <IonCardContent>
           My Coins 
-      <IonBadge color="primary" className="coins_position">50</IonBadge>
+      <IonBadge color="primary" className="coins_position">{coinsUser}</IonBadge>
       <div className="userDasbord_icon">
       <IonIcon icon={chevronForwardOutline} className= "icon-card"/>
       </div>

@@ -1,9 +1,8 @@
 import { IonContent, IonHeader, IonCol,IonItem,IonPage,IonCardContent,IonIcon,IonButton,IonImg,IonDatetime,useIonAlert, IonCardHeader, IonCard,IonListHeader,IonList,IonLabel,IonCardSubtitle,IonCardTitle, IonGrid, IonRow } from '@ionic/react';
-import { heart, heartCircleOutline, heartOutline } from 'ionicons/icons';
+import { heart} from 'ionicons/icons';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from "moment";
-import { homeOutline, personOutline, clipboardOutline, walkOutline } from 'ionicons/icons';
 import './Tab3.scss';
 
 const Tab3: React.FC = () => {
@@ -48,28 +47,22 @@ const Tab3: React.FC = () => {
             <img src={item.image} alt=""  className="favorite_img_size" />
         <IonCardHeader>
         <IonGrid>
-          <IonRow>
-          <IonCol size ="10.4">
-            <IonLabel>{item.price=== "free"? "Free" : item.price +'Dt'}</IonLabel>
-            </IonCol>
-            <IonCol >
-          <IonIcon onClick={()=> {setHeartButtonClick({clicked:true, btn_Id:item.event_id})}} icon={heart}  id="heart_favorite-hover"/> 
-          </IonCol>
-            </IonRow>
             <IonCardSubtitle>{item.title}</IonCardSubtitle>
-            <IonRow>
-            </IonRow>
-            <IonRow>
             <IonCardTitle className="event_title">{item.location}</IonCardTitle>
-            </IonRow>
             <IonRow>
             <IonDatetime className="event_time" value={moment(item.start_time).format("MMM D YYYY")} display-timezone="utc"></IonDatetime>
             </IonRow>
-            </IonGrid>
-            
+            <IonRow>
+            <IonCol size="10.5">
+            <IonLabel id="price_favorite_size">{item.price=== "free"? "Free" : item.price +'Dt'}</IonLabel>
+          </IonCol>
+            <IonCol>
+          <IonIcon onClick={()=> {setHeartButtonClick({clicked:true, btn_Id:item.event_id})}} icon={heart}  id="heart_favorite-hover"/> 
+          </IonCol>
+            </IonRow>
+            </IonGrid>     
         </IonCardHeader>
         </IonCard>
-      
         )
         }) : 
         <>
@@ -80,12 +73,9 @@ const Tab3: React.FC = () => {
           <IonCard>
           <img src="https://i.gifer.com/r8e.gif" alt=""  className="favorite_img_size" />
           <IonCardHeader>
-        
           <IonButton fill="outline" expand="full" routerLink="/tab1"> Check some events </IonButton>
-           
         </IonCardHeader>
         </IonCard>
-        
         </IonContent>
         </>
     }

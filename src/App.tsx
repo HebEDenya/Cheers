@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import {IonApp,IonIcon,IonLabel,IonRouterOutlet,IonTabBar,IonTabButton,IonTabs,} from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
@@ -10,7 +10,7 @@ import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
 import UpdateProfil from './components/UpdateProfil'
-
+import axios from 'axios';
 import FirstPage from './pages/FirstPage';
 import '@ionic/react/css/core.css';
 import '@ionic/react/css/normalize.css';
@@ -27,8 +27,22 @@ import './theme/variables.css';
 
 const App: React.FC = () => {
   const [pageswitcher, setPageSwitcher] = useState<boolean>(false)
-  
-  
+  const [coinsUser, setCoinsUser] = useState<number>(40)
+  const [user_id, setuser_id] = useState<number>(2)
+
+  ///// to get the users coins 
+  const handleGettingUserCoinsInfo = () => {
+    axios.get(`/api/getCoins/${user_id}`).then((result) => {
+      setCoinsUser(result.data[0].coins_quantity)
+      console.log(result.data[0].coins_quantity);
+    }).catch(err=>{console.log(err);
+    })
+  }
+
+  useEffect(()=> {
+    handleGettingUserCoinsInfo()
+  }, [coinsUser])
+  ////////////////////////////////////
   return (
   <IonApp>
     {!pageswitcher? <FirstPage setPageSwitcher={setPageSwitcher}/> : 
@@ -41,7 +55,7 @@ const App: React.FC = () => {
             <Tab1 />
           </Route>
           <Route exact path="/tab2">
-            <Tab2 />
+            <Tab2 coinsUser= {coinsUser}/>
           </Route>
           <Route path="/tab3">
             <Tab3 />
@@ -53,7 +67,8 @@ const App: React.FC = () => {
           </Route>
           <Route path="/CreateEvent" component={CreateEventComponenetPart1}>
           </Route>
-          <Route path="/CoinsPurchase" component={CoinsPurchaser}>
+          <Route path="/CoinsPurchase" >
+            <CoinsPurchaser  coinsUser= {coinsUser}setCoinsUser={setCoinsUser} />
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">

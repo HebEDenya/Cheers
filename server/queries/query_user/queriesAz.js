@@ -5,10 +5,17 @@ const handle = (req) => {
 };
 
 const update = (params, body) => {
-  return database.query(`UPDATE USERS SET description = '${body.description}' WHERE user_id=${params.id}`);
-}
+  return database.query(
+    `UPDATE USERS SET description = '${body.description}' WHERE user_id=${params.id}`
+  );
+};
+
+const getEvent = (req) => {
+  return database.query(`SELECT * FROM EVENT WHERE user_id=${req.params.id}`);
+};
 
 module.exports = {
   handle,
-  update
+  update,
+  getEvent,
 };

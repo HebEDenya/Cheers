@@ -8,10 +8,10 @@ const { cloudinary } = require("../../cloudinary");
 const selectRequest = (req, res) => {
   handle(req)
     .then((result) => {
-      res.send(result);
+      res.status(200).send(result);
     })
     .catch((err) => {
-      console.error(err);
+      res.status(400).send(err);
     });
 };
 
@@ -26,21 +26,21 @@ const updateRequest = (req, res) => {
     .then((result) => {
       let image = result.url;
       update(params, body, image).then((result) => {
-        res.send(result);
+        res.status(200).send(result);
       });
     })
     .catch((err) => {
-      console.error(err);
+      res.status(400).send(err);
     });
 };
 
 const getEventRequest = (req, res) => {
   getEvent(req)
     .then((result) => {
-      res.send(result);
+      res.status(200).send(result);
     })
     .catch((err) => {
-      console.error(err);
+      res.status(400).send(err);
     });
 };
 

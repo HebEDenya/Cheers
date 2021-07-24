@@ -36,10 +36,9 @@ const Tab1: React.FC <ContainerProps>= ({events}) => {
 
               <IonContent className="events">
                 {events.map((event,i) => (
-                  <>
         <IonCard key={i}>
             <img src={event.image} alt=""  className="favorite_img_size" />
-        <IonCardHeader>
+        <IonCardHeader >
         <IonGrid>
             <IonCardSubtitle>{event.title}</IonCardSubtitle>
             <IonCardTitle className="event_title">{event.location}</IonCardTitle>
@@ -57,7 +56,6 @@ const Tab1: React.FC <ContainerProps>= ({events}) => {
             </IonGrid>     
         </IonCardHeader>
         </IonCard>
-                  </>
                 ))}
               </IonContent>
             </IonContent> 

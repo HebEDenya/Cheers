@@ -9,7 +9,7 @@ const verifyJWT = (req, res, next) => {
   if(!token) {
     res.send("we need token!!!")
   } else {
-    jwt.verify(token, "jwtSecret", (err, decoded) => {
+    jwt.verify(token, process.env.HASHPASS, (err, decoded) => {
       if(err) {
         res.json({auth: false, message: "authentication faild"})
       } else {

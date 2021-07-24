@@ -31,10 +31,13 @@ const Tab3: React.FC = () => {
   return (
     <>
     <IonPage>
-      <IonHeader>
-    <IonToolbar>
-    <IonTitle className="favorite_title_size" color="primary">Favorites</IonTitle>
-    </IonToolbar>
+    <IonHeader>
+      
+      <IonListHeader>
+           <IonLabel className="favorite_title_size"  color="primary" >
+           Favorites
+       </IonLabel>
+       </IonListHeader>
     </IonHeader>
       &nbsp;
       <IonContent fullscreen >

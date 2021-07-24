@@ -17,7 +17,6 @@ const Tab1: React.FC <ContainerProps>= ({events}) => {
  return (
     <IonPage>
       <IonHeader>
-      
         <IonListHeader>
              <IonLabel className="favorite_title_size"  color="primary" >
              Home
@@ -26,19 +25,19 @@ const Tab1: React.FC <ContainerProps>= ({events}) => {
       </IonHeader>
       <IonContent>
         <IonItem>
-            {categories.map((category,index) => (
+            {/* {categories.map((category,key) => (
               <IonImg
-              key={index} 
+              key={key} 
               class="scroll-content"
               style={{ display: 'flex',flexDirection:'column',flex:4}}
               src={category} className="categoryImg"/>
-            ))}
+            ))} */}
             </IonItem>
 
               <IonContent className="events">
-                {events.map((event,i) => (
+                {events.map((event,key) => (
                   <>
-                    <IonCard key={i}>
+                    <IonCard key={key}>
             <img src={event.image} alt=""  className="favorite_img_size" />
         <IonCardHeader>
         <IonGrid>

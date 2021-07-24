@@ -31,16 +31,15 @@ const Tab3: React.FC = () => {
   return (
     <>
     <IonPage>
-    <IonHeader>
-      
+      <IonHeader>
       <IonListHeader>
-           <IonLabel className="favorite_title_size"  color="primary" >
-           Favorites
-       </IonLabel>
-       </IonListHeader>
+    <IonLabel className="favorite_title_size" color="primary">
+    Favorites
+    </IonLabel>
+    </IonListHeader>
     </IonHeader>
       &nbsp;
-      <IonContent fullscreen >
+      <IonContent>
       {favoriteEvent.length ? 
         favoriteEvent.map((item, index)=> { return (
         <IonCard key={index}>

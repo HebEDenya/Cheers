@@ -33,7 +33,8 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 import "./theme/variables.css";
-
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 
 const App: React.FC = () => {
@@ -100,6 +101,10 @@ const App: React.FC = () => {
             <CoinsPurchaser  coinsUser= {coinsUser}setCoinsUser={setCoinsUser} />
             </Route>
           <Route path="/myevents" component={MyEvents}>
+          </Route>
+          <Route path="/Login" component={Login}>
+          </Route>
+          <Route path="/Register" component={Register}>
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">

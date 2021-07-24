@@ -39,7 +39,7 @@ const Tab1: React.FC <ContainerProps>= ({events}) => {
                   
         <IonCard key={i}>
             <img src={event.image} alt=""  className="favorite_img_size" />
-        <IonCardHeader>
+        <IonCardHeader >
         <IonGrid>
             <IonCardSubtitle>{event.title}</IonCardSubtitle>
             <IonCardTitle className="event_title">{event.location}</IonCardTitle>

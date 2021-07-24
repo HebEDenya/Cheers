@@ -1,6 +1,7 @@
 const {database} = require('../database/db.js')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+require('dotenv').config()
 const saltRounds = 10;
 
 const verifyJWT = (req, res, next) => {
@@ -31,7 +32,7 @@ const userLogin = (req, res) => {
                   if (response) {
                     //create jwt token
                     const id = result[0].id
-                    const token = jwt.sign({id}, "jwtSecret", {
+                    const token = jwt.sign({id}, process.env.HASHPASS, {
                       expiresIn: 300,
                     })
                     req.session.user = result;

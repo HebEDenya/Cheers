@@ -35,9 +35,10 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 
 const App: React.FC = () => {
-  const [pageswitcher, setPageSwitcher] = useState<boolean>(false);
-  const [coinsUser, setCoinsUser] = useState<number>(40);
-  const [user_id, setuser_id] = useState<number>(5);
+  const [pageswitcher, setPageSwitcher] = useState<boolean>(false)
+  const [coinsUser, setCoinsUser] = useState<number>(40)
+  const [user_id, setuser_id] = useState<number>(5)
+  const [events, setEvents] = useState([]);
 
   ///// to get the users coins
   const handleGettingUserCoinsInfo = () => {
@@ -55,64 +56,73 @@ const App: React.FC = () => {
     handleGettingUserCoinsInfo();
   }, [coinsUser]);
   ////////////////////////////////////
+  // to get all events
+  useEffect(() => {
+    axios.get('http://localhost:3001/api/home').then((result) => {
+     setEvents(result.data)
+    })
+   //  .catch((err) => {
+   //   console.log(err);
+   // });
+  },[])
+  //////////////////////////////////
   return (
-    <IonApp>
-      {!pageswitcher ? (
-        <FirstPage setPageSwitcher={setPageSwitcher} />
-      ) : (
-        <IonReactRouter>
-          <IonRouterOutlet></IonRouterOutlet>
-          <IonTabs>
-            <IonRouterOutlet>
-              <Route exact path="/tab1">
-                <Tab1 />
-              </Route>
-              <Route exact path="/tab2">
-                <Tab2 coinsUser={coinsUser} />
-              </Route>
-              <Route path="/tab3">
-                <Tab3 />
-              </Route>
-              <Route path="/tab5">
-                <Tab5 />
-              </Route>
-              <Route exact path="/">
-                <Redirect to="/tab1" />
-              </Route>
-              <Route path="/update" component={UpdateProfil}></Route>
-              <Route
-                path="/CreateEvent"
-                component={CreateEventComponenetPart1}
-              ></Route>
-              <Route path="/CoinsPurchase">
-                <CoinsPurchaser
-                  coinsUser={coinsUser}
-                  setCoinsUser={setCoinsUser}
-                />
-              </Route>
-              <Route path="/myevents" component={MyEvents}></Route>
-            </IonRouterOutlet>
-            <IonTabBar slot="bottom">
-              <IonTabButton tab="tab1" href="/tab1">
-                <IonIcon icon={home} />
-              </IonTabButton>
-              <IonTabButton tab="tab2" href="/tab2">
-                <IonIcon icon={person} />
-              </IonTabButton>
-              <IonTabButton tab="tab3" href="/tab3">
-                <IonIcon icon={heart} />
-              </IonTabButton>
-              <IonTabButton tab="tab4" href="#">
-                <IonIcon icon={chatboxEllipses} />
-              </IonTabButton>
-              <IonTabButton tab="tab5" href="/tab5">
-                <IonIcon icon={search} />
-              </IonTabButton>
-            </IonTabBar>
-          </IonTabs>
-        </IonReactRouter>
-      )}
-    </IonApp>
-  );
-};
+  <IonApp>
+    {!pageswitcher? <FirstPage setPageSwitcher={setPageSwitcher}/> : 
+    <IonReactRouter>  
+    <IonRouterOutlet>          
+    </IonRouterOutlet>
+      <IonTabs>
+        <IonRouterOutlet>
+          <Route exact path="/tab1">
+            <Tab1  events = {events}/>
+          </Route>
+          <Route exact path="/tab2">
+            <Tab2 coinsUser= {coinsUser}/>
+          </Route>
+          <Route path="/tab3">
+            <Tab3 />
+          </Route>
+          <Route path="/tab5">
+            <Tab5 />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/tab1" />
+          </Route>
+          <Route path="/update" component={UpdateProfil}>
+          </Route>
+          <Route path="/CreateEvent" >
+            <CreateEventComponenetPart1 setCoinsUser={setCoinsUser} coinsUser={coinsUser}/>
+          </Route>
+          <Route path="/CoinsPurchase" >
+            <CoinsPurchaser  coinsUser= {coinsUser}setCoinsUser={setCoinsUser} />
+            </Route>
+          <Route path="/myevents" component={MyEvents}>
+          </Route>
+        </IonRouterOutlet>
+        <IonTabBar slot="bottom">
+          <IonTabButton tab="tab1" href="/tab1">
+            <IonIcon icon={home} />
+          </IonTabButton>
+          <IonTabButton tab="tab2" href="/tab2">
+            <IonIcon icon={person} />
+          </IonTabButton>
+          <IonTabButton tab="tab3" href="/tab3">
+            <IonIcon icon={heart} />
+          </IonTabButton>
+          <IonTabButton tab="tab4" href="#">
+            <IonIcon icon={chatboxEllipses} />
+          </IonTabButton>
+          <IonTabButton tab="tab5" href="/tab5">
+            <IonIcon icon={search} />
+          </IonTabButton>
+        </IonTabBar>
+  </IonTabs>
+</IonReactRouter>
+    
+    }
+    
+  </IonApp>
+);
+}
 export default App;

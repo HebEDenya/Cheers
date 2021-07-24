@@ -47,7 +47,6 @@ const UpdateProfil: React.FC = () => {
     axios
       .put("http://localhost:3001/api/user/5/updateprofil", { description, image })
       .then((result) => {
-        console.log(result)
         if (result.statusText === "OK") {
           setImageUpdated(true)
         } 

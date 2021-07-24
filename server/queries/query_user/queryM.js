@@ -1,6 +1,5 @@
 const {database} = require('../../database/db.js')
 
-
 // to post an event
 const queryPostRequestCreateEvent = (body, newImage) => {
     const {title,description,category,location,price,start_time,end_time,available_places, user_id}=body
@@ -35,6 +34,7 @@ const selectEventById = (event_id) => {
 const removeEventFromFavorite = (event_id, user_id) => {
     return database.query(`DELETE FROM FAVORITE WHERE user_id=${user_id} AND event_id=${event_id}`)
 }
+
 
 module.exports = {
     queryPostRequestCreateEvent,

@@ -70,24 +70,6 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser}) => {
           </IonCardContent>
         </IonCard>
 
-        <IonCard routerLink="/CreateEvent">
-          <IonCardContent className="my_account_text">
-            Create Event
-            <div className="userDasbord_icon">
-              <IonIcon icon={chevronForwardOutline} className="icon-card" />
-            </div>{" "}
-          </IonCardContent>
-        </IonCard>
-
-        <IonCard routerLink="/myevents">
-          <IonCardContent className="my_account_text">
-            My Events
-            <div className="userDasbord_icon">
-              <IonIcon icon={chevronForwardOutline} className="icon-card" />
-            </div>{" "}
-          </IonCardContent>
-        </IonCard>
-
         {coinsUser?
       <IonCard routerLink="/CreateEvent">
       <IonCardContent className="my_account_text">
@@ -105,6 +87,25 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser}) => {
           </IonCardContent>
         </IonCard>
     }
+
+        <IonCard routerLink="/myevents">
+          <IonCardContent className="my_account_text">
+            My Events
+            <div className="userDasbord_icon">
+              <IonIcon icon={chevronForwardOutline} className="icon-card" />
+            </div>{" "}
+          </IonCardContent>
+        </IonCard>
+
+        <IonCard routerLink="/CoinsPurchase">
+          <IonCardContent className="my_account_text">
+          My Coins 
+      <IonBadge color="primary" className="coins_position">{coinsUser}</IonBadge>
+      <div className="userDasbord_icon">
+      <IonIcon icon={chevronForwardOutline} className= "icon-card"/>
+      </div>
+      </IonCardContent>
+        </IonCard>
 
         <IonCard>
           <IonCardContent className="my_account_text">

@@ -6,9 +6,13 @@ import './CreateEvent.scss'
 import ImageContainer from './CreateEventImage';
 import axios from 'axios';
 
+interface props {
+  setCoinsUser: any;
+  coinsUser:number;
+}
 
 
-const CreateEventComponenet: React.FC= () => {
+const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser}) => {
   const [present] = useIonAlert();
   const [title, setTitle] = useState<string>();
   const [description, setDescription] = useState<string>();
@@ -83,6 +87,7 @@ const CreateEventComponenet: React.FC= () => {
 
       
       if(result.statusText === "Created") {
+        setCoinsUser(coinsUser-2)
         setButtonClick(true)
         refreshInfoAfterSubmit()
         present('Event created successfully')

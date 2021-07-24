@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonCol,IonItem,IonPage,IonCardContent,IonIcon,IonButton,IonImg,IonDatetime,useIonAlert, IonCardHeader, IonCard,IonListHeader,IonList,IonLabel,IonCardSubtitle,IonCardTitle, IonGrid, IonRow } from '@ionic/react';
+import { IonContent, IonHeader, IonCol,IonTitle,IonPage,IonCardContent,IonIcon,IonButton,IonImg,IonDatetime,useIonAlert, IonCardHeader, IonCard,IonListHeader,IonList,IonLabel,IonCardSubtitle,IonCardTitle, IonGrid, IonRow, IonToolbar } from '@ionic/react';
 import { heart} from 'ionicons/icons';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -29,14 +29,13 @@ const Tab3: React.FC = () => {
   }, [heartButtonClick.btn_Id])
 
   return (
+    <>
     <IonPage>
       <IonHeader>
-        <IonListHeader>
-             <IonLabel className="favorite_title_size"  color="primary" >
-             Favorites
-         </IonLabel>
-         </IonListHeader>
-      </IonHeader>
+    <IonToolbar>
+    <IonTitle className="favorite_title_size" color="primary">Favorites</IonTitle>
+    </IonToolbar>
+    </IonHeader>
       &nbsp;
       <IonContent fullscreen >
       {favoriteEvent.length ? 
@@ -48,11 +47,11 @@ const Tab3: React.FC = () => {
             <IonCardSubtitle>{item.title}</IonCardSubtitle>
             <IonCardTitle className="event_title">{item.location}</IonCardTitle>
             <IonRow>
-            <IonDatetime className="event_time" value={moment(item.start_time).format("MMM D YYYY")} display-timezone="utc"></IonDatetime>
+            <IonDatetime className="event_time" value={moment(item.start_time).format("MMM D YYYY")} display-timezone="utc" disabled={true}></IonDatetime>
             </IonRow>
             <IonRow>
             <IonCol size="10.5">
-            <IonLabel id="price_favorite_size">{item.price=== "free"? "Free" : item.price +'Dt'}</IonLabel>
+            <IonLabel id="price_favorite_size">{item.price=== "Free"? "Free" : item.price +'Dt'}</IonLabel>
           </IonCol>
             <IonCol>
           <IonIcon onClick={()=> {setHeartButtonClick({clicked:true, btn_Id:item.event_id})}} icon={heart}  id="heart_favorite-hover"/> 
@@ -79,6 +78,7 @@ const Tab3: React.FC = () => {
     }
     </IonContent>
     </IonPage>
+    </>
   );
 };
 

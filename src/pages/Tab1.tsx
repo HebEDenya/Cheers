@@ -17,8 +17,6 @@ const Tab1: React.FC <ContainerProps>= ({events}) => {
  return (
     <IonPage>
       <IonHeader>
-      
-        
         <IonListHeader>
              <IonLabel className="favorite_title_size"  color="primary" >
              Home
@@ -29,7 +27,7 @@ const Tab1: React.FC <ContainerProps>= ({events}) => {
         {/* <IonItem>
             {categories.map((category,index) => (
               <IonImg
-              key={index} 
+              key={key} 
               class="scroll-content"
               style={{ display: 'flex',flexDirection:'column',flex:4}}
               src={category} className="categoryImg"/>
@@ -39,25 +37,6 @@ const Tab1: React.FC <ContainerProps>= ({events}) => {
               <IonContent className="events">
                 {events.map((event,i) => (
                   <>
-                    {/* <IonCard key={i}>
-            <img src={event.image} alt=""  className="favorite_img_size" />
-        <IonCardHeader>
-        <IonGrid>
-            <Icon  icon={heartIcon}  id="heart_favorite-hover"/> 
-            <IonCardSubtitle>{event.title}</IonCardSubtitle>
-            <IonCardTitle className="event_title">{event.location}</IonCardTitle>
-            <IonRow>
-             <IonDatetime
-                    className="event_time"
-                    value={event.start_time}
-                    display-timezone="utc"
-                    disabled={true}
-
-                  ></IonDatetime>
-            </IonRow>
-            </IonGrid>
-        </IonCardHeader>
-        </IonCard>                     */}
         <IonCard key={i}>
             <img src={event.image} alt=""  className="favorite_img_size" />
         <IonCardHeader>

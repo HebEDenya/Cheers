@@ -32,7 +32,6 @@ const Tab3: React.FC = () => {
     <>
     <IonPage>
       <IonHeader>
-
       <IonListHeader>
     <IonLabel className="favorite_title_size" color="primary">
     Favorites

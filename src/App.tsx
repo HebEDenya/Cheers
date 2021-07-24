@@ -33,11 +33,15 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 import "./theme/variables.css";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+
 
 const App: React.FC = () => {
   const [pageswitcher, setPageSwitcher] = useState<boolean>(false)
   const [coinsUser, setCoinsUser] = useState<number>(40)
-  const [user_id, setuser_id] = useState<number>(5)
+  const [user_id, setuser_id] = useState<number |null>(null)
+  const [login, setLogin] = useState<{auth:boolean, result:any, token: string}>({auth:false, result:{}, token:''})
   const [events, setEvents] = useState([]);
 
   ///// to get the users coins
@@ -98,6 +102,11 @@ const App: React.FC = () => {
             <CoinsPurchaser  coinsUser= {coinsUser}setCoinsUser={setCoinsUser} />
             </Route>
           <Route path="/myevents" component={MyEvents}>
+          </Route>
+          <Route path="/Login" >
+            <Login login={login} setLogin={setLogin} setuser_id={setuser_id}/>
+          </Route>
+          <Route path="/Register" component={Register}>
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">

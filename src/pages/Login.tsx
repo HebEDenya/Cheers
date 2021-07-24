@@ -63,11 +63,11 @@ const Login: React.FC<loginProps> = ({login, setLogin,setuser_id}) => {
         <IonList className="--padding-bottom">
           <IonItemDivider>Username</IonItemDivider>
           <IonItem>
-            <IonInput clear-input value={username} placeholder="Enter Username..." onIonChange={e => setUsername(e.detail.value!)}></IonInput>
+            <IonInput clear-input type="text" value={username} placeholder="Enter Username..." onIonChange={e => setUsername(e.detail.value!)}></IonInput>
           </IonItem>
           <IonItemDivider>Password</IonItemDivider>
           <IonItem>
-            <IonInput clear-input value={password} placeholder="Enter Password..." onIonChange={e => setPassword(e.detail.value!)}></IonInput>
+            <IonInput clear-input type="password" value={password} placeholder="Enter Password..." onIonChange={e => setPassword(e.detail.value!)}></IonInput>
           </IonItem>
         </IonList>
         <div className="ion-text-center custom-font loginbtn">

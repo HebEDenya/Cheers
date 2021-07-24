@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import {IonicSafeString, IonInfiniteScroll, IonInfiniteScrollContent, IonNote,IonCol, IonRow} from '@ionic/react';
 import { IonContent, IonHeader, IonPage,IonIcon,IonCardTitle,IonDatetime, IonCard,IonCardHeader,IonLabel,IonGrid, IonListHeader,IonImg,IonList,IonItem ,IonCardSubtitle} from '@ionic/react';
 import { Icon, InlineIcon } from '@iconify/react';
-import heartIcon from '@iconify-icons/ion/heart';
+import heartIcon from '@iconify-icons/ion/heart-outline';
 import ExploreContainer from '../components/ExploreContainer';
 // import ExploreContainer from '../components/ExploreContainer';
 import './Tab1.scss';
@@ -18,6 +18,7 @@ const Tab1: React.FC <ContainerProps>= ({events}) => {
     <IonPage>
       <IonHeader>
       
+        
         <IonListHeader>
              <IonLabel className="favorite_title_size"  color="primary" >
              Home
@@ -25,7 +26,7 @@ const Tab1: React.FC <ContainerProps>= ({events}) => {
          </IonListHeader>
       </IonHeader>
       <IonContent>
-        <IonItem>
+        {/* <IonItem>
             {categories.map((category,index) => (
               <IonImg
               key={index} 
@@ -33,12 +34,12 @@ const Tab1: React.FC <ContainerProps>= ({events}) => {
               style={{ display: 'flex',flexDirection:'column',flex:4}}
               src={category} className="categoryImg"/>
             ))}
-            </IonItem>
+            </IonItem> */}
 
               <IonContent className="events">
                 {events.map((event,i) => (
                   <>
-                    <IonCard key={i}>
+                    {/* <IonCard key={i}>
             <img src={event.image} alt=""  className="favorite_img_size" />
         <IonCardHeader>
         <IonGrid>
@@ -46,8 +47,6 @@ const Tab1: React.FC <ContainerProps>= ({events}) => {
             <IonCardSubtitle>{event.title}</IonCardSubtitle>
             <IonCardTitle className="event_title">{event.location}</IonCardTitle>
             <IonRow>
-            {/* <IonDatetime className="event_time" value={moment(event.start_time).format("MMM D YYYY")} display-timezone="utc"></IonDatetime>
-            <IonDatetime className="event_time" value={moment(event.end_time).format("MMM D YYYY")} display-timezone="utc"></IonDatetime> */}
              <IonDatetime
                     className="event_time"
                     value={event.start_time}
@@ -58,7 +57,27 @@ const Tab1: React.FC <ContainerProps>= ({events}) => {
             </IonRow>
             </IonGrid>
         </IonCardHeader>
-        </IonCard>                    
+        </IonCard>                     */}
+        <IonCard key={i}>
+            <img src={event.image} alt=""  className="favorite_img_size" />
+        <IonCardHeader>
+        <IonGrid>
+            <IonCardSubtitle>{event.title}</IonCardSubtitle>
+            <IonCardTitle className="event_title">{event.location}</IonCardTitle>
+            <IonRow>
+            <IonDatetime className="event_time" value={event.start_time} display-timezone="utc" disabled={true}></IonDatetime>
+            </IonRow>
+            <IonRow>
+            <IonCol size="10.5">
+            <IonLabel id="price_favorite_size">{event.price=== "Free"? "Free" : event.price +'Dt'}</IonLabel>
+          </IonCol>
+            <IonCol>
+          <Icon icon={heartIcon} id="heart_favorite-hover"/> 
+          </IonCol>
+            </IonRow>
+            </IonGrid>     
+        </IonCardHeader>
+        </IonCard>
                   </>
                 ))}
               </IonContent>

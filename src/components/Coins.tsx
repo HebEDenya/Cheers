@@ -11,7 +11,7 @@ interface ContainerProps {
 
 const CoinsPurchaser: React.FC<ContainerProps> = ({coinsUser, setCoinsUser}) => {
     const coinsInfo = {0:[50, 1, "Coins, coins, coins!", ""], 1:[100, 2, "Coins and new friends!", ""], 2:[150, 3, "More coins, more fun !", ""]}
-     const [user_id, setuser_id] = useState<number>(2)
+     const [user_id, setuser_id] = useState<number>(5)
     
     return (
     <IonPage>

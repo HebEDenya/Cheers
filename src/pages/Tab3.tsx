@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonCol,IonItem,IonPage,IonCardContent,IonIcon,IonButton,IonImg,IonDatetime,useIonAlert, IonCardHeader, IonCard,IonListHeader,IonList,IonLabel,IonCardSubtitle,IonCardTitle, IonGrid, IonRow } from '@ionic/react';
+import { IonContent, IonHeader, IonCol,IonTitle,IonPage,IonCardContent,IonIcon,IonButton,IonImg,IonDatetime,useIonAlert, IonCardHeader, IonCard,IonListHeader,IonList,IonLabel,IonCardSubtitle,IonCardTitle, IonGrid, IonRow, IonToolbar } from '@ionic/react';
 import { heart} from 'ionicons/icons';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -29,14 +29,13 @@ const Tab3: React.FC = () => {
   }, [heartButtonClick.btn_Id])
 
   return (
+    <>
     <IonPage>
       <IonHeader>
-        <IonListHeader>
-             <IonLabel className="favorite_title_size"  color="primary" >
-             Favorites
-         </IonLabel>
-         </IonListHeader>
-      </IonHeader>
+    <IonToolbar>
+    <IonTitle className="favorite_title_size" color="primary">Favorites</IonTitle>
+    </IonToolbar>
+    </IonHeader>
       &nbsp;
       <IonContent fullscreen >
       {favoriteEvent.length ? 
@@ -79,6 +78,7 @@ const Tab3: React.FC = () => {
     }
     </IonContent>
     </IonPage>
+    </>
   );
 };
 

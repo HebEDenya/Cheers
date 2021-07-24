@@ -31,6 +31,7 @@ const App: React.FC = () => {
   const [pageswitcher, setPageSwitcher] = useState<boolean>(false)
   const [coinsUser, setCoinsUser] = useState<number>(40)
   const [user_id, setuser_id] = useState<number>(5)
+  const [events, setEvents] = useState([]);
 
   ///// to get the users coins 
   const handleGettingUserCoinsInfo = () => {
@@ -44,17 +45,27 @@ const App: React.FC = () => {
     handleGettingUserCoinsInfo()
   }, [coinsUser])
   ////////////////////////////////////
+  // to get all events
+  useEffect(() => {
+    axios.get('http://localhost:3001/api/home').then((result) => {
+     console.log('we r events daddy', result);
+     setEvents(result.data)
+    })
+   //  .catch((err) => {
+   //   console.log(err);
+   // });
+  },[])
+  //////////////////////////////////
   return (
   <IonApp>
     {!pageswitcher? <FirstPage setPageSwitcher={setPageSwitcher}/> : 
-    <IonReactRouter>
-      
+    <IonReactRouter>  
     <IonRouterOutlet>          
     </IonRouterOutlet>
       <IonTabs>
         <IonRouterOutlet>
           <Route exact path="/tab1">
-            <Tab1 />
+            <Tab1  events = {events}/>
           </Route>
           <Route exact path="/tab2">
             <Tab2 coinsUser= {coinsUser}/>

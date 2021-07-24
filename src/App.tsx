@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route,  } from "react-router-dom";
 import {
   IonApp,
   IonIcon,
@@ -8,6 +8,8 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
+  IonToolbar,
+   
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import CreateEventComponenetPart1 from "./components/CreateEvent.Part1";
@@ -38,11 +40,21 @@ import Register from "./pages/Register";
 
 
 const App: React.FC = () => {
-  const [pageswitcher, setPageSwitcher] = useState<boolean>(false)
+  const [isLoding, setIsLoading] = useState<boolean>(true)
   const [coinsUser, setCoinsUser] = useState<number>(40)
   const [user_id, setuser_id] = useState<number |null>(null)
   const [login, setLogin] = useState<{auth:boolean, result:any, token: string}>({auth:false, result:{}, token:''})
   const [events, setEvents] = useState([]);
+  
+   
+/// for the first page to load 
+  useEffect(()=> {
+    setTimeout(()=> {
+      setIsLoading(false)
+    },1000);
+  },[])
+
+  
 
   ///// to get the users coins
   const handleGettingUserCoinsInfo = () => {
@@ -59,20 +71,36 @@ const App: React.FC = () => {
   useEffect(() => {
     handleGettingUserCoinsInfo();
   }, [coinsUser]);
-  ////////////////////////////////////
+  
   // to get all events
   useEffect(() => {
-    axios.get('http://localhost:3001/api/home').then((result) => {
+    axios.get('/api/home').then((result) => {
      setEvents(result.data)
     })
-   //  .catch((err) => {
-   //   console.log(err);
-   // });
+    .catch((err) => {
+     console.log(err);
+   });
   },[])
-  //////////////////////////////////
+  
+  if (isLoding) {
+    return (
+    <FirstPage />
+    )
+  }  else {
   return (
   <IonApp>
-    {!pageswitcher? <FirstPage setPageSwitcher={setPageSwitcher}/> : 
+    {!login.auth ? 
+    <IonReactRouter>
+      <Route exact path='/register'>
+    <Register /> 
+    </Route>
+    <Redirect exact from="/" to="/register">
+    </Redirect>
+    <Route exact path="/login">
+    <Login  login={login} setLogin={setLogin} setuser_id={setuser_id} /> 
+    </Route>
+    </IonReactRouter>
+     :
     <IonReactRouter>  
     <IonRouterOutlet>          
     </IonRouterOutlet>
@@ -103,11 +131,6 @@ const App: React.FC = () => {
             </Route>
           <Route path="/myevents" component={MyEvents}>
           </Route>
-          <Route path="/Login" >
-            <Login login={login} setLogin={setLogin} setuser_id={setuser_id}/>
-          </Route>
-          <Route path="/Register" component={Register}>
-          </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="tab1" href="/tab1">
@@ -127,11 +150,8 @@ const App: React.FC = () => {
           </IonTabButton>
         </IonTabBar>
   </IonTabs>
-</IonReactRouter>
-    
-    }
-    
+</IonReactRouter>}
   </IonApp>
-);
+);}
 }
 export default App;

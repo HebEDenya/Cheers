@@ -1,6 +1,7 @@
 const {database} = require('../database/db.js')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+require('dotenv').config()
 const saltRounds = 10;
 
 const verifyJWT = (req, res, next) => {
@@ -31,7 +32,7 @@ const userLogin = (req, res) => {
                   if (response) {
                     //create jwt token
                     const id = result[0].id
-                    const token = jwt.sign({id}, "jwtSecret", {
+                    const token = jwt.sign({id}, process.env.HASHPASS, {
                       expiresIn: 300,
                     })
                     req.session.user = result;
@@ -54,7 +55,7 @@ const userRegister = (req, res) => {
       //hashing password
       bcrypt.hash(user_password, saltRounds, (err, hash) => {
         if (err) {
-          console.log(err)
+          res.status(400).send(err)
         }
         database.query(`INSERT INTO USERS (email,username, password) VALUES ('${user_email}','${user_name}','${hash}')`).then((result) => {
           res.status(200).send({ message: user_name +" "+'successfully register' })

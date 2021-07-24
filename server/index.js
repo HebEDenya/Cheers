@@ -9,6 +9,7 @@ const routesB = require('./routers/routerB')
 const cookieParser = require("cookie-parser");
 const session = require('express-session');
 const routesAmin = require('./routers/routerAmin.js');
+require('dotenv').config()
 const port = process.env.PORT || 3001;
 const app = express()
 app.use(morgan('dev'));
@@ -21,7 +22,7 @@ app.use(cors({
   }));
   app.use(session({
     key: "userId",
-    secret: "subscribe",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {

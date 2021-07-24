@@ -1,22 +1,27 @@
-import { IonIcon, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonItem, IonLabel, IonList, IonItemDivider, IonButton, IonFooter, } from '@ionic/react';
+import { IonIcon, IonContent, IonHeader, IonPage,useIonAlert , IonTitle, IonToolbar, IonInput, IonItem, IonLabel, IonList, IonItemDivider, IonButton, IonFooter, } from '@ionic/react';
 //import ExploreContainer from '../components/ExploreContainer';
 import axios from 'axios';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 // import './Register.scss';
 //import { star } from 'ionicons/icons';
 const Register: React.FC = () => {
     const [emailReg, setemailReg] = useState<string>();
     const [usernameReg, setUsernameReg] = useState<string>();
     const [passwordReg, setPasswordReg] = useState<string>();
+    const [isRegistred, setIsregistred] = useState<boolean>(false)
+    const [present] = useIonAlert();
+
     const userRegister = () => {
       axios.post("http://localhost:3001/api/user/register", {
         email: emailReg,
         username: usernameReg,
         password: passwordReg,
       }).then((response) => {
-        console.log(response.data.message)
-        if(response.data.message) {
-          alert(response.data.message)
+        console.log(response)
+        if(response.data.message && response.statusText ==="OK") {
+          setIsregistred(true)
+          present(`${response.data.message}`, [{ text: 'Ok' }])
         } 
       })
     }
@@ -43,7 +48,7 @@ const Register: React.FC = () => {
         </IonItem>
       </IonList>
       <div className="ion-text-center custom-font">
-      <IonButton onClick={ userRegister} size="small" shape="round" fill="outline">Signup</IonButton>
+     {!isRegistred? <IonButton onClick={ userRegister} size="small" shape="round" fill="outline">Signup</IonButton>: <IonButton routerLink="Login" size="small" shape="round" fill="outline">Go to log in</IonButton> }
       </div>
     </IonContent>
   </IonPage>

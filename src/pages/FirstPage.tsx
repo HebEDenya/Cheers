@@ -5,11 +5,11 @@ interface ContainerProps {
   setPageSwitcher: any,
 }
 
-const FirstPage: React.FC<ContainerProps>  = ({setPageSwitcher}) => {
+const FirstPage: React.FC  = () => {
     return (
       <IonPage>
         <IonToolbar></IonToolbar>
-        <IonImg src={hotocheerse} onClick={()=> {setPageSwitcher(true)}}/>
+        <IonImg src={hotocheerse} />
       </IonPage>
     );
   };

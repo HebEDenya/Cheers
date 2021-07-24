@@ -54,7 +54,7 @@ const userRegister = (req, res) => {
       //hashing password
       bcrypt.hash(user_password, saltRounds, (err, hash) => {
         if (err) {
-          console.log(err)
+          res.status(400).send(err)
         }
         database.query(`INSERT INTO USERS (email,username, password) VALUES ('${user_email}','${user_name}','${hash}')`).then((result) => {
           res.status(200).send({ message: user_name +" "+'successfully register' })

@@ -82,8 +82,6 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser}) => {
           </IonCardContent>
         </IonCard>
     }
-        
-
         <IonCard routerLink="/myevents">
           <IonCardContent className="my_account_text">
             My Events

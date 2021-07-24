@@ -37,7 +37,6 @@ const App: React.FC = () => {
   const handleGettingUserCoinsInfo = () => {
     axios.get(`/api/getCoins/${user_id}`).then((result) => {
       setCoinsUser(result.data[0].coins_quantity)
-      // console.log(result.data[0].coins_quantity);
     }).catch(err=>{console.log(err);
     })
   }
@@ -60,7 +59,7 @@ const App: React.FC = () => {
   return (
   <IonApp>
     {!pageswitcher? <FirstPage setPageSwitcher={setPageSwitcher}/> : 
-    <IonReactRouter>
+    <IonReactRouter>  
     <IonRouterOutlet>          
     </IonRouterOutlet>
       <IonTabs>
@@ -82,7 +81,8 @@ const App: React.FC = () => {
           </Route>
           <Route path="/update" component={UpdateProfil}>
           </Route>
-          <Route path="/CreateEvent" component={CreateEventComponenetPart1}>
+          <Route path="/CreateEvent" >
+            <CreateEventComponenetPart1 setCoinsUser={setCoinsUser} coinsUser={coinsUser}/>
           </Route>
           <Route path="/CoinsPurchase" >
             <CoinsPurchaser  coinsUser= {coinsUser}setCoinsUser={setCoinsUser} />

@@ -4,9 +4,9 @@ const handle = (req) => {
   return database.query(`SELECT * FROM USERS WHERE user_id=${req.params.id}`);
 };
 
-const update = (params, body) => {
+const update = (params, body, avatarImg) => {
   return database.query(
-    `UPDATE USERS SET description = '${body.description}' WHERE user_id=${params.id}`
+    `UPDATE USERS SET description = '${body.description}', image = '${avatarImg}' WHERE user_id=${params.id}`
   );
 };
 

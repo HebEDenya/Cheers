@@ -3,6 +3,7 @@ const {
   update,
   getEvent,
 } = require("../queries/query_user/queriesAz.js");
+const { cloudinary } = require("../../cloudinary");
 
 const selectRequest = (req, res) => {
   handle(req)
@@ -17,9 +18,16 @@ const selectRequest = (req, res) => {
 const updateRequest = (req, res) => {
   let params = req.params;
   let body = req.body;
-  update(params, body)
+  const fileStr = req.body.image;
+  cloudinary.uploader
+    .upload(fileStr, {
+      upload_preset: "dev_setups",
+    })
     .then((result) => {
-      res.send(result);
+      let image = result.url;
+      update(params, body, image).then((result) => {
+        res.send(result);
+      });
     })
     .catch((err) => {
       console.error(err);

@@ -50,9 +50,13 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser}) => {
       &nbsp;
       <IonContent>
         <IonHeader class="ion-margin">
-          <IonTitle class="ion-margin">{data.username}</IonTitle>
-          <IonAvatar class="ion-margin">
-            <img src={data.image} alt="" />
+          <IonTitle class="ion-margin" className="avatar_username">{data.username}</IonTitle>
+          <IonAvatar class="ion-margin" className="avatar_image">
+            <img src={
+                data.image !== null
+                  ? data.image
+                  : "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png"
+              } alt="" />
           </IonAvatar>
         </IonHeader>
         <IonText className="email-address">{data.email}</IonText>
@@ -65,7 +69,8 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser}) => {
             </div>{" "}
           </IonCardContent>
         </IonCard>
-      {coinsUser?
+
+        {coinsUser?
       <IonCard routerLink="/CreateEvent">
       <IonCardContent className="my_account_text">
         Create Event
@@ -82,7 +87,6 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser}) => {
           </IonCardContent>
         </IonCard>
     }
-        
 
         <IonCard routerLink="/myevents">
           <IonCardContent className="my_account_text">

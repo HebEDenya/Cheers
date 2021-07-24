@@ -1,4 +1,4 @@
-import {IonAvatar, IonChip, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonItem, IonFooter, IonList, IonItemDivider, IonButton } from '@ionic/react';
+import {IonAvatar, IonChip, IonContent, IonHeader, IonPage,useIonAlert, IonTitle, IonToolbar, IonInput, IonItem, IonFooter, IonList, IonItemDivider, IonButton } from '@ionic/react';
 //import ExploreContainer from '../components/ExploreContainer';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
@@ -6,43 +6,51 @@ import React, { useState, useEffect } from 'react';
 import Tab1 from './Tab1';
 import {Link} from 'react-router-dom'
 import { useHistory } from 'react-router'
-const Login: React.FC = () => {
+
+interface loginProps {
+    login: any,
+    setLogin: any,
+    setuser_id:any
+  }
+
+
+const Login: React.FC<loginProps> = ({login, setLogin,setuser_id}) => {
     const [username, setUsername] = useState<string>();
     const [password, setPassword] =  useState<string>();
     const [loginStatus, setLoginStatus] =  useState<boolean>(false);
     axios.defaults.withCredentials = true;
     const history = useHistory();
+    const [present] = useIonAlert();
+
     const userLogin = () => {
       axios.post("http://localhost:3001/api/user/login", {
         username: username,
         password: password,
       }).then((response) => {
-        console.log(response)
+        console.log(response,'hhhhhhh')
         if(response.data.message) {
           setLoginStatus(false);
-          alert(response.data.message)
+          present(`${response.data.message}`, [{ text: 'Ok' }])
         } else {
           localStorage.setItem("token", response.data.token)
           setLoginStatus(true);
-          window.history.replaceState({}, "", "/home")
-          history.go(0);
-          console.log(response.data.result[0].username+ ' is connected')
+          setLogin({auth: response.data.auth, result: response.data.result, token: response.data.token})
+          setuser_id(response.data.result.user_id)
+        //   window.history.replaceState({}, "", "/home")
+        //   history.go(0);
+          console.log(response+ ' is connected')
         }
       })
     }
     useEffect(() => {
        axios.get("http://localhost:3001/api/user/login").then((response) => {
-        console.log(response)
-        if(response.data.loggedIn === true) {
+        if(response.data.auth === true) {
+            console.log(response.data.auth);
             setLoginStatus(response.data.result[0].username)
         }
       })
     }, [])
   return (
-    // <div>
-    // {loginStatus ? <div><Tab1 /></div>
-    //   :<div></div>}
-    // </div>
     <IonPage>
       <IonHeader className="ion-header ion-no-border">
         <IonToolbar>

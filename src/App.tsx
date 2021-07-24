@@ -40,7 +40,8 @@ import Register from "./pages/Register";
 const App: React.FC = () => {
   const [pageswitcher, setPageSwitcher] = useState<boolean>(false)
   const [coinsUser, setCoinsUser] = useState<number>(40)
-  const [user_id, setuser_id] = useState<number>(5)
+  const [user_id, setuser_id] = useState<number |null>(null)
+  const [login, setLogin] = useState<{auth:boolean, result:any, token: string}>({auth:false, result:{}, token:''})
   const [events, setEvents] = useState([]);
 
   ///// to get the users coins
@@ -102,7 +103,8 @@ const App: React.FC = () => {
             </Route>
           <Route path="/myevents" component={MyEvents}>
           </Route>
-          <Route path="/Login" component={Login}>
+          <Route path="/Login" >
+            <Login login={login} setLogin={setLogin} setuser_id={setuser_id}/>
           </Route>
           <Route path="/Register" component={Register}>
           </Route>

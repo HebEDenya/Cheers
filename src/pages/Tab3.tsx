@@ -58,7 +58,7 @@ const Tab3: React.FC<ContainerProps> = ({user_id}) => {
             </IonRow>
             <IonRow>
             <IonCol size="10.5">
-            <IonLabel id="price_favorite_size">{item.price=== "Free"? "Free" : item.price +'Dt'}</IonLabel>
+            <IonLabel id="price_favorite_size">{item.price=== "Free"? "Free" : item.price +' DT'}</IonLabel>
           </IonCol>
             <IonCol>
           <IonIcon onClick={()=> {setHeartButtonClick({clicked:true, btn_Id:item.event_id})}} icon={heart}  id="heart_favorite-hover"/> 

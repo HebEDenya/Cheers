@@ -48,7 +48,7 @@ const Tab1: React.FC <ContainerProps>= ({events}) => {
             </IonRow>
             <IonRow>
             <IonCol size="10.5">
-            <IonLabel id="price_favorite_size">{event.price=== "Free"? "Free" : event.price +'Dt'}</IonLabel>
+            <IonLabel id="price_favorite_size">{event.price=== "Free"? "Free" : event.price +' DT'}</IonLabel>
           </IonCol>
             <IonCol>
           <Icon icon={heartIcon} id="heart_favorite-hover"/> 

@@ -8,17 +8,15 @@ import {
   IonItem,
   IonInput,
   IonLabel,
-  IonText,
-  IonListHeader,
   IonContent,
-  IonTextarea,
   IonCard,
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
   IonDatetime,
   IonButtons,
-  IonBackButton
+  IonBackButton,
+  IonButton
 } from "@ionic/react";
 import "./MyEvents.scss";
 import axios from "axios";
@@ -43,7 +41,7 @@ const MyEvents: React.FC<props> = ({user_id}) => {
   useEffect(() => {
     getEvents();
   }, []);
-
+  
   return (
     <>
       <IonPage>
@@ -57,7 +55,8 @@ const MyEvents: React.FC<props> = ({user_id}) => {
     </IonHeader>
         <IonContent fullscreen>
           &nbsp;
-          {data.map((event, key) => {
+          {data.length ? 
+          data.map((event, key) => {
             return (
               <IonCard key={key}>
                 <img className="favorite_img_size" src={event.image} alt="" />
@@ -77,8 +76,21 @@ const MyEvents: React.FC<props> = ({user_id}) => {
                   </IonLabel>
                 </IonCardHeader>
               </IonCard>
-            );
-          })}
+            )
+          }) : 
+          <>
+        &nbsp;
+        <IonContent fullscreen>
+           &nbsp;
+          <IonCard>
+          <img src="https://res.cloudinary.com/dxhyydpng/image/upload/v1627253594/yuq8efuvxh306tuu0dp5.gif" alt=""  className="" />
+          <IonCardHeader>
+          <IonButton fill="outline" expand="full" routerLink="/CreateEvent"> Create Events </IonButton>
+        </IonCardHeader>
+        </IonCard>
+        </IonContent>
+        </>
+        }
         </IonContent>
       </IonPage>
     </>

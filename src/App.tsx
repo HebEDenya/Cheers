@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Redirect, Route,  } from "react-router-dom";
+import { Redirect, Route, useHistory } from "react-router-dom";
 import {
   IonApp,
   IonIcon,
@@ -47,12 +47,14 @@ const App: React.FC = () => {
   const [login, setLogin] = useState<{auth:boolean, result:any}>({auth:false, result:{}})
   const [events, setEvents] = useState([]);
   const [type_user, setTypeUser] = useState<string | null>(null);
+  const [logOut, setLogout] = useState<boolean>(false);
+
   
 /// for the first page to load 
   useEffect(()=> {
     setTimeout(()=> {
       setIsLoading(false)
-    },1000);
+    },2000);
   },[])
 
 
@@ -76,6 +78,13 @@ const App: React.FC = () => {
  useEffect(()=> {
   readCookie()
  },[])
+
+ //remove Cookies user_id and type_use when logOut
+  if (logOut) {
+    Cookies.remove("user_id")
+    Cookies.remove("type_user")   
+    localStorage.removeItem('token')
+  }
 
   ///// to get the users coins
   const handleGettingUserCoinsInfo = () => {
@@ -121,6 +130,7 @@ const App: React.FC = () => {
     <Route exact path="/login">
     <Login  login={login} setLogin={setLogin} setuser_id={setuser_id} /> 
     </Route>
+    <Redirect exact from="/tab2" to="/login"></Redirect>
     </IonReactRouter>
      :
     <IonReactRouter>  
@@ -133,7 +143,7 @@ const App: React.FC = () => {
             <Tab1  events = {events}/>
           </Route>
           <Route exact path="/tab2">
-            <Tab2 coinsUser= {coinsUser} user_id={user_id}/>
+            <Tab2 coinsUser= {coinsUser} user_id={user_id} setLogout={setLogout}/>
           </Route>
           <Route path="/tab3" >
             <Tab3 user_id={user_id} />

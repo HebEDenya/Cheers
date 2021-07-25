@@ -50,6 +50,9 @@ const Register: React.FC = () => {
       <div className="ion-text-center custom-font">
      {!isRegistred? <IonButton onClick={ userRegister} size="small" shape="round" fill="outline">Signup</IonButton>: <IonButton routerLink="Login" size="small" shape="round" fill="outline">Go to log in</IonButton> }
       </div>
+      <IonToolbar>
+    <div className="ion-text-center custom-font">Have an account? <Link to="/login">Login</Link></div>
+  </IonToolbar>
     </IonContent>
   </IonPage>
   );

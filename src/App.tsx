@@ -106,6 +106,7 @@ const App: React.FC = () => {
     </IonRouterOutlet>
       <IonTabs>
         <IonRouterOutlet>
+    <Redirect exact from="/login" to="/tab1" />
           <Route exact path="/tab1">
             <Tab1  events = {events}/>
           </Route>
@@ -116,7 +117,7 @@ const App: React.FC = () => {
             <Tab3 />
           </Route>
           <Route path="/tab5">
-            <Tab5 />
+            <Tab5 events={events} />
           </Route>
           <Route exact path="/">
             <Redirect to="/tab1" />

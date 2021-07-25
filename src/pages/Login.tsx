@@ -35,10 +35,7 @@ const Login: React.FC<loginProps> = ({login, setLogin,setuser_id}) => {
           localStorage.setItem("token", response.data.token)
           setLoginStatus(true);
           setLogin({auth: response.data.auth, result: response.data.result, token: response.data.token})
-          setuser_id(response.data.result.user_id)
-        //   window.history.replaceState({}, "", "/home")
-        //   history.go(0);
-          console.log(response+ ' is connected')
+          setuser_id(response.data.result.user_id)  
         }
       })
     }

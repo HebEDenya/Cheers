@@ -4,7 +4,7 @@ const {cloudinary} =require('../../cloudinary')
 
 
 // post event + update the coins (-20 for each event created)
-const handlePostReaquestCreateEvent =  (req,res) => {    
+const handlePostReaquestCreateEvent =  (req,res) => {   
      const fileStr = req.body.image;
      cloudinary.uploader.upload(fileStr, {
       upload_preset :'dev_setups'})

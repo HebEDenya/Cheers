@@ -21,24 +21,26 @@ import axios from "axios";
 
 interface ContainerProps {
   coinsUser: number,
+  user_id: number
 }
 
 
-const Tab2: React.FC<ContainerProps> = ({coinsUser}) => {
+const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id}) => {
   const [data, setData] = useState<any | null>([]);
   const [present] = useIonAlert();
 
 
   // Get the user Data from the Database
   const getUserData = () => {
+    if (user_id) {
     axios
-      .get("http://localhost:3001/api/user/5") // For now we use user_id
+      .get(`http://localhost:3001/api/user/${user_id}`) // For now we use user_id
       .then((res) => {
         setData(res.data[0]);
       })
       .catch((err) => {
         console.log(err);
-      });
+      });}
   };
 
   useEffect(() => {

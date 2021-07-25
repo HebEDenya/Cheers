@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect, Route,  } from "react-router-dom";
 import {
   IonApp,
@@ -15,7 +15,7 @@ import { IonReactRouter } from "@ionic/react-router";
 import CreateEventComponenetPart1 from "./components/CreateEvent.Part1";
 import CoinsPurchaser from "./components/Coins";
 import "./App.css";
-import { heart, person, home, chatboxEllipses, search } from "ionicons/icons";
+import { heart, person, home, chatboxEllipses, search, personAdd,build } from "ionicons/icons";
 import Tab1 from "./pages/Tab1";
 import Tab2 from "./pages/Tab2";
 import Tab3 from "./pages/Tab3";
@@ -37,16 +37,17 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Cookies from "js-cookie";
 
 
 const App: React.FC = () => {
   const [isLoding, setIsLoading] = useState<boolean>(true)
   const [coinsUser, setCoinsUser] = useState<number>(40)
   const [user_id, setuser_id] = useState<number |null>(null)
-  const [login, setLogin] = useState<{auth:boolean, result:any, token: string}>({auth:false, result:{}, token:''})
+  const [login, setLogin] = useState<{auth:boolean, result:any}>({auth:false, result:{}})
   const [events, setEvents] = useState([]);
+  const [type_user, setTypeUser] = useState<string | null>(null);
   
-   
 /// for the first page to load 
   useEffect(()=> {
     setTimeout(()=> {
@@ -54,10 +55,31 @@ const App: React.FC = () => {
     },1000);
   },[])
 
-  
+
+  // add id to cookies 
+      if ( login.auth) {
+      const id = login.result.user_id
+      const type_user = login.result.type_user
+      Cookies.set("user_id", `${id}`) 
+      Cookies.set("type_user", `${type_user}`) 
+    }
+ 
+ // to get cookie
+ const readCookie = () => {
+  const user = Cookies.get("user_id")
+  const type = Cookies.get("type_user")
+  if (user) {
+  setuser_id(+user)
+  setTypeUser(type)
+ }
+ }
+ useEffect(()=> {
+  readCookie()
+ },[])
 
   ///// to get the users coins
   const handleGettingUserCoinsInfo = () => {
+    if(user_id) {
     axios
       .get(`/api/getCoins/${user_id}`)
       .then((result) => {
@@ -65,12 +87,12 @@ const App: React.FC = () => {
       })
       .catch((err) => {
         console.log(err);
-      });
+      });}
   };
 
   useEffect(() => {
     handleGettingUserCoinsInfo();
-  }, [coinsUser]);
+  }, [coinsUser, user_id]);
   
   // to get all events
   useEffect(() => {
@@ -89,7 +111,7 @@ const App: React.FC = () => {
   }  else {
   return (
   <IonApp>
-    {!login.auth ? 
+    {!login.auth && user_id===null ? 
     <IonReactRouter>
       <Route exact path='/register'>
     <Register /> 
@@ -111,10 +133,10 @@ const App: React.FC = () => {
             <Tab1  events = {events}/>
           </Route>
           <Route exact path="/tab2">
-            <Tab2 coinsUser= {coinsUser}/>
+            <Tab2 coinsUser= {coinsUser} user_id={user_id}/>
           </Route>
-          <Route path="/tab3">
-            <Tab3 />
+          <Route path="/tab3" >
+            <Tab3 user_id={user_id} />
           </Route>
           <Route path="/tab5">
             <Tab5 events={events} />
@@ -122,34 +144,38 @@ const App: React.FC = () => {
           <Route exact path="/">
             <Redirect to="/tab1" />
           </Route>
-          <Route path="/update" component={UpdateProfil}>
+          <Route path="/update">
+            <UpdateProfil user_id={user_id}  />
           </Route>
           <Route path="/CreateEvent" >
-            <CreateEventComponenetPart1 setCoinsUser={setCoinsUser} coinsUser={coinsUser}/>
+            <CreateEventComponenetPart1 setCoinsUser={setCoinsUser} coinsUser={coinsUser} user_id={user_id}/>
           </Route>
           <Route path="/CoinsPurchase" >
             <CoinsPurchaser  coinsUser= {coinsUser}setCoinsUser={setCoinsUser} />
             </Route>
-          <Route path="/myevents" component={MyEvents}>
+          <Route path="/myevents" >
+            <MyEvents user_id={user_id} />
           </Route>
         </IonRouterOutlet>
+       
         <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
-            <IonIcon icon={home} />
-          </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon icon={person} />
-          </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon icon={heart} />
-          </IonTabButton>
-          <IonTabButton tab="tab4" href="#">
-            <IonIcon icon={chatboxEllipses} />
-          </IonTabButton>
-          <IonTabButton tab="tab5" href="/tab5">
-            <IonIcon icon={search} />
-          </IonTabButton>
-        </IonTabBar>
+        <IonTabButton tab="tab1" href="/tab1">
+          <IonIcon icon={home} />
+        </IonTabButton>
+        <IonTabButton tab="tab2" href="/tab2">
+          <IonIcon icon={person} />
+        </IonTabButton>
+        <IonTabButton tab="tab3" href="/tab3">
+          <IonIcon icon={heart} />
+        </IonTabButton>
+        <IonTabButton tab="tab4" href="#">
+          <IonIcon icon={chatboxEllipses} />
+        </IonTabButton>
+        <IonTabButton tab="tab5" href="/tab5">
+          <IonIcon icon={search} />
+        </IonTabButton>
+      </IonTabBar> 
+        
   </IonTabs>
 </IonReactRouter>}
   </IonApp>

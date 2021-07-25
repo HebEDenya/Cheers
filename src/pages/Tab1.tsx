@@ -23,7 +23,7 @@ const Tab1: React.FC <ContainerProps>= ({events}) => {
          </IonLabel>
          </IonListHeader>
       </IonHeader>
-      <IonContent>
+      
         {/* <IonItem>
             {categories.map((category,index) => (
               <IonImg
@@ -59,7 +59,7 @@ const Tab1: React.FC <ContainerProps>= ({events}) => {
         </IonCard>
                   
                 ))}
-              </IonContent>
+              
             </IonContent> 
         <ExploreContainer name="Tab 1 page" />
     </IonPage>

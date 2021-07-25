@@ -7,12 +7,13 @@ import ImageContainer from './CreateEventImage';
 import axios from 'axios';
 
 interface props {
-  setCoinsUser: any;
-  coinsUser:number;
+  setCoinsUser: any,
+  coinsUser:number,
+  user_id:number
 }
 
 
-const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser}) => {
+const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id}) => {
   const [present] = useIonAlert();
   const [title, setTitle] = useState<string>();
   const [description, setDescription] = useState<string>();
@@ -27,7 +28,6 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser}) => {
   const [buttonClick, setButtonClick] = useState<boolean | null>(false);
   const [switchPagesCreateEvent, setSwitchPageCreateEvent]= useState<boolean>(false);
   const [image, setImage] = useState<string>('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png');
-  const [user_id, setuser_id] = useState<number>(5)
   
   const history = useHistory()
   if(buttonClick === null) {
@@ -261,7 +261,7 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser}) => {
         &nbsp;
         {!buttonClick ? <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false);refreshInfoAfterSubmit();}} className="second_button_create_event" >Cancel</button>
          <IonButton  size="default"  type="submit" className="button_create_event" 
-         onClick={()=> { if (verifyInput()) {  postReaquestHandler()} 
+         onClick={()=> { if (verifyInput() && user_id) {  postReaquestHandler()} 
           else if (!verifyInput()){ present('All mandatory * fields must be filled', [{ text: 'Ok' }]) } }}>Confirme</IonButton>
         </>:
         <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false); }} className="second_button_create_event" > Account</button>

@@ -19,7 +19,7 @@ interface searchProps {
          </IonLabel>
          </IonListHeader>
       </IonHeader>
-      <IonContent>
+     
       <IonToolbar>
       &nbsp;
         <IonSearchbar value={searchText} type="search" spellcheck={true} onIonChange={e => setSearchText(e.detail.value!)}></IonSearchbar>
@@ -27,9 +27,10 @@ interface searchProps {
       <IonContent>
       {events.filter((item) => {
         let search = searchText.toLocaleLowerCase()
-         return item.location === search || item.title === search || item.category === search || item.price === search
+         return item.location.includes(search)   || item.title.includes(search) || item.category === search || item.price === search
         }).map((item,index) => {
-          return (
+          if (searchText ) {            
+         return (
             <IonCard key={index}>
             <img src={item.image} alt=""  className="favorite_img_size" />
         <IonCardHeader>
@@ -47,9 +48,10 @@ interface searchProps {
             </IonGrid>     
         </IonCardHeader>
         </IonCard>
-          )
+          ) } else if (!searchText.length){
+            return ('')
+          } 
         })}
-      </IonContent>
     </IonContent>
     </IonPage>
     );

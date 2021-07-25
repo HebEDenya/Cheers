@@ -13,22 +13,29 @@ import {
   IonIcon,
   useIonAlert
 } from "@ionic/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, } from "react";
 import ExploreContainer from "../components/ExploreContainer";
-import { chevronForwardOutline } from "ionicons/icons";
+import { chevronForwardOutline, logOut } from "ionicons/icons";
+import { useHistory } from "react-router";
 import "./Tab2.scss";
 import axios from "axios";
 
 interface ContainerProps {
   coinsUser: number,
-  user_id: number
+  user_id: number,
+  setLogout: any
 }
 
 
-const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id}) => {
+const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id,setLogout}) => {
   const [data, setData] = useState<any | null>([]);
   const [present] = useIonAlert();
-
+  const history = useHistory()
+  
+  const LogoutRedirect = () => {
+    setLogout(true);
+    history.go(0)
+  }
 
   // Get the user Data from the Database
   const getUserData = () => {
@@ -108,7 +115,7 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id}) => {
       </IonCardContent>
         </IonCard>
 
-        <IonCard>
+        <IonCard onClick={()=>{LogoutRedirect()}} >
           <IonCardContent className="my_account_text">
             Log Out
             <div className="userDasbord_icon">

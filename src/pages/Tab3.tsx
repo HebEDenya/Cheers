@@ -5,19 +5,24 @@ import axios from 'axios';
 import moment from "moment";
 import './Tab3.scss';
 
-const Tab3: React.FC = () => {
+interface ContainerProps {
+  user_id: number
+}
+
+const Tab3: React.FC<ContainerProps> = ({user_id}) => {
   const [heartButtonClick, setHeartButtonClick]= useState<{clicked:boolean, btn_Id: number | null}>({clicked:false, btn_Id:null })
   const [favoriteEvent, setFavoriteEvent]=useState<Array<any>>([])
-  const [user_id, setUser_id]=useState<number>(5)
   const [present] = useIonAlert();
 
   useEffect(()=> {
+    if (user_id) {
     axios.get(`/api/favoriteevent/${user_id}`).then((result) => {
       setFavoriteEvent(result.data) 
-    })
+    })}
   }, [])
 
   useEffect(() => {
+    if (user_id) {
     setFavoriteEvent(favoriteEvent.filter((item)=> item.event_id !==heartButtonClick.btn_Id))
     if(heartButtonClick.btn_Id) {
       axios.delete(`/api/removefromfavorite/${heartButtonClick.btn_Id}/${user_id}`).then((result)=> {
@@ -25,7 +30,7 @@ const Tab3: React.FC = () => {
            present('Event removed successfully from favorite')
          }
       })
-    }
+    }}
   }, [heartButtonClick.btn_Id])
 
   return (

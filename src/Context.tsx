@@ -8,8 +8,9 @@ export const Context = React.createContext<any>(undefined);
 
 export const TheProvider:React.FC = ({children}) => {
  const [userValue, setuserValue] = React.useState({
-     user_id: 1,
-     userInfo : [],
+    auth:false, 
+    result:{}, 
+    token:''
  });
 
   //the store object that we will use 

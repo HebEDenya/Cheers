@@ -17,7 +17,7 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(cors({
     origin: ["http://localhost:3001", "http://localhost:3000"],
-    methods: ["GET", "POST","UPDATE", "DELETE", "PATCH", "PUT"],
+    methods: ["GET", "POST","UPDATE", "DELETE", "PATCH", "PUT", "OPTIONS"],
     credentials: true,
   }));
   app.use(session({
@@ -26,10 +26,10 @@ app.use(cors({
     resave: false,
     saveUninitialized: false,
     cookie: {
-      expires: 60 * 60 * 24,
+      expires: 6000 * 6000 * 240,
     }
   }));
-  app.use(cookieParser());
+  app.use(cookieParser(process.env.SECRET));
 
 app.use('/api', routes);
 app.use('/api',routesAz);

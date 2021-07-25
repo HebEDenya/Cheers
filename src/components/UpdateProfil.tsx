@@ -21,7 +21,11 @@ import "./UpdateProfil.scss";
 import ImageContainer from "./CreateEventImage";
 import axios from "axios";
 
-const UpdateProfil: React.FC = () => {
+interface ContainerProps {
+  user_id: number
+}
+
+const UpdateProfil: React.FC<ContainerProps> = ({user_id}) => {
   const [imageUpdated, setImageUpdated] = useState<boolean>(false);
   const [present] = useIonAlert();
   const [image, setImage] = useState<string>(
@@ -31,21 +35,23 @@ const UpdateProfil: React.FC = () => {
   const [description, setDescription] = useState<string>("");
   // Get the image of the user
   const getUserData = () => {
+    if (user_id) {
     axios
-      .get("http://localhost:3001/api/user/5")
+      .get(`http://localhost:3001/api/user/${user_id}`)
       .then((res) => {
         setImg(res.data[0].image);
         setDescription(res.data[0].description);
       })
       .catch((err) => {
         console.log(err);
-      });
+      });}
   };
 
   // Confirm updated request
   const confirmUpdate = () => {
+    if (user_id) {
     axios
-      .put("http://localhost:3001/api/user/5/updateprofil", { description, image })
+      .put(`http://localhost:3001/api/user/${user_id}/updateprofil`, { description, image })
       .then((result) => {
         if (result.statusText === "OK") {
           setImageUpdated(true)
@@ -53,7 +59,7 @@ const UpdateProfil: React.FC = () => {
       })
       .catch((err) => {
         console.log(err);
-      });
+      });}
   };
 
   useEffect(() => {

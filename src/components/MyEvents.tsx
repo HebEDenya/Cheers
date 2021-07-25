@@ -23,15 +23,21 @@ import {
 import "./MyEvents.scss";
 import axios from "axios";
 
-const MyEvents: React.FC = () => {
+interface props {
+  user_id:number
+}
+
+const MyEvents: React.FC<props> = ({user_id}) => {
   const [data, setData] = useState<any | null>([]);
 
   // Get events for the user
   const getEvents = () => {
-    axios.get("http://localhost:3001/api/events/5").then((res) => {
+    if(user_id) {
+    axios.get(`/api/events/${user_id}`).then((res) => {
       // Hard coded ID
       setData(res.data);
     });
+  }
   };
 
   useEffect(() => {

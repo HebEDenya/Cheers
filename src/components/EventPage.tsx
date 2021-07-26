@@ -24,8 +24,10 @@ import {
   IonAvatar,
   IonText,
   IonTextarea,
+  IonButton,
+  IonFabButton
 } from "@ionic/react";
-import { cashSharp, locationSharp } from "ionicons/icons";
+import { cashSharp, chatbubbleEllipsesOutline, locationSharp } from "ionicons/icons";
 import "./EventPage.scss";
 
 interface ContainerProps {
@@ -91,6 +93,7 @@ const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
             {data.username}
           </IonLabel>
           <IonLabel className="organizer_eventpage">Organizer</IonLabel>
+          <IonFabButton className="btn_eventpage" color="light" size="small"><IonIcon icon={chatbubbleEllipsesOutline} size="small" /></IonFabButton>
           <IonLabel className="about_eventpage">About</IonLabel>
           <IonText className="abouttext_eventpage">
             <p>{data.description}</p>

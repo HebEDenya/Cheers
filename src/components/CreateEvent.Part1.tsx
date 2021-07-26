@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import {IonToolbar,useIonAlert, IonLabel ,IonFooter, IonTitle,IonPage, IonBackButton, IonButtons,IonHeader,IonProgressBar,IonText,IonContent, IonInput,IonSelectOption, IonItem, IonList, IonSegment, IonIcon,IonSegmentButton, IonTextarea,IonListHeader, IonSelect, IonDatetime, IonButton } from '@ionic/react';
+import {IonToolbar,useIonAlert, IonLabel ,IonFooter,IonSpinner, IonTitle,IonPage, IonBackButton, IonButtons,IonHeader,IonProgressBar,IonText,IonContent, IonInput,IonSelectOption, IonItem, IonList, IonSegment, IonIcon,IonSegmentButton, IonTextarea,IonListHeader, IonSelect, IonDatetime, IonButton } from '@ionic/react';
 import { locate, wifi,card, star,chevronForwardOutline,  chevronBackOutline,calendar, time } from 'ionicons/icons';
 import './CreateEvent.scss'
 import ImageContainer from './CreateEventImage';
@@ -15,6 +15,7 @@ interface props {
 
 const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id}) => {
   const [present] = useIonAlert();
+  const [spiner, setSpiner] = useState<boolean>(false)
   const [title, setTitle] = useState<string>();
   const [description, setDescription] = useState<string>();
   const [categorie, setCategorie] = useState<string>('');
@@ -84,15 +85,15 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id}
       user_id:user_id,
     } 
     axios.post('/api/postEvent', infoStore).then((result) => {
-
       
       if(result.statusText === "Created") {
+        setSpiner(false)
         setCoinsUser(coinsUser-2)
         setButtonClick(true)
         refreshInfoAfterSubmit()
-        present('Event created successfully')
+        present('Event created successfully 👌')
       } 
-    }).catch(e=> {console.log(e); present('An error has occurred', [{ text: 'Ok' }])
+    }).catch(e=> {console.log(e); present('An error has occurred ❌', [{ text: 'Ok' }])
     })
   }
 
@@ -261,8 +262,9 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id}
         &nbsp;
         {!buttonClick ? <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false);refreshInfoAfterSubmit();}} className="second_button_create_event" >Cancel</button>
          <IonButton  size="default"  type="submit" className="button_create_event" 
-         onClick={()=> { if (verifyInput() && user_id) {  postReaquestHandler()} 
+         onClick={()=> { setSpiner(true); if (verifyInput() && user_id) {  postReaquestHandler()} 
           else if (!verifyInput()){ present('All mandatory * fields must be filled', [{ text: 'Ok' }]) } }}>Confirme</IonButton>
+         {spiner? <IonSpinner name="crescent" /> : ''}
         </>:
         <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false); }} className="second_button_create_event" > Account</button>
         <IonButton  size="default" routerLink="/myevents"  className="button_create_event" onClick={()=> {setButtonClick(false); setSwitchPageCreateEvent(false); }}>View Events</IonButton>

@@ -21,12 +21,12 @@ interface searchProps {
      
       <IonToolbar>
       &nbsp;
-        <IonSearchbar value={searchText} type="search" spellcheck={true} onIonChange={e => setSearchText(e.detail.value!)}></IonSearchbar>
+        <IonSearchbar  value={searchText} type="search" spellcheck={true} onIonChange={e => setSearchText(e.detail.value!)}></IonSearchbar>
       </IonToolbar>
       <IonContent>
       {searchText&& events.filter((item) => {
-        let search = searchText.toLocaleLowerCase()        
-         return item.location.includes(search)   || item.title.includes(search) || item.category === search || item.price === search
+        let search = searchText.toLowerCase()
+         return item.location.toLowerCase().includes(search)   || item.title.toLowerCase().includes(search) || item.category.toLowerCase() === search || item.price === search
         }).map((item,index) => {                    
          return (
             <IonCard key={index}>

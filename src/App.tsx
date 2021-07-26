@@ -39,7 +39,10 @@ import "./theme/variables.css";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Cookies from "js-cookie";
-
+import AdminTab1 from "./pages/AdminTab1";
+import AdminTab2 from "./pages/AdminTab2";
+import AdminTab3 from "./pages/AdminTab3";
+import './pages/Admin.scss';
 
 const App: React.FC = () => {
   const [isLoding, setIsLoading] = useState<boolean>(true)
@@ -64,7 +67,7 @@ const App: React.FC = () => {
   // add id to cookies 
       if ( login.auth) {
       const id = login.result.user_id
-      const type_user = login.result.type_user
+      const type_user = login.result.type_user      
       Cookies.set("user_id", `${id}`) 
       Cookies.set("type_user", `${type_user}`) 
     }
@@ -141,7 +144,7 @@ const App: React.FC = () => {
     </IonRouterOutlet>
       <IonTabs>
         <IonRouterOutlet>
-    <Redirect exact from="/login" to="/tab1" />
+   {Cookies.get("type_user") === "superAdmin" ||  Cookies.get("type_user") === "Admin"? <Redirect exact from="/login" to="/adminTab1" /> : <Redirect exact from="/login" to="/tab1" /> }
           <Route exact path="/tab1">
             <Tab1  events = {events} setviewEvent={setviewEvent} viewEvent={viewEvent}/>
           </Route>
@@ -154,9 +157,11 @@ const App: React.FC = () => {
           <Route path="/tab5">
             <Tab5 events={events} />
           </Route>
-          <Route exact path="/">
+         {Cookies.get("type_user") === "superAdmin" ||  Cookies.get("type_user") === "Admin"?<Route exact path="/">
+            <Redirect to="/adminTab1" />
+          </Route> :  <Route exact path="/">
             <Redirect to="/tab1" />
-          </Route>
+          </Route>}
           <Route path="/update">
             <UpdateProfil user_id={user_id}  />
           </Route>
@@ -172,8 +177,29 @@ const App: React.FC = () => {
           <Route path="/eventpage" >
             <EventPage viewEvent={viewEvent} />
           </Route>
+          <Route path="/adminTab1" >
+            <AdminTab1 setLogout={setLogout} type_user= {type_user}/>
+          </Route>
+          <Route path="/adminTab2" >
+            <AdminTab2  events={events} setEvents={setEvents}/>
+          </Route>
+          <Route path="/adminTab3" >
+            <AdminTab3 type_user= {type_user}/>
+          </Route>
         </IonRouterOutlet>
-       
+       {Cookies.get("type_user") === "superAdmin" ||  Cookies.get("type_user") === "Admin"? 
+        <IonTabBar slot="bottom" >
+      <IonTabButton tab="Admin1" href="/adminTab1" className="amdin_tool_bar" >
+        <IonIcon icon={home} className="amdin_tool_bar"/>
+      </IonTabButton>
+      <IonTabButton tab="Admin2" href="/adminTab2" className="amdin_tool_bar">
+        <IonIcon icon={build} className="amdin_tool_bar" />
+      </IonTabButton>
+      <IonTabButton tab="Admin3" href="/adminTab3" className="amdin_tool_bar">
+        <IonIcon icon={personAdd} className="amdin_tool_bar" />
+      </IonTabButton>
+    </IonTabBar>
+:
         <IonTabBar slot="bottom">
         <IonTabButton tab="tab1" href="/tab1">
           <IonIcon icon={home} />
@@ -187,11 +213,11 @@ const App: React.FC = () => {
         <IonTabButton tab="tab4" href="#">
           <IonIcon icon={chatboxEllipses} />
         </IonTabButton>
-        <IonTabButton tab="tab5" href="/tab5">
+        <IonTabButton tab="tab5" href="/tab5" >
           <IonIcon icon={search} />
         </IonTabButton>
       </IonTabBar> 
-        
+  }
   </IonTabs>
 </IonReactRouter>}
   </IonApp>

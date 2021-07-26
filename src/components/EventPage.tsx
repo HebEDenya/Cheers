@@ -87,7 +87,17 @@ const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
           />
           <IonLabel className="span_date">_</IonLabel>
           <IonAvatar className="avatar_eventpage">
-            <img src={data.user_image} alt="" />
+            {!data.user_image ? <img 
+              src={
+                data.user_image !== null
+                  ? data.user_image
+                  : "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png"
+              }
+              alt="profil-face"
+            /> : <img 
+            src={data.user_image}
+            alt="profil-face"
+          /> }
           </IonAvatar>
           <IonLabel className="organizer_name_eventpage">
             {data.username}

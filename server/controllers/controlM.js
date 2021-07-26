@@ -1,6 +1,9 @@
 const {queryPostRequestCreateEvent, selectCoinsFromUsers, updateCoinsUsers, getCoinsUser,getFavoriteEventsOfThUser,
-  selectEventById,removeEventFromFavorite} = require('../queries/query_user/queryM.js')
+  selectEventById,removeEventFromFavorite, getAdminListe, removeAdmin,addNewAdmin, deleteEventByAdmin} = require('../queries/query_user/queryM.js')
 const {cloudinary} =require('../../cloudinary')
+const bcrypt = require('bcrypt');
+require('dotenv').config();
+const saltRounds = 10;
 
 
 // post event + update the coins (-20 for each event created)
@@ -55,9 +58,50 @@ const deleteEventFromFavorite = (req, res) => {
   }).catch((err)=> {res.status(401).send(err)})
 }
 
+//Get the Admin Liste
+const HandleAminListe = (req,res) => {
+  getAdminListe().then((result)=> {
+    res.status(200).send(result)
+  }).catch((err) => {res.status(400).send(err)})
+}
+
+//To remove admin from liste
+
+const handleRemoveAdmin = (req, res)=> {
+  const {user_id} = req.params
+  removeAdmin(user_id).then(() => {
+    res.status(200).send('Admin removed')
+  }).catch((err) => {
+    res.status(400).send(err)
+  })
+}
+//to add new admin
+const handleAddNewAdmin = (req, res) => {
+  const {username, email,type_user,password} = req.body
+  bcrypt.hash(password, saltRounds, (err, hash) => {
+    if (err) {
+      res.status(400).send(err)
+    }
+    addNewAdmin(username, email,type_user,hash).then((result) => {
+    res.status(200).send("added")
+  }).catch((err)=> { res.status(401).send(err)})
+  })
+}
+
+// to delete event by admin 
+const handleDeleteEventByAdmin = (req, res) => {
+  deleteEventByAdmin(req.params.event_id).then(() => {
+    res.status(200).send("event deleted")
+  }).catch((err)=> { res.status(402).send(err)})
+}
+
 module.exports = {
     handlePostReaquestCreateEvent,
     getTheCoinsFromUser,
     selectFavoriteEventsForUser,
     deleteEventFromFavorite,
+    HandleAminListe,
+    handleRemoveAdmin,
+    handleAddNewAdmin,
+    handleDeleteEventByAdmin
 }

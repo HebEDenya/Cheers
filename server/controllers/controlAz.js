@@ -2,6 +2,7 @@ const {
   handle,
   update,
   getEvent,
+  getPageEvent,
 } = require("../queries/query_user/queriesAz.js");
 const { cloudinary } = require("../../cloudinary");
 
@@ -44,8 +45,19 @@ const getEventRequest = (req, res) => {
     });
 };
 
+const getPageEventRequest = (req, res) => {
+  getPageEvent(req)
+  .then((result) => {
+    res.status(200).send(result);
+  })
+  .catch((err) => {
+    res.status(400).send(err);
+  });
+};
+
 module.exports = {
   selectRequest,
   updateRequest,
   getEventRequest,
+  getPageEventRequest,
 };

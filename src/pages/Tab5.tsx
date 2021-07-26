@@ -8,7 +8,6 @@ interface searchProps {
   
   const Tab5: React.FC<searchProps> = ({events}) => {
     const [searchText, setSearchText] = useState<string>('');
-    const [serachExist, setsearchExist]=useState<boolean>(true)
 
     return (
       <IonPage>
@@ -26,7 +25,7 @@ interface searchProps {
       </IonToolbar>
       <IonContent>
       {searchText&& events.filter((item) => {
-        let search = searchText.toLocaleLowerCase()
+        let search = searchText.toLocaleLowerCase()        
          return item.location.includes(search)   || item.title.includes(search) || item.category === search || item.price === search
         }).map((item,index) => {                    
          return (
@@ -41,7 +40,7 @@ interface searchProps {
             </IonRow>
             <IonRow>
             <IonCol size="10.5">
-            <IonLabel id="price_favorite_size">{item.price=== "Free"? "Free" : item.price +'Dt'}</IonLabel>
+            <IonLabel id="price_favorite_size">{item.price=== "Free"? "Free" : item.price +' DT'}</IonLabel>
             </IonCol>
             </IonRow>
             </IonGrid>     

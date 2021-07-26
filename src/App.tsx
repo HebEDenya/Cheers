@@ -152,7 +152,7 @@ const App: React.FC = () => {
             <Tab2 coinsUser= {coinsUser} user_id={user_id} setLogout={setLogout}/>
           </Route>
           <Route path="/tab3" >
-            <Tab3 user_id={user_id} />
+            <Tab3 user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} />
           </Route>
           <Route path="/tab5">
             <Tab5 events={events} />

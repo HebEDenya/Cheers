@@ -1,18 +1,29 @@
 import { IonContent, IonHeader, IonCol,IonTitle,IonPage,IonCardContent,IonIcon,IonButton,IonImg,IonDatetime,useIonAlert, IonCardHeader, IonCard,IonListHeader,IonList,IonLabel,IonCardSubtitle,IonCardTitle, IonGrid, IonRow, IonToolbar } from '@ionic/react';
 import { heart} from 'ionicons/icons';
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import moment from "moment";
 import './Tab3.scss';
 
 interface ContainerProps {
-  user_id: number
+  user_id: number,
+  setviewEvent:any,
+  viewEvent:number,
 }
 
-const Tab3: React.FC<ContainerProps> = ({user_id}) => {
+const Tab3: React.FC<ContainerProps> = ({user_id, setviewEvent, viewEvent}) => {
   const [heartButtonClick, setHeartButtonClick]= useState<{clicked:boolean, btn_Id: number | null}>({clicked:false, btn_Id:null })
   const [favoriteEvent, setFavoriteEvent]=useState<Array<any>>([])
   const [present] = useIonAlert();
+  const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
+  const history = useHistory();
+  
+  // if we click on img cart w go to the event page
+  if(buttontoviewevent) {
+    history.push('/eventpage')
+    setbuttontoviewevent(false)
+  }
 
   useEffect(()=> {
     if (user_id) {
@@ -48,7 +59,7 @@ const Tab3: React.FC<ContainerProps> = ({user_id}) => {
       {favoriteEvent.length ? 
         favoriteEvent.map((item, index)=> { return (
         <IonCard key={index}>
-            <img src={item.image} alt=""  className="favorite_img_size" />
+            <img src={item.image} alt=""  className="favorite_img_size"  onClick={() => {setviewEvent(item.event_id) ; setbuttontoviewevent(true)}} />
         <IonCardHeader>
         <IonGrid>
             <IonCardSubtitle>{item.title}</IonCardSubtitle>

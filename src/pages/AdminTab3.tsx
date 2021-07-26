@@ -85,8 +85,7 @@ useEffect(() => {
         setAddButton(false)
         setAdminList(adminList.concat({email: adminEmail, username:adminUsername, type_user: adminStatus, password: adminPassword}))
         resetValues()
-       }
-       
+       }  
      }).catch(err=> {console.log(err);})
    } else {
     present('Missing input(s)')
@@ -98,7 +97,7 @@ useEffect(() => {
     <IonHeader>
       <IonListHeader>
       <IonLabel className="homepage_admine_title"  color="warning" >
-           List of admin
+           List of admins
        </IonLabel>
        </IonListHeader>
     </IonHeader>

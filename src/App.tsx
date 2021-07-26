@@ -154,9 +154,11 @@ const App: React.FC = () => {
           <Route path="/tab5">
             <Tab5 events={events} />
           </Route>
-          <Route exact path="/">
+         {Cookies.get("type_user") === "superAdmin" ||  Cookies.get("type_user") === "Admin"?<Route exact path="/">
+            <Redirect to="/adminTab1" />
+          </Route> :  <Route exact path="/">
             <Redirect to="/tab1" />
-          </Route>
+          </Route>}
           <Route path="/update">
             <UpdateProfil user_id={user_id}  />
           </Route>
@@ -173,7 +175,7 @@ const App: React.FC = () => {
             <AdminTab1 setLogout={setLogout} type_user= {type_user}/>
           </Route>
           <Route path="/adminTab2" >
-            <AdminTab2  />
+            <AdminTab2  events={events} setEvents={setEvents}/>
           </Route>
           <Route path="/adminTab3" >
             <AdminTab3 type_user= {type_user}/>

@@ -11,5 +11,6 @@ router.delete('/removefromfavorite/:event_id/:user_id', controler.deleteEventFro
 router.get('/listeofadmin', controler.HandleAminListe)
 router.delete('/removeAdmin/:user_id', controler.handleRemoveAdmin)
 router.post('/addadmin',controler.handleAddNewAdmin)
+router.delete('/removevent/:event_id', controler.handleDeleteEventByAdmin)
 
 module.exports = router;

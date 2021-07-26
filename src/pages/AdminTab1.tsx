@@ -20,7 +20,6 @@ import {
   import './Admin.scss' 
   import Cookies from "js-cookie";
   
-  import axios from "axios";
   
   interface adminProps {
     setLogout:any,

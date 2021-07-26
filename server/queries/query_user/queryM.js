@@ -50,6 +50,11 @@ const addNewAdmin = (username, email,type_user,password) => {
     return database.query(`INSERT INTO USERS (username, email, type_user, password) VALUES ('${username}','${email}','${type_user}','${password}')`)
 }
 
+//to delete event by admin
+const deleteEventByAdmin = (id) => {
+    return database.query(`DELETE FROM EVENT WHERE event_id = ${id}`)
+}
+
 module.exports = {
     queryPostRequestCreateEvent,
     selectCoinsFromUsers,
@@ -60,5 +65,6 @@ module.exports = {
     removeEventFromFavorite,
     getAdminListe,
     removeAdmin,
-    addNewAdmin
+    addNewAdmin,
+    deleteEventByAdmin
 }

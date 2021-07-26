@@ -1,5 +1,5 @@
 const {queryPostRequestCreateEvent, selectCoinsFromUsers, updateCoinsUsers, getCoinsUser,getFavoriteEventsOfThUser,
-  selectEventById,removeEventFromFavorite} = require('../queries/query_user/queryM.js')
+  selectEventById,removeEventFromFavorite, getAdminListe, removeAdmin,addNewAdmin} = require('../queries/query_user/queryM.js')
 const {cloudinary} =require('../../cloudinary')
 
 
@@ -55,9 +55,35 @@ const deleteEventFromFavorite = (req, res) => {
   }).catch((err)=> {res.status(401).send(err)})
 }
 
+//Get the Admin Liste
+const HandleAminListe = (req,res) => {
+  getAdminListe().then((result)=> {
+    res.status(200).send(result)
+  }).catch((err) => {res.status(400).send(err)})
+}
+
+//To remove admin from liste
+
+const handleRemoveAdmin = (req, res)=> {
+  const {user_id} = req.params
+  removeAdmin(user_id).then(() => {
+    res.status(200).send('Admin removed')
+  }).catch((err) => {
+    res.status(400).send(err)
+  })
+}
+//to add new admin
+const handleAddNewAdmin = (req, res) => {
+  addNewAdmin(req.body).then((result) => {
+    res.status(200).send("added")
+  }).catch((err)=> { res.status(401).send(err)})
+}
 module.exports = {
     handlePostReaquestCreateEvent,
     getTheCoinsFromUser,
     selectFavoriteEventsForUser,
     deleteEventFromFavorite,
+    HandleAminListe,
+    handleRemoveAdmin,
+    handleAddNewAdmin
 }

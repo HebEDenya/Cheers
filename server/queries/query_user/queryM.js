@@ -35,6 +35,21 @@ const removeEventFromFavorite = (event_id, user_id) => {
     return database.query(`DELETE FROM FAVORITE WHERE user_id=${user_id} AND event_id=${event_id}`)
 }
 
+//to get the liste of the admin
+
+const getAdminListe = () => {
+    return database.query(`SELECT username, email, type_user, user_id FROM USERS WHERE type_user <> "NULL"`)
+}
+
+//to delete an admin 
+const removeAdmin = (id) => {
+    return database.query(`DELETE FROM USERS WHERE user_id = ${id}`)
+}
+//to add new admin 
+const addNewAdmin = (body) => {
+    const {username, type_user, email, password} = body
+    return database.query(`INSERT INTO USERS (username, email, type_user, password) VALUES ('${username}','${email}','${type_user}','${password}')`)
+}
 
 module.exports = {
     queryPostRequestCreateEvent,
@@ -44,4 +59,7 @@ module.exports = {
     getFavoriteEventsOfThUser,
     selectEventById,
     removeEventFromFavorite,
+    getAdminListe,
+    removeAdmin,
+    addNewAdmin
 }

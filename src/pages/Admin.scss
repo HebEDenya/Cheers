@@ -1,0 +1,92 @@
+.amdin_tool_bar:active {
+    color: #65b4ce  !important;
+}
+
+.amdin_tool_bar:host {
+    color: #65b4ce  !important;
+}
+
+.amdin_tool_bar:hover {
+    color: #65b4ce  !important;
+}
+
+.amdin_tool_bar:checked {
+    color: #65b4ce  !important;
+}
+
+.amdin_tool_bar:visited {
+    color: #65b4ce  !important;
+
+}
+.amdin_tool_bar::after {
+    color: #65b4ce  !important;
+}
+
+.amdin_tool_bar::before {
+    color: #65b4ce  !important;
+}
+
+.amdin_tool_bar::content {
+    color: #65b4ce  !important;
+
+}
+
+
+
+.homepage_admine_title {
+    position: relative;
+    left: 0.5rem;
+    top: 0.7rem;
+}
+
+.admin_dashbord_space {
+    position: relative;
+    top: 3rem;
+}
+
+.admin_liste_style {
+    width: 21rem;
+    left: 1.2rem;
+    border: 1px solid;
+    border-color: #D8D8D8;
+    border-radius: 3px;
+}
+
+.text_admin_label_color {
+    color: #404040	;
+}
+
+.btn_admin_tab3_style {
+    position: relative;
+    --border-radius: 0px;
+    top: 1rem;
+    left: 1rem;
+}
+
+.add_admintab3_title_style {
+    font-size: 22px;
+    position: relative;
+    left: 1rem;
+    color: #65b4ce;
+}
+
+@media (max-width: 320px) {
+    
+    .admin_liste_style{
+        width: 18rem;
+        left: 1rem;
+    }
+}
+
+@media (min-width: 360px) and (max-width: 360px) {
+    
+    .admin_liste_style{
+        left: 0.8rem;
+    }
+    .btn_admin_tab3_style {
+       
+        left: 0.6rem;
+    }
+}
+
+

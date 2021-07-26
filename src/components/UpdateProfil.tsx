@@ -39,8 +39,8 @@ const UpdateProfil: React.FC<ContainerProps> = ({user_id}) => {
     axios
       .get(`http://localhost:3001/api/user/${user_id}`)
       .then((res) => {
-        setImg(res.data[0].image);
-        setDescription(res.data[0].description);
+        setImg(res.data[0].user_image);
+        setDescription(res.data[0].user_description);
       })
       .catch((err) => {
         console.log(err);

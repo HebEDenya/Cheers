@@ -54,6 +54,16 @@
     right: 1.3rem;
 }
 
+.no_title_fav {
+    position: relative;
+    left: 4rem;
+    bottom: 0.7rem;
+    font-family: 'Lucida Console';
+    font-weight: bold;
+    font-size: 18px;
+    color: #b3b3b3;
+}
+
 @media (max-width: 360px) {
     .favorite_img_size {
     width: 25rem;

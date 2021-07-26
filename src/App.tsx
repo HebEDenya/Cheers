@@ -24,6 +24,7 @@ import UpdateProfil from "./components/UpdateProfil";
 import axios from "axios";
 import MyEvents from "./components/MyEvents";
 import FirstPage from "./pages/FirstPage";
+import EventPage from "./components/EventPage";
 import "@ionic/react/css/core.css";
 import "@ionic/react/css/normalize.css";
 import "@ionic/react/css/structure.css";
@@ -51,6 +52,8 @@ const App: React.FC = () => {
   const [events, setEvents] = useState([]);
   const [type_user, setTypeUser] = useState<string | null>(null);
   const [logOut, setLogout] = useState<boolean>(false);
+  const [viewEvent, setviewEvent] = useState<number | null>(null);
+
 
   
 /// for the first page to load 
@@ -143,7 +146,7 @@ const App: React.FC = () => {
         <IonRouterOutlet>
    {Cookies.get("type_user") === "superAdmin" ||  Cookies.get("type_user") === "Admin"? <Redirect exact from="/login" to="/adminTab1" /> : <Redirect exact from="/login" to="/tab1" /> }
           <Route exact path="/tab1">
-            <Tab1  events = {events}/>
+            <Tab1  events = {events} setviewEvent={setviewEvent} viewEvent={viewEvent}/>
           </Route>
           <Route exact path="/tab2">
             <Tab2 coinsUser= {coinsUser} user_id={user_id} setLogout={setLogout}/>
@@ -169,7 +172,10 @@ const App: React.FC = () => {
             <CoinsPurchaser  coinsUser= {coinsUser}setCoinsUser={setCoinsUser} />
             </Route>
           <Route path="/myevents" >
-            <MyEvents user_id={user_id} />
+            <MyEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} />
+          </Route>
+          <Route path="/eventpage" >
+            <EventPage viewEvent={viewEvent} />
           </Route>
           <Route path="/adminTab1" >
             <AdminTab1 setLogout={setLogout} type_user= {type_user}/>

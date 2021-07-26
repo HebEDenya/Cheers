@@ -1,0 +1,168 @@
+.img_eventpage {
+    position: relative;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    height: auto;
+}
+
+.category_eventpage {
+    position: relative;
+    display:flex;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    top: 1rem;
+    left: 1.5rem;
+    color: gray
+}
+.title_eventpage {
+    position: relative;
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    top: 1.5rem;
+    left: 1.4rem;
+    color: white;
+}
+
+.image_bg {
+    // background-color: #000000;
+    background-image: linear-gradient(180deg, #000000 53%, #ce93d8 75%);
+}
+.start-time_eventpage {
+    display: flex;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    top: 3rem;
+    left: 0.1rem;
+    color: white;
+    opacity: 1;
+}
+
+.end-time_eventpage {
+    position: relative;
+    display:flex;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    top: 0.5rem;
+    left: 8rem;
+    color: white;
+    opacity: 1;
+}
+.location_eventpage {
+    position: relative;
+    display:flex;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    top: 0.5rem;
+    left: 3rem;
+    color: gray
+}
+
+.price_eventpage {
+    position: relative;
+    display:flex;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    top: 0.5rem;
+    left: 3.1rem;
+    color: gray
+}
+.avatar_eventpage {
+    display: flex;
+    position: relative;
+    top: 0rem;
+    left: 1.5rem;
+
+}
+.organizer_name_eventpage {
+    position: relative;
+    display:flex;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: lighter;
+    bottom: 2.5rem;
+    left: 5.5rem;
+    color: white;
+    display:inline;
+}
+.organizer_eventpage {
+    position: relative;
+    display:flex;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    bottom: 2.5rem;
+    left: 5.4rem;
+    color: gray
+} 
+.about_eventpage {
+    display: flex;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    bottom: 0.5rem;
+    left: 1.5rem;
+    color: white
+}
+
+.abouttext_eventpage {
+    position: relative;
+    flex-flow: row nowrap;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items:center;
+    color:white;
+    margin: 20px;
+    padding: 10px;
+    bottom: 2rem;
+    right: 0.5rem;
+}
+p {
+    flex: 1 1 auto;
+
+  }
+
+  .span_date {
+      display: flex;
+      position: relative;
+      color: white;
+      bottom: 5.8rem;
+      left: 7.7rem;
+      font-size: 20px;
+      font-weight: bold;
+  }
+
+
+.image_bg {
+    --ion-background-color: linear-gradient(180deg, #272727 88%, #272727 100%) no-repeat center center / cover;    
+}
+
+.icon_eventpage {
+    position: relative;
+    display:flex;
+    bottom: 0.5rem;
+    left: 1.5rem;
+    color: white;
+}
+
+.icon_cash_eventpage {
+    position: relative;
+    display:flex;
+    bottom: 0.5rem;
+    left: 1.5rem;
+    color: white;
+}
+
+.btn_eventpage {
+    position: relative;
+    color:white;
+    display: flex;
+    bottom: 5.3rem;
+    left: 19rem;
+}

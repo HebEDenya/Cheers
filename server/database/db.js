@@ -11,8 +11,8 @@ database.query(`CREATE TABLE IF NOT EXISTS USERS (
     type_user VARCHAR(50),
     username VARCHAR(200),
     password VARCHAR (500) NOT NULL,
-    description VARCHAR (5000),
-    image VARCHAR(5000),
+    user_description VARCHAR (5000),
+    user_image VARCHAR(5000),
     coins_quantity INT DEFAULT 40,
     numberOfFollowers INT
 )`).then((res) => {

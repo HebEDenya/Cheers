@@ -58,7 +58,7 @@ const Tab3: React.FC<ContainerProps> = ({user_id}) => {
             </IonRow>
             <IonRow>
             <IonCol size="10.5">
-            <IonLabel id="price_favorite_size">{item.price=== "Free"? "Free" : item.price +'Dt'}</IonLabel>
+            <IonLabel id="price_favorite_size">{item.price=== "Free"? "Free" : item.price +' DT'}</IonLabel>
           </IonCol>
             <IonCol>
           <IonIcon onClick={()=> {setHeartButtonClick({clicked:true, btn_Id:item.event_id})}} icon={heart}  id="heart_favorite-hover"/> 
@@ -73,10 +73,10 @@ const Tab3: React.FC<ContainerProps> = ({user_id}) => {
         &nbsp;
         <IonContent fullscreen>
            &nbsp;
-          <IonLabel id="favorite_title_emptypage">Your favorite liste is empty </IonLabel>
           <IonCard>
           <img src="https://i.gifer.com/r8e.gif" alt=""  className="favorite_img_size" />
           <IonCardHeader>
+          <IonLabel className="no_title_fav">No Favorites Yet!</IonLabel>
           <IonButton fill="outline" expand="full" routerLink="/tab1"> Check some events </IonButton>
         </IonCardHeader>
         </IonCard>

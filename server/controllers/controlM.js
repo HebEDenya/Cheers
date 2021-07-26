@@ -92,7 +92,7 @@ const handleAddNewAdmin = (req, res) => {
 const handleDeleteEventByAdmin = (req, res) => {
   deleteEventByAdmin(req.params.event_id).then(() => {
     res.status(200).send("event deleted")
-  }).catch((err)=> { res.staus(402).send(err)})
+  }).catch((err)=> { res.status(402).send(err)})
 }
 
 module.exports = {

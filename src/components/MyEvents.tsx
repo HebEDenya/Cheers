@@ -8,27 +8,36 @@ import {
   IonItem,
   IonInput,
   IonLabel,
-  IonText,
-  IonListHeader,
   IonContent,
-  IonTextarea,
   IonCard,
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
   IonDatetime,
   IonButtons,
-  IonBackButton
+  IonBackButton,
+  IonButton
 } from "@ionic/react";
 import "./MyEvents.scss";
 import axios from "axios";
+import { useHistory } from "react-router";
 
 interface props {
   user_id:number
+  setviewEvent:any,
+  viewEvent:number,
 }
 
-const MyEvents: React.FC<props> = ({user_id}) => {
+const MyEvents: React.FC<props> = ({user_id, setviewEvent, viewEvent}) => {
   const [data, setData] = useState<any | null>([]);
+  const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
+  const history = useHistory();
+
+  if(buttontoviewevent) {
+    history.push('/eventpage')
+    setbuttontoviewevent(false)
+  }
+
 
   // Get events for the user
   const getEvents = () => {
@@ -43,7 +52,7 @@ const MyEvents: React.FC<props> = ({user_id}) => {
   useEffect(() => {
     getEvents();
   }, []);
-
+  
   return (
     <>
       <IonPage>
@@ -57,10 +66,11 @@ const MyEvents: React.FC<props> = ({user_id}) => {
     </IonHeader>
         <IonContent fullscreen>
           &nbsp;
-          {data.map((event, key) => {
+          {data.length ? 
+          data.map((event, key) => {
             return (
               <IonCard key={key}>
-                <img className="favorite_img_size" src={event.image} alt="" />
+                <img className="favorite_img_size" src={event.image} alt="" onClick={() => {setviewEvent(event.event_id) ; setbuttontoviewevent(true)}} />
                 <IonCardHeader>
                   <IonCardSubtitle>{event.title}</IonCardSubtitle>
                   <IonCardTitle className="event_title">
@@ -77,8 +87,22 @@ const MyEvents: React.FC<props> = ({user_id}) => {
                   </IonLabel>
                 </IonCardHeader>
               </IonCard>
-            );
-          })}
+            )
+          }) : 
+          <>
+        &nbsp;
+        <IonContent fullscreen>
+           &nbsp;
+          <IonCard>
+          <img src="http://res.cloudinary.com/dxhyydpng/image/upload/v1627258353/ybrxtktnn4mrvv8gzq9u.gif" alt=""  className="" />
+          <IonCardHeader>
+          <IonLabel className="no_title">No Events Yet!</IonLabel>
+          <IonButton fill="outline" expand="full" routerLink="/CreateEvent"> Create Events </IonButton>
+        </IonCardHeader>
+        </IonCard>
+        </IonContent>
+        </>
+        }
         </IonContent>
       </IonPage>
     </>

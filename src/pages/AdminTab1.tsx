@@ -41,7 +41,7 @@ import {
      <IonHeader>
         <IonListHeader>
         <IonLabel className="homepage_admine_title"  color="warning" >
-             Welcome To Admine Dashbord
+             Welcome To Admin Dashbord
          </IonLabel>
          </IonListHeader>
       </IonHeader>

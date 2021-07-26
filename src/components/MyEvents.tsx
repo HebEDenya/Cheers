@@ -83,8 +83,9 @@ const MyEvents: React.FC<props> = ({user_id}) => {
         <IonContent fullscreen>
            &nbsp;
           <IonCard>
-          <img src="https://res.cloudinary.com/dxhyydpng/image/upload/v1627253594/yuq8efuvxh306tuu0dp5.gif" alt=""  className="" />
+          <img src="http://res.cloudinary.com/dxhyydpng/image/upload/v1627258353/ybrxtktnn4mrvv8gzq9u.gif" alt=""  className="" />
           <IonCardHeader>
+          <IonLabel className="no_title">No Events Yet!</IonLabel>
           <IonButton fill="outline" expand="full" routerLink="/CreateEvent"> Create Events </IonButton>
         </IonCardHeader>
         </IonCard>

@@ -73,10 +73,10 @@ const Tab3: React.FC<ContainerProps> = ({user_id}) => {
         &nbsp;
         <IonContent fullscreen>
            &nbsp;
-          <IonLabel id="favorite_title_emptypage">Your favorite liste is empty </IonLabel>
           <IonCard>
           <img src="https://i.gifer.com/r8e.gif" alt=""  className="favorite_img_size" />
           <IonCardHeader>
+          <IonLabel className="no_title_fav">No Favorites Yet!</IonLabel>
           <IonButton fill="outline" expand="full" routerLink="/tab1"> Check some events </IonButton>
         </IonCardHeader>
         </IonCard>

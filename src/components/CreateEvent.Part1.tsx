@@ -145,12 +145,12 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id}
              <IonLabel className="color_subtitle_create">Categories <span className="obligatoire">*</span> </IonLabel>
              <IonSelect value={categorie} okText="Okay"  onIonChange={e => {setCategorie(e.detail.value); console.log(categorie);
              }}>
-               <IonSelectOption value="music">Music</IonSelectOption>
-               <IonSelectOption value="food&drink">Food & Drink</IonSelectOption>
-               <IonSelectOption value="cultural">Cultural</IonSelectOption>
-               <IonSelectOption value="sport">Sport</IonSelectOption>
-               <IonSelectOption value="gaming">Gaming</IonSelectOption>
-               <IonSelectOption value="other">Other</IonSelectOption>
+               <IonSelectOption value="Music">Music</IonSelectOption>
+               <IonSelectOption value="Food&Drink">Food & Drink</IonSelectOption>
+               <IonSelectOption value="Cultural">Cultural</IonSelectOption>
+               <IonSelectOption value="Sport">Sport</IonSelectOption>
+               <IonSelectOption value="Gaming">Gaming</IonSelectOption>
+               <IonSelectOption value="Others">Others</IonSelectOption>
              </IonSelect>
            </IonItem>
         &nbsp;

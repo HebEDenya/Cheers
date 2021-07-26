@@ -25,7 +25,7 @@ interface searchProps {
       </IonToolbar>
       <IonContent>
       {searchText&& events.filter((item) => {
-        let search = searchText.toLocaleLowerCase()
+        let search = searchText.toLocaleLowerCase()        
          return item.location.includes(search)   || item.title.includes(search) || item.category === search || item.price === search
         }).map((item,index) => {                    
          return (

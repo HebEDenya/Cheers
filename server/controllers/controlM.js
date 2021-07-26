@@ -1,6 +1,9 @@
 const {queryPostRequestCreateEvent, selectCoinsFromUsers, updateCoinsUsers, getCoinsUser,getFavoriteEventsOfThUser,
   selectEventById,removeEventFromFavorite, getAdminListe, removeAdmin,addNewAdmin} = require('../queries/query_user/queryM.js')
 const {cloudinary} =require('../../cloudinary')
+const bcrypt = require('bcrypt');
+require('dotenv').config();
+const saltRounds = 10;
 
 
 // post event + update the coins (-20 for each event created)
@@ -74,9 +77,15 @@ const handleRemoveAdmin = (req, res)=> {
 }
 //to add new admin
 const handleAddNewAdmin = (req, res) => {
-  addNewAdmin(req.body).then((result) => {
+  const {username, email,type_user,password} = req.body
+  bcrypt.hash(password, saltRounds, (err, hash) => {
+    if (err) {
+      res.status(400).send(err)
+    }
+    addNewAdmin(username, email,type_user,hash).then((result) => {
     res.status(200).send("added")
   }).catch((err)=> { res.status(401).send(err)})
+  })
 }
 module.exports = {
     handlePostReaquestCreateEvent,

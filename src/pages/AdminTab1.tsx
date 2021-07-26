@@ -18,6 +18,7 @@ import {
   import ExploreContainer from "../components/ExploreContainer";
   import { chevronForwardOutline, logOut } from "ionicons/icons";
   import './Admin.scss' 
+  import Cookies from "js-cookie";
   
   import axios from "axios";
   
@@ -54,6 +55,7 @@ import {
             </div>
           </IonCardContent>
         </IonCard>
+      {Cookies.get("type_user") === "superAdmin" ?
      <IonCard routerLink="/adminTab3" >
           <IonCardContent className="my_account_text">
             Manage admins
@@ -61,7 +63,16 @@ import {
               <IonIcon icon={chevronForwardOutline} className="icon-card" />
             </div>
           </IonCardContent>
-        </IonCard>
+        </IonCard> :
+        <IonCard onClick={() => present("You don't have permission", [{ text: 'Ok' }])}>
+        <IonCardContent className="my_account_text">
+          Manage admins
+          <div className="userDasbord_icon">
+            <IonIcon icon={chevronForwardOutline} className="icon-card" />
+          </div>
+        </IonCardContent>
+      </IonCard>
+        }
         <IonCard onClick={()=>{LogoutRedirect()}}>
           <IonCardContent className="my_account_text">
             Log Out

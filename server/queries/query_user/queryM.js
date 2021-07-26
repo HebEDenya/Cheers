@@ -46,8 +46,7 @@ const removeAdmin = (id) => {
     return database.query(`DELETE FROM USERS WHERE user_id = ${id}`)
 }
 //to add new admin 
-const addNewAdmin = (body) => {
-    const {username, type_user, email, password} = body
+const addNewAdmin = (username, email,type_user,password) => {
     return database.query(`INSERT INTO USERS (username, email, type_user, password) VALUES ('${username}','${email}','${type_user}','${password}')`)
 }
 

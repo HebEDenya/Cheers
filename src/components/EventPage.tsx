@@ -25,7 +25,7 @@ import {
   IonText,
   IonTextarea,
 } from "@ionic/react";
-import { locationSharp } from "ionicons/icons";
+import { cashSharp, locationSharp } from "ionicons/icons";
 import "./EventPage.scss";
 
 
@@ -72,6 +72,8 @@ const EventPage: React.FC <ContainerProps> = ({viewEvent}) => {
           ></IonDatetime>
           <IonLabel className="location_eventpage">{data.location}</IonLabel>
           <IonIcon icon={locationSharp} color="light" className="icon_eventpage" />
+          <IonLabel className="price_eventpage">{data.price=== "Free" ? "Free" : data.price +' DT'}</IonLabel>
+          <IonIcon icon={cashSharp} color="light" className="icon_cash_eventpage" />
           <IonLabel className="span_date">_</IonLabel>
           <IonAvatar className="avatar_eventpage">
             <img

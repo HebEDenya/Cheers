@@ -28,34 +28,33 @@ import {
 import { cashSharp, locationSharp } from "ionicons/icons";
 import "./EventPage.scss";
 
-
 interface ContainerProps {
-    viewEvent:number,
-  }
+  viewEvent: any;
+}
 
-const EventPage: React.FC <ContainerProps> = ({viewEvent}) => {
+const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
   const [data, setData] = useState<any | null>([]);
-    console.log(viewEvent);
-    
+  
+  // get all the data related to this event
   const getEventPage = () => {
-    axios.get(`/api/eventpage/1`).then((res) => {
-      console.log(res.data);
-      setData(res.data[0]);
-    });
+    if (viewEvent !== null) {
+      axios.get(`/api/eventpage/${viewEvent}`).then((res) => {
+        setData(res.data[0]);
+      });
+    }
   };
 
   useEffect(() => {
     getEventPage();
-  }, []);
+  }, [viewEvent]);
+
+
 
   return (
     <>
       <IonPage>
         <IonContent className="image_bg" fullscreen>
-          <IonImg
-            className="img_eventpage"
-            src={data.image}
-          />
+          <IonImg className="img_eventpage" src={data.image} />
           <IonLabel className="category_eventpage">{data.category}</IonLabel>
           <IonLabel className="title_eventpage">{data.title}</IonLabel>
           <IonDatetime
@@ -71,15 +70,22 @@ const EventPage: React.FC <ContainerProps> = ({viewEvent}) => {
             disabled={true}
           ></IonDatetime>
           <IonLabel className="location_eventpage">{data.location}</IonLabel>
-          <IonIcon icon={locationSharp} color="light" className="icon_eventpage" />
-          <IonLabel className="price_eventpage">{data.price=== "Free" ? "Free" : data.price +' DT'}</IonLabel>
-          <IonIcon icon={cashSharp} color="light" className="icon_cash_eventpage" />
+          <IonIcon
+            icon={locationSharp}
+            color="light"
+            className="icon_eventpage"
+          />
+          <IonLabel className="price_eventpage">
+            {data.price === "Free" ? "Free" : data.price + " DT"}
+          </IonLabel>
+          <IonIcon
+            icon={cashSharp}
+            color="light"
+            className="icon_cash_eventpage"
+          />
           <IonLabel className="span_date">_</IonLabel>
           <IonAvatar className="avatar_eventpage">
-            <img
-              src={data.user_image}
-              alt=""
-            />
+            <img src={data.user_image} alt="" />
           </IonAvatar>
           <IonLabel className="organizer_name_eventpage">
             {data.username}

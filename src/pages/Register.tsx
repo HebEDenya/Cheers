@@ -18,7 +18,6 @@ const Register: React.FC = () => {
         username: usernameReg,
         password: passwordReg,
       }).then((response) => {
-        console.log(response)
         if(response.data.message && response.statusText ==="OK") {
           setIsregistred(true)
           present(`${response.data.message}`, [{ text: 'Ok' }])

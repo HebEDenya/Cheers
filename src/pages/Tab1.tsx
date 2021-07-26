@@ -4,6 +4,7 @@ import { IonContent, IonHeader, IonPage,IonIcon,IonCardTitle,IonDatetime, IonCar
 import { Icon, InlineIcon } from '@iconify/react';
 import heartIcon from '@iconify-icons/ion/heart-outline';
 import ExploreContainer from '../components/ExploreContainer';
+import { useHistory } from 'react-router-dom';
 // import ExploreContainer from '../components/ExploreContainer';
 import './Tab1.scss';
 interface ContainerProps {
@@ -15,9 +16,18 @@ interface ContainerProps {
 
 const Tab1: React.FC <ContainerProps>= ({events, setviewEvent, viewEvent}) => {
  const [categories, setCategories] = useState(['https://images.squarespace-cdn.com/content/v1/5acb6f9fb27e3910337cdd37/1588499747331-SQOD997KAC1GTGN3A6IP/ke17ZwdGBToddI8pDm48kMMrhUZ3rQXTcnRxiSGi1G17gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmaUzSiviepfuOufnJa7SEDRKl7z_LUwe8cDB0iQ_YpMlSenNy3wuK8-Q9DCm8gcSo/IMG_1877.JPG?format=1500w','https://images.squarespace-cdn.com/content/v1/55b76e9ee4b03c58b8546b0c/1589791183324-DGUJ55BN5Z404VS53IYJ/cover-davidsfonds1.3.jpg?format=2500w'])
+ 
 //  const [heartButtonClick, setHeartButtonClick] = useState(false)
- return (
-    <IonPage>
+const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false)
+const history = useHistory();
+
+if(buttontoviewevent) {
+  history.push('/eventpage')
+  setbuttontoviewevent(false)
+}
+
+return (
+  <IonPage>
       <IonHeader>
         <IonListHeader>
              <IonLabel className="favorite_title_size"  color="primary" >
@@ -39,8 +49,10 @@ const Tab1: React.FC <ContainerProps>= ({events, setviewEvent, viewEvent}) => {
               <IonContent className="events">
                 {events.map((event,i) => (
                   
-        <IonCard key={i}>
-            <img onClick={() => setviewEvent(event.event_id)} src={event.image} alt=""  className="favorite_img_size" />
+        <IonCard key={i} >
+          
+            <img onClick={() => {setviewEvent(event.event_id) ; setbuttontoviewevent(true)}} src={event.image} alt=""  className="favorite_img_size" />
+            
         <IonCardHeader >
         <IonGrid>
             <IonCardSubtitle>{event.title}</IonCardSubtitle>

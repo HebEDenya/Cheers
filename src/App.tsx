@@ -167,7 +167,7 @@ const App: React.FC = () => {
             <CoinsPurchaser  coinsUser= {coinsUser}setCoinsUser={setCoinsUser} />
             </Route>
           <Route path="/myevents" >
-            <MyEvents user_id={user_id} />
+            <MyEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} />
           </Route>
           <Route path="/eventpage" >
             <EventPage viewEvent={viewEvent} />

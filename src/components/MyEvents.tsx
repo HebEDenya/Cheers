@@ -20,13 +20,24 @@ import {
 } from "@ionic/react";
 import "./MyEvents.scss";
 import axios from "axios";
+import { useHistory } from "react-router";
 
 interface props {
   user_id:number
+  setviewEvent:any,
+  viewEvent:number,
 }
 
-const MyEvents: React.FC<props> = ({user_id}) => {
+const MyEvents: React.FC<props> = ({user_id, setviewEvent, viewEvent}) => {
   const [data, setData] = useState<any | null>([]);
+  const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
+  const history = useHistory();
+
+  if(buttontoviewevent) {
+    history.push('/eventpage')
+    setbuttontoviewevent(false)
+  }
+
 
   // Get events for the user
   const getEvents = () => {
@@ -59,7 +70,7 @@ const MyEvents: React.FC<props> = ({user_id}) => {
           data.map((event, key) => {
             return (
               <IonCard key={key}>
-                <img className="favorite_img_size" src={event.image} alt="" />
+                <img className="favorite_img_size" src={event.image} alt="" onClick={() => {setviewEvent(event.event_id) ; setbuttontoviewevent(true)}} />
                 <IonCardHeader>
                   <IonCardSubtitle>{event.title}</IonCardSubtitle>
                   <IonCardTitle className="event_title">

@@ -23,11 +23,14 @@ import axios from "axios";
 interface ContainerProps {
   coinsUser: number,
   user_id: number,
-  setLogout: any
+  setLogout: any,
+  setimageProfileUpdated: any,
+  imageProfileUpdated: boolean
+
 }
 
 
-const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id,setLogout}) => {
+const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id,setLogout, setimageProfileUpdated, imageProfileUpdated}) => {
   const [data, setData] = useState<any | null>([]);
   const [present] = useIonAlert();
   const history = useHistory()
@@ -51,8 +54,9 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id,setLogout}) => {
   };
 
   useEffect(() => {
+    setimageProfileUpdated(false)
     getUserData();
-  },[]);
+  },[imageProfileUpdated]);
 
   return (
     <IonPage>

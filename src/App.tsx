@@ -53,6 +53,9 @@ const App: React.FC = () => {
   const [type_user, setTypeUser] = useState<string | null>(null);
   const [logOut, setLogout] = useState<boolean>(false);
   const [viewEvent, setviewEvent] = useState<number | null>(null);
+  const [eventAdded, setEventAdded] = useState<boolean>(false)
+  const [imageProfileUpdated, setimageProfileUpdated] = useState<boolean>(false)
+
 
 
   
@@ -113,11 +116,12 @@ const App: React.FC = () => {
   useEffect(() => {
     axios.get('/api/home').then((result) => {
      setEvents(result.data)
+     setEventAdded(false)
     })
     .catch((err) => {
      console.log(err);
    });
-  },[])
+  },[eventAdded])
   
   if (isLoding) {
     return (
@@ -149,7 +153,7 @@ const App: React.FC = () => {
             <Tab1  events = {events} setviewEvent={setviewEvent} viewEvent={viewEvent}/>
           </Route>
           <Route exact path="/tab2">
-            <Tab2 coinsUser= {coinsUser} user_id={user_id} setLogout={setLogout}/>
+            <Tab2 coinsUser= {coinsUser} user_id={user_id} setLogout={setLogout} imageProfileUpdated={imageProfileUpdated} setimageProfileUpdated={setimageProfileUpdated}/>
           </Route>
           <Route path="/tab3" >
             <Tab3 user_id={user_id} />
@@ -163,16 +167,16 @@ const App: React.FC = () => {
             <Redirect to="/tab1" />
           </Route>}
           <Route path="/update">
-            <UpdateProfil user_id={user_id}  />
+            <UpdateProfil user_id={user_id}  setimageProfileUpdated={setimageProfileUpdated}/>
           </Route>
           <Route path="/CreateEvent" >
-            <CreateEventComponenetPart1 setCoinsUser={setCoinsUser} coinsUser={coinsUser} user_id={user_id}/>
+            <CreateEventComponenetPart1 setCoinsUser={setCoinsUser} coinsUser={coinsUser} user_id={user_id} setEventAdded={setEventAdded}/>
           </Route>
           <Route path="/CoinsPurchase" >
             <CoinsPurchaser  coinsUser= {coinsUser}setCoinsUser={setCoinsUser} />
             </Route>
           <Route path="/myevents" >
-            <MyEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} />
+            <MyEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} />
           </Route>
           <Route path="/eventpage" >
             <EventPage viewEvent={viewEvent} />
@@ -181,7 +185,7 @@ const App: React.FC = () => {
             <AdminTab1 setLogout={setLogout} type_user= {type_user}/>
           </Route>
           <Route path="/adminTab2" >
-            <AdminTab2  events={events} setEvents={setEvents}/>
+            <AdminTab2  events={events} setEvents={setEvents} />
           </Route>
           <Route path="/adminTab3" >
             <AdminTab3 type_user= {type_user}/>

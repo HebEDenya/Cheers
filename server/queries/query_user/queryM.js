@@ -54,6 +54,10 @@ const addNewAdmin = (username, email,type_user,password) => {
 const deleteEventByAdmin = (id) => {
     return database.query(`DELETE FROM EVENT WHERE event_id = ${id}`)
 }
+//delete from Favorite by admin
+const deleteFromFavoriteByAdmin = (id) => {
+    return database.query(`DELETE FROM FAVORITE WHERE event_id = ${id}`)
+}
 
 module.exports = {
     queryPostRequestCreateEvent,
@@ -66,5 +70,6 @@ module.exports = {
     getAdminListe,
     removeAdmin,
     addNewAdmin,
-    deleteEventByAdmin
+    deleteEventByAdmin,
+    deleteFromFavoriteByAdmin
 }

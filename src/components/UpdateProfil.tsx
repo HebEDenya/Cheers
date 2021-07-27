@@ -79,7 +79,7 @@ const UpdateProfil: React.FC<ContainerProps> = ({user_id}) => {
           <IonToolbar>
             <IonTitle>Update Profil</IonTitle>
             <IonButtons slot="start">
-              <IonBackButton text="Back" color="dark" />
+              <IonBackButton className="back_button" text="" color="dark" />
             </IonButtons>
           </IonToolbar>
         </IonHeader>

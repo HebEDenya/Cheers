@@ -106,7 +106,7 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id}
       <IonToolbar>
     <IonTitle>Create Event</IonTitle>
     <IonButtons slot="start">
-      <IonBackButton text="Back" color="dark"/>
+      <IonBackButton className="back_button" text="" color="dark"/>
       </IonButtons>
             
       </IonToolbar>

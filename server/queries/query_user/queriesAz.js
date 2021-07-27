@@ -20,9 +20,34 @@ const getPageEvent = (req) => {
   );
 };
 
+const voteEvent = (req) => {
+  return database.query(`UPDATE EVENT SET available_places = available_places - 1 WHERE event_id=${req.params.event_id}`)
+}
+
+const unvoteEvent = (req) => {
+  return database.query(`UPDATE EVENT SET available_places = available_places + 1 WHERE event_id=${req.params.event_id}`)
+}
+
+const selectFollowers = (event_id, user_id) => {
+  return database.query(`SELECT * FROM FOLLOWERS WHERE followed_id=${event_id} AND followee_id=${user_id}`)
+}
+
+const deleteFollowers = (event_id, user_id) => {
+  return database.query(`DELETE FROM FOLLOWERS WHERE followed_id=${event_id} AND followee_id=${user_id}`)
+}
+
+const insertFollower = (event_id, user_id) => {
+  return database.query(`INSERT INTO FOLLOWERS (followee_id, followed_id) VALUES (${user_id}, ${event_id})`)
+}
+
 module.exports = {
   handle,
   update,
   getEvent,
   getPageEvent,
+  voteEvent,
+  unvoteEvent,
+  selectFollowers,
+  deleteFollowers,
+  insertFollower,
 };

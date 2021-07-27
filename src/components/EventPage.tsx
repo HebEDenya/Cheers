@@ -25,11 +25,20 @@ import {
   IonText,
   IonTextarea,
   IonButton,
-  IonFabButton
+  IonFabButton,
+  IonButtons,
+  IonBackButton,
 } from "@ionic/react";
-import { cashSharp, chatbubbleEllipsesOutline, locationSharp, calendarNumberSharp, timeSharp } from "ionicons/icons";
+import {
+  cashSharp,
+  chatbubbleEllipsesOutline,
+  locationSharp,
+  calendarNumberSharp,
+  timeSharp,
+  checkmarkCircleOutline,
+} from "ionicons/icons";
+import Cookies from "js-cookie";
 import "./EventPage.scss";
-import moment from 'moment';
 interface ContainerProps {
   viewEvent: any;
 }
@@ -38,16 +47,36 @@ const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
   const [data, setData] = useState<any | null>([]);
   const [startTime, setstartTime] = useState<any | null>([]);
   const [endTime, setendtime] = useState<any | null>([]);
-  
-  // get all the data related to this event
-  const getEventPage = () => {
-    if (viewEvent !== null) {
-      axios.get(`/api/eventpage/${viewEvent}`).then((res) => {
-        console.log(res.data[0].start_time.split('T')[1]);
-        setData(res.data[0]);
-        setstartTime(res.data[0].start_time.split('T')[1]);
-        setendtime(res.data[0].end_time.split('T')[1]);
+  const [clicked, setclicked] = useState<boolean>(true);
+  const [followed, setFollowed] = useState<string | null>("");
+  const [places, setPlaces] = useState<number | null>();
+
+  const userId = Cookies.get("user_id");
+
+  const verifyFollow = () => {
+    if (+userId && viewEvent) {
+      axios.get(`/api/vote/color/${+userId}/${viewEvent}`).then((result) => {
+        console.log(result);
+        if (result.data === "Followed") {
+          setclicked(false);
+          setFollowed("Yes");
+        } else {
+          setclicked(true);
+          setFollowed("No");
+        }
       });
+    }
+  };
+  const voteEvent = () => {
+    if (+userId && viewEvent) {
+      axios
+        .put(`/api/vote/${+userId}/${viewEvent}`)
+        .then((result) => {
+          console.log(result);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
@@ -55,7 +84,71 @@ const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
     getEventPage();
   }, [viewEvent]);
 
+  useEffect(() => {
+    if (+userId && viewEvent) {
+      verifyFollow();
+    }
+  }, [viewEvent]);
 
+  // get all the data related to this event
+  const getEventPage = () => {
+    if (viewEvent !== null) {
+      axios.get(`/api/eventpage/${viewEvent}`).then((res) => {
+        setData(res.data[0]);
+        setstartTime(res.data[0].start_time.split("T")[1]);
+        setendtime(res.data[0].end_time.split("T")[1]);
+        setPlaces(res.data[0].available_places);
+      });
+    }
+  };
+
+  const availablePlaces = () => {
+    if (places === -1) {
+      return <IonLabel className="place_eventpage">Open to everyone</IonLabel>;
+    } else if (places === 0) {
+     return <IonLabel className="place_eventpage">Full</IonLabel>
+    } else {
+     return <IonLabel className="place_eventpage">
+        Available : {places} places'
+      </IonLabel>;
+      
+    }
+  };
+
+  const btnClick = () => {
+    if (places && places !== -1) {
+    if (clicked) {
+     return <IonFabButton
+              onClick={() => {
+                setclicked(false);
+                voteEvent();
+                setPlaces(places - 1);
+              }}
+              className="btn_vote_eventpage"
+              color="light"
+              size="small"
+            >
+              <IonIcon icon={checkmarkCircleOutline} size="small" />
+            </IonFabButton>
+    } else if (!clicked) {
+     return <IonFabButton
+              onClick={() => {
+                setclicked(true);
+                voteEvent();
+                setPlaces(places + 1);
+              }}
+              className="btn_vote_eventpage"
+              color="primary"
+              size="small"
+            >
+              <IonIcon icon={checkmarkCircleOutline} size="small" />
+            </IonFabButton>
+
+    }
+  } else {
+    return ""
+  }
+}
 
   return (
     <>
@@ -64,8 +157,49 @@ const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
           <IonImg className="img_eventpage" src={data.image} />
           <IonLabel className="category_eventpage">{data.category}</IonLabel>
           <IonLabel className="title_eventpage">{data.title}</IonLabel>
-          <IonDatetime className="start_time_eventpage" displayFormat="HH:mm" value={startTime} display-timezone="utc" disabled={true}></IonDatetime>
-          <IonDatetime className="end_time_eventpage" displayFormat="HH:mm" value={endTime} display-timezone="utc" disabled={true}></IonDatetime>
+          {availablePlaces()}
+          {btnClick()}
+          {/* {clicked ? (
+            <IonFabButton
+              onClick={() => {
+                setclicked(false);
+                voteEvent();
+                setPlaces(places - 1);
+              }}
+              className="btn_vote_eventpage"
+              color="light"
+              size="small"
+            >
+              <IonIcon icon={checkmarkCircleOutline} size="small" />
+            </IonFabButton>
+          ) : (
+            <IonFabButton
+              onClick={() => {
+                setclicked(true);
+                voteEvent();
+                setPlaces(places + 1);
+              }}
+              className="btn_vote_eventpage"
+              color="primary"
+              size="small"
+            >
+              <IonIcon icon={checkmarkCircleOutline} size="small" />
+            </IonFabButton>
+          )} */}
+          <IonDatetime
+            className="start_time_eventpage"
+            displayFormat="HH:mm"
+            value={startTime}
+            display-timezone="utc"
+            disabled={true}
+          ></IonDatetime>
+          <IonDatetime
+            className="end_time_eventpage"
+            displayFormat="HH:mm"
+            value={endTime}
+            display-timezone="utc"
+            disabled={true}
+          ></IonDatetime>
           <IonLabel className="span_time">_</IonLabel>
           <IonIcon
             icon={timeSharp}
@@ -105,23 +239,26 @@ const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
           />
           <IonLabel className="span_date">_</IonLabel>
           <IonAvatar className="avatar_eventpage">
-            {!data.user_image ? <img 
-              src={
-                data.user_image !== null
-                  ? data.user_image
-                  : "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png"
-              }
-              alt="profil-face"
-            /> : <img 
-            src={data.user_image}
-            alt="profil-face"
-          /> }
+            {!data.user_image ? (
+              <img
+                src={
+                  data.user_image !== null
+                    ? data.user_image
+                    : "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png"
+                }
+                alt="profil-face"
+              />
+            ) : (
+              <img src={data.user_image} alt="profil-face" />
+            )}
           </IonAvatar>
           <IonLabel className="organizer_name_eventpage">
             {data.username}
           </IonLabel>
           <IonLabel className="organizer_eventpage">Organizer</IonLabel>
-          <IonFabButton className="btn_eventpage" color="light" size="small"><IonIcon icon={chatbubbleEllipsesOutline} size="small" /></IonFabButton>
+          <IonFabButton className="btn_eventpage" color="light" size="small">
+            <IonIcon icon={chatbubbleEllipsesOutline} size="small" />
+          </IonFabButton>
           <IonLabel className="about_eventpage">About</IonLabel>
           <IonText className="abouttext_eventpage">
             <p>{data.description}</p>

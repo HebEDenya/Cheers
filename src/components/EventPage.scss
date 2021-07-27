@@ -11,8 +11,18 @@
     display:flex;
     font-family: 'Roboto', sans-serif;
     font-size: 15px;
-    top: 1rem;
+    top: 3.5rem;
     left: 1.5rem;
+    color: gray
+}
+
+.place_eventpage {
+    position: relative;
+    display:flex;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    top: 4.5rem;
+    left: 1.4rem;
     color: gray
 }
 .title_eventpage {
@@ -21,7 +31,7 @@
     font-family: 'Roboto', sans-serif;
     font-size: 28px;
     font-weight: bold;
-    top: 1.5rem;
+    top: 4rem;
     left: 1.4rem;
     color: white;
 }
@@ -29,6 +39,12 @@
 .image_bg {
     // background-color: #000000;
     background-image: linear-gradient(180deg, #000000 53%, #ce93d8 75%);
+}
+
+.vote_eventpage {
+    position: relative;
+    left: 19rem;
+    top: 2.7rem;
 }
 .start-time_eventpage {
     display: flex;
@@ -221,5 +237,12 @@ p {
     color:white;
     display: flex;
     bottom: 5.3rem;
+    left: 19rem;
+}
+
+.btn_vote_eventpage {
+    position: relative;
+    display: flex;
+    top: 2rem;
     left: 19rem;
 }

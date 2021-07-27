@@ -1,8 +1,9 @@
 import React, {useState,useEffect} from 'react';
 import {IonicSafeString, IonInfiniteScroll, IonInfiniteScrollContent, IonNote,IonCol, IonRow} from '@ionic/react';
-import { IonContent, IonHeader, IonPage,IonIcon,IonCardTitle,IonDatetime, IonCard,IonCardHeader,IonLabel,IonGrid, IonListHeader,IonImg,IonList,IonItem ,IonCardSubtitle} from '@ionic/react';
+import { IonContent ,IonSlides, IonSlide, IonHeader, IonPage,IonIcon,IonCardTitle,IonDatetime, IonCard,IonCardHeader,IonLabel,IonGrid, IonListHeader,IonImg,IonList,IonItem ,IonCardSubtitle} from '@ionic/react';
 import { Icon, InlineIcon } from '@iconify/react';
-import heartIcon from '@iconify-icons/ion/heart-outline';
+import { heart} from 'ionicons/icons';
+// import heartIcon from '@iconify-icons/ion/heart-outline';  
 import ExploreContainer from '../components/ExploreContainer';
 // import ExploreContainer from '../components/ExploreContainer';
 import './Tab1.scss';
@@ -12,31 +13,37 @@ interface ContainerProps {
 
 
 const Tab1: React.FC <ContainerProps>= ({events}) => {
- const [categories, setCategories] = useState(['https://images.squarespace-cdn.com/content/v1/5acb6f9fb27e3910337cdd37/1588499747331-SQOD997KAC1GTGN3A6IP/ke17ZwdGBToddI8pDm48kMMrhUZ3rQXTcnRxiSGi1G17gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmaUzSiviepfuOufnJa7SEDRKl7z_LUwe8cDB0iQ_YpMlSenNy3wuK8-Q9DCm8gcSo/IMG_1877.JPG?format=1500w','https://images.squarespace-cdn.com/content/v1/55b76e9ee4b03c58b8546b0c/1589791183324-DGUJ55BN5Z404VS53IYJ/cover-davidsfonds1.3.jpg?format=2500w'])
-//  const [heartButtonClick, setHeartButtonClick] = useState(false)
+const [categories, setCategories] = useState(['https://media.istockphoto.com/vectors/outline-icon-plus-sign-vector-id1147391190?b=1&k=6&m=1147391190&s=612x612&w=0&h=uCVzTO60Lxe6LEcAcjMT8Qzqm6nCoudZqJrnJLwAKPE=','https://images.squarespace-cdn.com/content/v1/5acb6f9fb27e3910337cdd37/1588499747331-SQOD997KAC1GTGN3A6IP/ke17ZwdGBToddI8pDm48kMMrhUZ3rQXTcnRxiSGi1G17gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmaUzSiviepfuOufnJa7SEDRKl7z_LUwe8cDB0iQ_YpMlSenNy3wuK8-Q9DCm8gcSo/IMG_1877.JPG?format=1500w','https://images.squarespace-cdn.com/content/v1/55b76e9ee4b03c58b8546b0c/1589791183324-DGUJ55BN5Z404VS53IYJ/cover-davidsfonds1.3.jpg?format=2500w'])
+const [likeButton, setLikeButton]= useState<{clicked:boolean, btn_Id: number | null}>({clicked:false, btn_Id:null })
+const slideOpts = {
+  initialSlide: 1,
+  speed: 400
+};
  return (
     <IonPage>
       <IonHeader>
         <IonListHeader>
              <IonLabel className="favorite_title_size"  color="primary" >
-             Home
+             Categories
          </IonLabel>
          </IonListHeader>
       </IonHeader>
       
-        {/* <IonItem>
-            {categories.map((category,index) => (
+
+        <IonSlides pager={true} options={slideOpts}>
+      <IonSlide>
+      {categories.map((category,index) => (
               <IonImg
-              key={key} 
+              key={index} 
               class="scroll-content"
               style={{ display: 'flex',flexDirection:'column',flex:4}}
               src={category} className="categoryImg"/>
             ))}
-            </IonItem> */}
 
+        </IonSlide>
+        </IonSlides>
               <IonContent className="events">
-                {events.map((event,i) => (
-                  
+                {events.map((event,i) => (                 
         <IonCard key={i}>
             <img src={event.image} alt=""  className="favorite_img_size" />
         <IonCardHeader >
@@ -51,7 +58,8 @@ const Tab1: React.FC <ContainerProps>= ({events}) => {
             <IonLabel id="price_favorite_size">{event.price=== "Free"? "Free" : event.price +'Dt'}</IonLabel>
           </IonCol>
             <IonCol>
-          <Icon icon={heartIcon} id="heart_favorite-hover"/> 
+          {/* <Icon icon={heartIcon} id="heart_favorite-hover"/>  */}
+          <IonIcon onClick={()=> {setLikeButton({clicked:true, btn_Id:event.event_id})}} icon={heart}  id="heart_favorite-hover"/> 
           </IonCol>
             </IonRow>
             </IonGrid>     

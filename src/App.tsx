@@ -23,6 +23,7 @@ import Tab5 from "./pages/Tab5";
 import UpdateProfil from "./components/UpdateProfil";
 import axios from "axios";
 import MyEvents from "./components/MyEvents";
+import Category from "./components/Category";
 import FirstPage from "./pages/FirstPage";
 import "@ionic/react/css/core.css";
 import "@ionic/react/css/normalize.css";
@@ -38,6 +39,7 @@ import "./theme/variables.css";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Cookies from "js-cookie";
+
 
 
 const App: React.FC = () => {
@@ -165,6 +167,9 @@ const App: React.FC = () => {
             </Route>
           <Route path="/myevents" >
             <MyEvents user_id={user_id} />
+          </Route>
+          <Route path="/postCategory" >
+            <Category user_id={user_id} />
           </Route>
         </IonRouterOutlet>
        

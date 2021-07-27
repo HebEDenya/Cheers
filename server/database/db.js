@@ -114,7 +114,16 @@ database.query(`CREATE TABLE IF NOT EXISTS FOLLOWERS (
     console.log(e);
 })
 
+//CATEGORIES TABLE
+database.query(`CREATE TABLE IF NOT EXISTS CATEGORIES (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR (200),
+    category_image VARCHAR(5000)
+)`).then((res) => {
+    console.log('categories table created');
+}).catch((e) => {
+    console.log(e);
+})
+
 
 module.exports.database = database;
-
-

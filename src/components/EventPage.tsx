@@ -27,21 +27,26 @@ import {
   IonButton,
   IonFabButton
 } from "@ionic/react";
-import { cashSharp, chatbubbleEllipsesOutline, locationSharp } from "ionicons/icons";
+import { cashSharp, chatbubbleEllipsesOutline, locationSharp, calendarNumberSharp, timeSharp } from "ionicons/icons";
 import "./EventPage.scss";
-
+import moment from 'moment';
 interface ContainerProps {
   viewEvent: any;
 }
 
 const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
   const [data, setData] = useState<any | null>([]);
+  const [startTime, setstartTime] = useState<any | null>([]);
+  const [endTime, setendtime] = useState<any | null>([]);
   
   // get all the data related to this event
   const getEventPage = () => {
     if (viewEvent !== null) {
       axios.get(`/api/eventpage/${viewEvent}`).then((res) => {
+        console.log(res.data[0].start_time.split('T')[1]);
         setData(res.data[0]);
+        setstartTime(res.data[0].start_time.split('T')[1]);
+        setendtime(res.data[0].end_time.split('T')[1]);
       });
     }
   };
@@ -59,6 +64,19 @@ const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
           <IonImg className="img_eventpage" src={data.image} />
           <IonLabel className="category_eventpage">{data.category}</IonLabel>
           <IonLabel className="title_eventpage">{data.title}</IonLabel>
+          <IonDatetime className="start_time_eventpage" displayFormat="HH:mm" value={startTime} display-timezone="utc" disabled={true}></IonDatetime>
+          <IonDatetime className="end_time_eventpage" displayFormat="HH:mm" value={endTime} display-timezone="utc" disabled={true}></IonDatetime>
+          <IonLabel className="span_time">_</IonLabel>
+          <IonIcon
+            icon={timeSharp}
+            color="light"
+            className="time_icon_eventpage"
+          />
+          <IonIcon
+            icon={calendarNumberSharp}
+            color="light"
+            className="calendar_eventpage"
+          />
           <IonDatetime
             className="start-time_eventpage"
             value={data.start_time}

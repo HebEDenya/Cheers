@@ -33,6 +33,7 @@ const MyEvents: React.FC<props> = ({user_id, setviewEvent, viewEvent}) => {
   const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
   const history = useHistory();
 
+  // if the btn clicked we go to the event page
   if(buttontoviewevent) {
     history.push('/eventpage')
     setbuttontoviewevent(false)

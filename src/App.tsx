@@ -155,7 +155,7 @@ const App: React.FC = () => {
             <Tab3 user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} />
           </Route>
           <Route path="/tab5">
-            <Tab5 events={events} />
+            <Tab5 events={events} setviewEvent={setviewEvent} viewEvent={viewEvent} />
           </Route>
          {Cookies.get("type_user") === "superAdmin" ||  Cookies.get("type_user") === "Admin"?<Route exact path="/">
             <Redirect to="/adminTab1" />
@@ -181,7 +181,7 @@ const App: React.FC = () => {
             <AdminTab1 setLogout={setLogout} type_user= {type_user}/>
           </Route>
           <Route path="/adminTab2" >
-            <AdminTab2  events={events} setEvents={setEvents}/>
+            <AdminTab2  events={events} setEvents={setEvents} setviewEvent={setviewEvent} viewEvent={viewEvent}/>
           </Route>
           <Route path="/adminTab3" >
             <AdminTab3 type_user= {type_user}/>

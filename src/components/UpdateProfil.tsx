@@ -109,7 +109,7 @@ const UpdateProfil: React.FC<ContainerProps> = ({user_id}) => {
             <IonTextarea
               placeholder="Update your description..."
               clearOnEdit={true}
-              value={description}
+              value={description !== null ? description : ""}
               onIonChange={(e) => setDescription(e.detail.value!)}
             ></IonTextarea>
           </IonItem>

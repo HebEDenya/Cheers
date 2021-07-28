@@ -48,7 +48,6 @@ const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
   const [startTime, setstartTime] = useState<any | null>([]);
   const [endTime, setendtime] = useState<any | null>([]);
   const [clicked, setclicked] = useState<boolean>(true);
-  const [followed, setFollowed] = useState<string | null>("");
   const [places, setPlaces] = useState<number | null>();
 
   const userId = Cookies.get("user_id");
@@ -56,13 +55,10 @@ const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
   const verifyFollow = () => {
     if (+userId && viewEvent) {
       axios.get(`/api/vote/color/${+userId}/${viewEvent}`).then((result) => {
-        console.log(result);
         if (result.data === "Followed") {
           setclicked(false);
-          setFollowed("Yes");
         } else {
           setclicked(true);
-          setFollowed("No");
         }
       });
     }
@@ -71,9 +67,7 @@ const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
     if (+userId && viewEvent) {
       axios
         .put(`/api/vote/${+userId}/${viewEvent}`)
-        .then((result) => {
-          console.log('في الجنة ان شاء الله');
-        })
+        .then((result) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -101,55 +95,59 @@ const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
       });
     }
   };
-
+  // return the available_places depend of n places
   const availablePlaces = () => {
     if (places === -1) {
       return <IonLabel className="place_eventpage">Open to everyone</IonLabel>;
     } else if (places === 0) {
-     return <IonLabel className="place_eventpage">Full</IonLabel>
+      return <IonLabel className="place_eventpage">Full</IonLabel>;
     } else {
-     return <IonLabel className="place_eventpage">
-        Available : {places} places'
-      </IonLabel>;
-      
+      return (
+        <IonLabel className="place_eventpage">
+          Available : {places} places'
+        </IonLabel>
+      );
     }
   };
 
+  // To switch button and color and inc or dec places
   const btnClick = () => {
     if (places && places !== -1) {
-    if (clicked) {
-     return <IonFabButton
-              onClick={() => {
-                setclicked(false);
-                voteEvent();
-                setPlaces(places - 1);
-              }}
-              className="btn_vote_eventpage"
-              color="light"
-              size="small"
-            >
-              <IonIcon icon={checkmarkCircleOutline} size="small" />
-            </IonFabButton>
-    } else if (!clicked) {
-     return <IonFabButton
-              onClick={() => {
-                setclicked(true);
-                voteEvent();
-                setPlaces(places + 1);
-              }}
-              className="btn_vote_eventpage"
-              color="primary"
-              size="small"
-            >
-              <IonIcon icon={checkmarkCircleOutline} size="small" />
-            </IonFabButton>
-
+      if (clicked) {
+        return (
+          <IonFabButton
+            onClick={() => {
+              setclicked(false);
+              voteEvent();
+              setPlaces(places - 1);
+            }}
+            className="btn_vote_eventpage"
+            color="light"
+            size="small"
+          >
+            <IonIcon icon={checkmarkCircleOutline} size="small" />
+          </IonFabButton>
+        );
+      } else if (!clicked) {
+        return (
+          <IonFabButton
+            onClick={() => {
+              setclicked(true);
+              voteEvent();
+              setPlaces(places + 1);
+            }}
+            className="btn_vote_eventpage"
+            color="primary"
+            size="small"
+          >
+            <IonIcon icon={checkmarkCircleOutline} size="small" />
+          </IonFabButton>
+        );
+      }
+    } else {
+      return "";
     }
-  } else {
-    return ""
-  }
-}
-console.log('ha',clicked);
+  };
 
   return (
     <>
@@ -160,33 +158,6 @@ console.log('ha',clicked);
           <IonLabel className="title_eventpage">{data.title}</IonLabel>
           {availablePlaces()}
           {btnClick()}
-          {/* {clicked ? (
-            <IonFabButton
-              onClick={() => {
-                setclicked(false);
-                voteEvent();
-                setPlaces(places - 1);
-              }}
-              className="btn_vote_eventpage"
-              color="light"
-              size="small"
-            >
-              <IonIcon icon={checkmarkCircleOutline} size="small" />
-            </IonFabButton>
-          ) : (
-            <IonFabButton
-              onClick={() => {
-                setclicked(true);
-                voteEvent();
-                setPlaces(places + 1);
-              }}
-              className="btn_vote_eventpage"
-              color="primary"
-              size="small"
-            >
-              <IonIcon icon={checkmarkCircleOutline} size="small" />
-            </IonFabButton>
-          )} */}
           <IonDatetime
             className="start_time_eventpage"
             displayFormat="HH:mm"

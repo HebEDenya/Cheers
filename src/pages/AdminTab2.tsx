@@ -52,14 +52,14 @@
   }
 
   useEffect(() => {
-    setEvents(events.filter((item)=> item.event_id !==deleteButton.btn_Id))
     if(deleteButton.btn_Id) {
       axios.delete(`/api/removevent/${deleteButton.btn_Id}`).then((result)=> {
          if (result.data ="event deleted") {
-           present('Event deleted successfully ')
+          setEvents(events.filter((item)=> item.event_id !==deleteButton.btn_Id))
+           present('Event deleted successfully 👌')
          }
       }).catch(()=> {
-        present('An error has occured')
+        present('An error has occured ❌')
       })
     }}
   , [deleteButton.btn_Id])

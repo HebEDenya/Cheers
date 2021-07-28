@@ -1,5 +1,5 @@
 const {queryPostRequestCreateEvent, selectCoinsFromUsers, updateCoinsUsers, getCoinsUser,getFavoriteEventsOfThUser,
-  selectEventById,removeEventFromFavorite, getAdminListe, removeAdmin,addNewAdmin, deleteEventByAdmin} = require('../queries/query_user/queryM.js')
+  selectEventById,removeEventFromFavorite, getAdminListe, removeAdmin,addNewAdmin, deleteEventByAdmin, deleteFromFavoriteByAdmin} = require('../queries/query_user/queryM.js')
 const {cloudinary} =require('../../cloudinary')
 const bcrypt = require('bcrypt');
 require('dotenv').config();
@@ -90,9 +90,13 @@ const handleAddNewAdmin = (req, res) => {
 
 // to delete event by admin 
 const handleDeleteEventByAdmin = (req, res) => {
+  deleteFromFavoriteByAdmin(req.params.event_id).then(()=>
   deleteEventByAdmin(req.params.event_id).then(() => {
     res.status(200).send("event deleted")
   }).catch((err)=> { res.status(402).send(err)})
+  
+  ).catch((err)=> {res.status(402).send(err)})
+  
 }
 
 module.exports = {

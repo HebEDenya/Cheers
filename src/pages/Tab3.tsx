@@ -38,7 +38,7 @@ const Tab3: React.FC<ContainerProps> = ({user_id, setviewEvent, viewEvent}) => {
     if(heartButtonClick.btn_Id) {
       axios.delete(`/api/removefromfavorite/${heartButtonClick.btn_Id}/${user_id}`).then((result)=> {
          if (result.data ="Event removed") {
-           present('Event removed successfully from favorite')
+           present('Event removed successfully from favorite 👌')
          }
       })
     }}

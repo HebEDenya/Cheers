@@ -25,6 +25,7 @@ IonSelectOption,
 import { useState, useEffect, } from "react";
 import { addOutline,  close, remove, checkmark, mail, mailOutline } from "ionicons/icons";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 
 
@@ -58,20 +59,25 @@ const getAdminListe = ()=> {
 }
 useEffect(()=> {
   getAdminListe()
-},[])
+},[addButton])
 
 // to remove an admin
 useEffect(() => {
-  if (type_user) {
-    setAdminList(adminList.filter((item)=> item.user_id !==removeButton.btn_Id))
-  if(removeButton.btn_Id) {
+  const userId = Cookies.get("user_id")
+  const type_user = Cookies.get("type_user")
+  if (type_user && +userId=== removeButton.btn_Id) { 
+    present("You can't remove yourself ❗")
+  }
+  if (type_user && +userId!== removeButton.btn_Id) {
+    setAdminList(adminList.filter((item)=> item.user_id !==removeButton.btn_Id ))
+  if(removeButton.btn_Id && +userId!== removeButton.btn_Id ) {
     axios.delete(`/api/removeAdmin/${removeButton.btn_Id}`).then((result)=> {
        if (result.data ="Admin removed") {
-         present('Admin removed successfully')
+         present('Admin removed successfully 👌')
          
        }   
     }).catch(() => {
-      present('An error has occured')
+      present('An error has occured ❌')
     })
   }}
 }, [removeButton.btn_Id])

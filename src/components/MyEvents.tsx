@@ -26,9 +26,10 @@ interface props {
   user_id:number
   setviewEvent:any,
   viewEvent:number,
+  eventAdded:boolean
 }
 
-const MyEvents: React.FC<props> = ({user_id, setviewEvent, viewEvent}) => {
+const MyEvents: React.FC<props> = ({user_id, setviewEvent, viewEvent, eventAdded}) => {
   const [data, setData] = useState<any | null>([]);
   const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
   const history = useHistory();
@@ -52,7 +53,7 @@ const MyEvents: React.FC<props> = ({user_id, setviewEvent, viewEvent}) => {
 
   useEffect(() => {
     getEvents();
-  }, []);
+  }, [eventAdded]);
   
   return (
     <>

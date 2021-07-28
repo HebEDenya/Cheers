@@ -22,10 +22,11 @@ import ImageContainer from "./CreateEventImage";
 import axios from "axios";
 
 interface ContainerProps {
-  user_id: number
+  user_id: number,
+  setimageProfileUpdated:any
 }
 
-const UpdateProfil: React.FC<ContainerProps> = ({user_id}) => {
+const UpdateProfil: React.FC<ContainerProps> = ({user_id, setimageProfileUpdated}) => {
   const [imageUpdated, setImageUpdated] = useState<boolean>(false);
   const [present] = useIonAlert();
   const [image, setImage] = useState<string>(
@@ -54,6 +55,8 @@ const UpdateProfil: React.FC<ContainerProps> = ({user_id}) => {
       .put(`http://localhost:3001/api/user/${user_id}/updateprofil`, { description, image })
       .then((result) => {
         if (result.statusText === "OK") {
+          present("Your profil have been Updated 👌", [{ text: "Done" }]);
+          setimageProfileUpdated(true)
           setImageUpdated(true)
         } 
       })
@@ -66,9 +69,9 @@ const UpdateProfil: React.FC<ContainerProps> = ({user_id}) => {
     getUserData();
   }, []);
 
-  // Function combine confirm and update.
+  // // Function combine confirm and update.
   const onClickBtn = () => {
-    present("Your profil have been Updated 👌", [{ text: "Done" }]);
+    present("Loading ... 🕓", [{ text: "Ok" }]);
     confirmUpdate();
   };
 
@@ -118,7 +121,7 @@ const UpdateProfil: React.FC<ContainerProps> = ({user_id}) => {
             type="submit"
             className="button_update_profil"
             onClick={() => {
-              onClickBtn();
+              onClickBtn()
             }}
           >
             Confirm

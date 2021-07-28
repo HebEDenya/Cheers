@@ -16,7 +16,7 @@ const getEvent = (req) => {
 
 const getPageEvent = (req) => {
   return database.query(
-    `SELECT EVENT.title, EVENT.category, EVENT.description, EVENT.image, EVENT.price, EVENT.start_time, EVENT.end_time, EVENT.location, EVENT.available_places, EVENT.event_id, USERS.user_id, USERS.username, USERS.user_image FROM EVENT INNER JOIN USERS ON EVENT.user_id=USERS.user_id WHERE EVENT.event_id=${req.params.id}`
+    `SELECT EVENT.title, EVENT.category, EVENT.description, EVENT.image, EVENT.price, EVENT.start_time, EVENT.end_time, EVENT.location, EVENT.available_places, EVENT.event_id, USERS.user_id, USERS.username, USERS.user_image FROM EVENT INNER JOIN USERS ON EVENT.user_id=USERS.user_id WHERE EVENT.event_id=${req.params.event_id}`
   );
 };
 

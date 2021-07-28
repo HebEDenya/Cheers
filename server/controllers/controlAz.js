@@ -72,7 +72,7 @@ const getVoteEvent = (req, res) => {
       unvoteEvent(req)
         .then((result) => {
           console.log(result);
-          res.status(200).send("unfollowed");
+          res.status(200).send("Unfollowed");
         })
         .catch((err) => {
           res.status(400).send(err);
@@ -84,7 +84,7 @@ const getVoteEvent = (req, res) => {
       voteEvent(req)
         .then((result) => {
           console.log(result);
-          res.status(200).send("followed");
+          res.status(200).send("Followed");
         })
         .catch((err) => {
           res.status(400).send(err);
@@ -99,6 +99,8 @@ const verifyFollowed = (req, res) => {
     .then((result) => {
       if (result.length) {
         res.status(200).send("Followed");
+      } else {
+        res.status(200).send("Unfollowed")
       }
     })
     .catch((err) => {

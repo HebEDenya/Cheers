@@ -23,7 +23,7 @@ const history = useHistory();
 
   // if we click on img cart w go to the event page
 if(buttontoviewevent) {
-  history.push('/eventpage')
+  history.push(`/eventpage/${viewEvent}`)
   setbuttontoviewevent(false)
 }
 

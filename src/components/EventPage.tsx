@@ -72,7 +72,7 @@ const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
       axios
         .put(`/api/vote/${+userId}/${viewEvent}`)
         .then((result) => {
-          console.log(result);
+          console.log('في الجنة ان شاء الله');
         })
         .catch((err) => {
           console.log(err);
@@ -149,6 +149,7 @@ const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
     return ""
   }
 }
+console.log('ha',clicked);
 
   return (
     <>

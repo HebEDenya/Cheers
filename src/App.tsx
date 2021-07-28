@@ -36,6 +36,7 @@ import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import Login from "./pages/Login";
+import NewPass from "./pages/NewPass";
 import Register from "./pages/Register";
 import Cookies from "js-cookie";
 
@@ -57,7 +58,8 @@ const App: React.FC = () => {
 
 
   // add id to cookies 
-      if ( login.auth) {
+      if ( login.auth && login.result.rememberMe) {
+       
       const id = login.result.user_id
       const type_user = login.result.type_user
       Cookies.set("user_id", `${id}`) 
@@ -111,8 +113,13 @@ const App: React.FC = () => {
   }  else {
   return (
   <IonApp>
+    
     {!login.auth && user_id===null ? 
     <IonReactRouter>
+      <IonRouterOutlet>
+       <Route exact path='/password'>
+        <NewPass /> 
+      </Route>
       <Route exact path='/register'>
     <Register /> 
     </Route>
@@ -121,11 +128,14 @@ const App: React.FC = () => {
     <Route exact path="/login">
     <Login  login={login} setLogin={setLogin} setuser_id={setuser_id} /> 
     </Route>
+    <Route exact path='/password'>
+        <NewPass /> 
+      </Route>   
+    </IonRouterOutlet>
     </IonReactRouter>
      :
     <IonReactRouter>  
-    <IonRouterOutlet>          
-    </IonRouterOutlet>
+     
       <IonTabs>
         <IonRouterOutlet>
     <Redirect exact from="/login" to="/tab1" />

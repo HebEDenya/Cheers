@@ -3,6 +3,39 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
 const saltRounds = 10;
+const nodemailer = require("nodemailer");
+
+
+const resetPassword = () => {
+  
+  console.log('clicked')
+  
+  var transporter = nodemailer.createTransport({
+      service: "gmail",
+     
+      auth: {
+        user: 'khemissimohamedamin@gmail.com',
+        pass: 'Amin+21696546196'
+      }
+    });
+    //get id user by email 
+
+    var mailOptions = {
+      from: 'khemissimohamedamin@gmail.com',
+      to: 'aminehamouda@hotmail.com',
+      subject: 'Sending Email using Node.js',
+      text: 'That was easy! liens/resetpassword/5 '
+    };
+    
+    transporter.sendMail(mailOptions, function(err, info){
+      if (err) {
+        
+        console.log('errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', err);
+      } else {
+        console.log('Email sent: ', info );
+      }
+    });
+  }
 
 const verifyJWT = (req, res, next) => {
   const token = req.headers[x-access-token]
@@ -62,9 +95,33 @@ const userRegister = (req, res) => {
         })
       })
     }
+
+    const updatePssword = (req, res) => {
+      const email = req.body.email;
+      const newPassword = "";
+        //encrpt req.body.newPassword
+          //hashing password
+      bcrypt.hash(req.body.newPassword, saltRounds, (err, hash) => {
+        if (err) {
+          res.status(400).send(err)
+        } else {
+         // newPassword = hash;
+          database.query(`UPDATE USERS SET password = '${hash}' WHERE email = '${email}'`)
+            .then((result) => {
+              console.log(result);
+              res.send(result);
+            })
+        }
+      })
+      
+    }
+
+
 module.exports = {
     userLogin,
     userRegister,
     handelVerJWT,
-    verifyJWT
+    verifyJWT,
+    updatePssword,
+    resetPassword
 }

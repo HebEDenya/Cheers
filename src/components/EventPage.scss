@@ -11,8 +11,18 @@
     display:flex;
     font-family: 'Roboto', sans-serif;
     font-size: 15px;
-    top: 1rem;
+    top: 3.5rem;
     left: 1.5rem;
+    color: gray
+}
+
+.place_eventpage {
+    position: relative;
+    display:flex;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    top: 4.5rem;
+    left: 1.4rem;
     color: gray
 }
 .title_eventpage {
@@ -21,7 +31,7 @@
     font-family: 'Roboto', sans-serif;
     font-size: 28px;
     font-weight: bold;
-    top: 1.5rem;
+    top: 4rem;
     left: 1.4rem;
     color: white;
 }
@@ -30,28 +40,68 @@
     // background-color: #000000;
     background-image: linear-gradient(180deg, #000000 53%, #ce93d8 75%);
 }
+
+.vote_eventpage {
+    position: relative;
+    left: 19rem;
+    top: 2.7rem;
+}
 .start-time_eventpage {
     display: flex;
     position: relative;
     font-family: 'Roboto', sans-serif;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: normal;
-    top: 3rem;
-    left: 0.1rem;
+    top: 2.6rem;
+    left: 1.5rem;
     color: white;
-    opacity: 1;
+    opacity: 0.8;
 }
 
 .end-time_eventpage {
     position: relative;
     display:flex;
     font-family: 'Roboto', sans-serif;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: normal;
-    top: 0.5rem;
-    left: 8rem;
+    top: 0.39rem;
+    left: 6.5rem;
     color: white;
-    opacity: 1;
+    opacity: 0.8;
+}
+
+.time_eventpage {
+    position: relative;
+    display:flex;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    top: 5.8rem;
+    left: 15.2rem;
+    color: white;
+    opacity: 0.8;
+}
+.start_time_eventpage {
+    position: relative;
+    display:flex;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    top: 9.4rem;
+    left: 14rem;
+    color: white;
+    opacity: 0.8;
+}
+.end_time_eventpage {
+    position: relative;
+    display:flex;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    top: 7.2rem;
+    left: 17rem;
+    color: white;
+    opacity: 0.8;
 }
 .location_eventpage {
     position: relative;
@@ -68,7 +118,7 @@
     display:flex;
     font-family: 'Roboto', sans-serif;
     font-size: 15px;
-    top: 0.5rem;
+    top: 0.3rem;
     left: 3.1rem;
     color: gray
 }
@@ -132,10 +182,19 @@ p {
       display: flex;
       position: relative;
       color: white;
-      bottom: 5.8rem;
-      left: 7.7rem;
-      font-size: 20px;
-      font-weight: bold;
+      bottom: 5.3rem;
+      left: 7.1rem;
+      font-size: 12px;
+      opacity: 0.8;
+  }
+  .span_time {
+      display: flex;
+      position: relative;
+      color: white;
+      top: 5.4rem;
+      left: 17.5rem;
+      font-size: 12px;
+      opacity: 0.8;
   }
 
 
@@ -150,11 +209,25 @@ p {
     left: 1.5rem;
     color: white;
 }
+.calendar_eventpage {
+    position: relative;
+    display:flex;
+    top: 4rem;
+    left: 1.5rem;
+    color: white;
+}
+.time_icon_eventpage {
+    position: relative;
+    display:flex;
+    top: 4.9rem;
+    left: 14rem;
+    color: white;
+}
 
 .icon_cash_eventpage {
     position: relative;
     display:flex;
-    bottom: 0.5rem;
+    bottom: 0.7rem;
     left: 1.5rem;
     color: white;
 }
@@ -164,5 +237,12 @@ p {
     color:white;
     display: flex;
     bottom: 5.3rem;
+    left: 19rem;
+}
+
+.btn_vote_eventpage {
+    position: relative;
+    display: flex;
+    top: 2rem;
     left: 19rem;
 }

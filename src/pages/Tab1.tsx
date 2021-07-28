@@ -18,11 +18,12 @@ const Tab1: React.FC <ContainerProps>= ({events, setviewEvent, viewEvent}) => {
  const [categories, setCategories] = useState(['https://images.squarespace-cdn.com/content/v1/5acb6f9fb27e3910337cdd37/1588499747331-SQOD997KAC1GTGN3A6IP/ke17ZwdGBToddI8pDm48kMMrhUZ3rQXTcnRxiSGi1G17gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmaUzSiviepfuOufnJa7SEDRKl7z_LUwe8cDB0iQ_YpMlSenNy3wuK8-Q9DCm8gcSo/IMG_1877.JPG?format=1500w','https://images.squarespace-cdn.com/content/v1/55b76e9ee4b03c58b8546b0c/1589791183324-DGUJ55BN5Z404VS53IYJ/cover-davidsfonds1.3.jpg?format=2500w'])
  
 //  const [heartButtonClick, setHeartButtonClick] = useState(false)
-const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false)
+const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
 const history = useHistory();
 
+  // if we click on img cart w go to the event page
 if(buttontoviewevent) {
-  history.push('/eventpage')
+  history.push(`/eventpage/${viewEvent}`)
   setbuttontoviewevent(false)
 }
 

@@ -106,7 +106,7 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id}
       <IonToolbar>
     <IonTitle>Create Event</IonTitle>
     <IonButtons slot="start">
-      <IonBackButton text="Back" color="dark"/>
+      <IonBackButton className="back_button" text="" color="dark"/>
       </IonButtons>
             
       </IonToolbar>
@@ -263,8 +263,8 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id}
         {!buttonClick ? <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false);refreshInfoAfterSubmit();}} className="second_button_create_event" >Cancel</button>
          <IonButton  size="default"  type="submit" className="button_create_event" 
          onClick={()=> { setSpiner(true); if (verifyInput() && user_id) {  postReaquestHandler()} 
-          else if (!verifyInput()){ present('All mandatory * fields must be filled', [{ text: 'Ok' }]) } }}>Confirme</IonButton>
-         {spiner? <IonSpinner name="crescent" /> : ''}
+          else if (!verifyInput()){ present('All mandatory * fields must be filled', [{ text: 'Ok' }]) } }}>Confirm</IonButton>
+         {spiner? <IonSpinner className="spinner_create_event" name="crescent" /> : ''}
         </>:
         <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false); }} className="second_button_create_event" > Account</button>
         <IonButton  size="default" routerLink="/myevents"  className="button_create_event" onClick={()=> {setButtonClick(false); setSwitchPageCreateEvent(false); }}>View Events</IonButton>

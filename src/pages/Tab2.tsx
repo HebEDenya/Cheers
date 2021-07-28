@@ -41,7 +41,7 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id,setLogout}) => {
   const getUserData = () => {
     if (user_id) {
     axios
-      .get(`http://localhost:3001/api/user/${user_id}`) // For now we use user_id
+      .get(`/api/user/${user_id}`) // For now we use user_id
       .then((res) => {
         setData(res.data[0]);
       })

@@ -106,7 +106,7 @@ database.query(`CREATE TABLE IF NOT EXISTS FOLLOWERS (
     followee_id INT NOT NULL,
     followed_id INT NOT NULL,
     FOREIGN KEY (followee_id) REFERENCES USERS (user_id),
-    FOREIGN KEY (followed_id) REFERENCES USERS (user_id)
+    FOREIGN KEY (followed_id) REFERENCES EVENT (event_id)
      
 )`).then((res) => {
     console.log('followers table created');

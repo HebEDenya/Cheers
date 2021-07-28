@@ -33,6 +33,7 @@ const MyEvents: React.FC<props> = ({user_id, setviewEvent, viewEvent}) => {
   const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
   const history = useHistory();
 
+  // if the btn clicked we go to the event page
   if(buttontoviewevent) {
     history.push('/eventpage')
     setbuttontoviewevent(false)
@@ -58,9 +59,9 @@ const MyEvents: React.FC<props> = ({user_id, setviewEvent, viewEvent}) => {
       <IonPage>
       <IonHeader>
     <IonToolbar>
-    <IonTitle>My Events</IonTitle>
+    <IonTitle className="myevent_title">My Events</IonTitle>
     <IonButtons slot="start">
-    <IonBackButton text="Back" color="dark"/> 
+    <IonBackButton className="back_button" text="" color="dark"/> 
     </IonButtons>
     </IonToolbar>
     </IonHeader>

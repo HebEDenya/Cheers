@@ -114,6 +114,14 @@
     font-size: 30px;
     margin-left: 0.4rem;
 }
+
+.spinner_create_event {
+    position: relative;
+    display: flex;
+    bottom: 0.1rem;
+    right: 0.5rem;
+
+}
 @media (max-width: 350px) {
     .icon_next_createEvent {
         left: 7.5rem;

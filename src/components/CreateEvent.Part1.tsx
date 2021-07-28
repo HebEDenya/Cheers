@@ -109,7 +109,7 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id,
       <IonToolbar>
     <IonTitle>Create Event</IonTitle>
     <IonButtons slot="start">
-      <IonBackButton text="Back" color="dark"/>
+      <IonBackButton className="back_button" text="" color="dark"/>
       </IonButtons>
             
       </IonToolbar>
@@ -265,7 +265,7 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id,
         &nbsp;
         {!buttonClick ? <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false);refreshInfoAfterSubmit();}} className="second_button_create_event" >Cancel</button>
          <IonButton  size="default"  type="submit" className="button_create_event" 
-         onClick={()=> {  if (verifyInput() && user_id) {  postReaquestHandler(); setSpiner(true);} 
+         onClick={()=> { if (verifyInput() && user_id) {  postReaquestHandler(); setSpiner(true);} 
           else if (!verifyInput()){ present('All mandatory * fields must be filled', [{ text: 'Ok' }]) } }}>Confirme</IonButton>
          {spiner? <IonSpinner name="crescent" /> : ''}
         </>:

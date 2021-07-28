@@ -82,7 +82,7 @@ const UpdateProfil: React.FC<ContainerProps> = ({user_id, setimageProfileUpdated
           <IonToolbar>
             <IonTitle>Update Profil</IonTitle>
             <IonButtons slot="start">
-              <IonBackButton text="Back" color="dark" />
+              <IonBackButton className="back_button" text="" color="dark" />
             </IonButtons>
           </IonToolbar>
         </IonHeader>
@@ -112,7 +112,7 @@ const UpdateProfil: React.FC<ContainerProps> = ({user_id, setimageProfileUpdated
             <IonTextarea
               placeholder="Update your description..."
               clearOnEdit={true}
-              value={description}
+              value={description !== null ? description : ""}
               onIonChange={(e) => setDescription(e.detail.value!)}
             ></IonTextarea>
           </IonItem>

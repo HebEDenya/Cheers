@@ -1,6 +1,7 @@
-import { IonPage, IonContent, IonCard,IonCardHeader,IonLabel,IonButton } from '@ionic/react';
+import { IonPage, IonContent, IonCard,IonCardHeader,IonLabel,IonButton,IonIcon } from '@ionic/react';
 import axios from 'axios';
 import Cookies from "js-cookie";
+import { alertCircle } from 'ionicons/icons';
 
 interface coinsProps {
   setCoinsUser:any,
@@ -20,9 +21,6 @@ const ConfirmedPayment: React.FC<coinsProps> = ({setCoinsUser,setuser_id}) => {
     })
   }
  
-  
-  
-
   return (
     <IonPage>
      <IonContent fullscreen>
@@ -31,7 +29,9 @@ const ConfirmedPayment: React.FC<coinsProps> = ({setCoinsUser,setuser_id}) => {
           <img src="https://res.cloudinary.com/dxhyydpng/image/upload/v1627496603/oce77p3elunbv3qghsig.gif" alt=""  className="favorite_img_size" />
           <IonCardHeader>
           <IonLabel className="no_title_fav">Payment completed !</IonLabel>
-          <IonButton fill="outline" expand="full" routerLink="/tab1" onClick={() => {updateCoins()}}> Click here to update your coins</IonButton>
+          <IonLabel className="no_title_fav"></IonLabel>
+          <IonButton color="danger" fill="outline" expand="full" routerLink="/CoinsPurchase" onClick={() => {updateCoins()}}> <IonIcon size="large" slot="start" icon={alertCircle}  /> 
+          Click here to update your coins</IonButton>
         </IonCardHeader>
         </IonCard>
         </IonContent>

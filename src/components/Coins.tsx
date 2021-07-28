@@ -16,7 +16,7 @@ import {
   IonButtons,
   IonHeader,
   IonProgressBar,
-  IonText,
+  IonFooter,
   IonContent,
   IonInput,
   IonSelectOption,
@@ -32,6 +32,7 @@ import {
   IonButton,
   IonGrid,
   IonCol,
+  IonNote,
 } from "@ionic/react";
 import { diamondOutline } from "ionicons/icons";
 import axios from "axios";
@@ -124,6 +125,9 @@ const CoinsPurchaser: React.FC<ContainerProps> = ({coinsUser, setCoinsUser}) => 
           );
         })}
       </IonContent>
+      <IonFooter className="ion-no-border">
+      <IonNote className="coins_contact_admin">Contact us: Cheers@gmail.com </IonNote>      
+    </IonFooter>
     </IonPage>
   );
 };

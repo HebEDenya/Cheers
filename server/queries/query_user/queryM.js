@@ -59,6 +59,11 @@ const deleteFromFavoriteByAdmin = (id) => {
     return database.query(`DELETE FROM FAVORITE WHERE event_id = ${id}`)
 }
 
+const updateCoinsAfterPurshase = (user_id, coins) => {
+    return database.query(`UPDATE USERS SET coins_quantity = coins_quantity +'${coins}' WHERE user_id =${user_id}`)
+}
+
+
 module.exports = {
     queryPostRequestCreateEvent,
     selectCoinsFromUsers,
@@ -71,5 +76,6 @@ module.exports = {
     removeAdmin,
     addNewAdmin,
     deleteEventByAdmin,
-    deleteFromFavoriteByAdmin
+    deleteFromFavoriteByAdmin,
+    updateCoinsAfterPurshase
 }

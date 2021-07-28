@@ -43,6 +43,8 @@ import AdminTab1 from "./pages/AdminTab1";
 import AdminTab2 from "./pages/AdminTab2";
 import AdminTab3 from "./pages/AdminTab3";
 import './pages/Admin.scss';
+import ConfirmedPayment from "./components/ConfirmedPayment";
+import NotConfirmedPayment from './components/NotConfirmedPayment'
 
 const App: React.FC = () => {
   const [isLoding, setIsLoading] = useState<boolean>(true)
@@ -189,6 +191,12 @@ const App: React.FC = () => {
           </Route>
           <Route path="/adminTab3" >
             <AdminTab3 type_user= {type_user}/>
+          </Route>
+          <Route path="/confirmedPayment" >
+            <ConfirmedPayment setCoinsUser={setCoinsUser}  setuser_id={setuser_id} coinsUser={coinsUser}/>
+          </Route>
+          <Route path="/NotconfirmedPayment" >
+            <NotConfirmedPayment />
           </Route>
         </IonRouterOutlet>
        {Cookies.get("type_user") === "superAdmin" ||  Cookies.get("type_user") === "Admin"? 

@@ -1,7 +1,8 @@
 const {queryPostRequestCreateEvent, selectCoinsFromUsers, updateCoinsUsers, getCoinsUser,getFavoriteEventsOfThUser,
-  selectEventById,removeEventFromFavorite, getAdminListe, removeAdmin,addNewAdmin, deleteEventByAdmin, deleteFromFavoriteByAdmin} = require('../queries/query_user/queryM.js')
+  selectEventById,removeEventFromFavorite, getAdminListe, removeAdmin,addNewAdmin, deleteEventByAdmin, deleteFromFavoriteByAdmin, updateCoinsAfterPurshase} = require('../queries/query_user/queryM.js')
 const {cloudinary} =require('../../cloudinary')
 const bcrypt = require('bcrypt');
+const axios = require('axios');
 require('dotenv').config();
 const saltRounds = 10;
 
@@ -99,6 +100,34 @@ const handleDeleteEventByAdmin = (req, res) => {
   
 }
 
+//to handle payment 
+
+const handlePayment = (req, res) => {
+  const { price } = req.body
+  axios.post('https://api.preprod.konnect.network/api/v1/payments/init-payment',{
+    "receiverWallet": process.env.WALLETKEY,
+    "amount": price*1000,
+    "selectedPaymentMethod": "gateway",
+    "token": "TND",
+    "lastName": "Cheers",
+    "email": "zahar.marwa.13@gmail.com",
+    "successUrl": "http://localhost:3000/confirmedPayment",
+    "failUrl": "http://localhost:3000/NotconfirmedPayment"
+    }).then((result) => {
+      res.status(200).send(result.data)
+    }).catch(err=> {res.status(401).send(err)})
+
+}
+
+const handelupdateCoins = (req, res) => {
+const {user_id,coins_quantity} = req.params
+updateCoinsAfterPurshase(user_id, coins_quantity).then((result)=> {
+  getCoinsUser(user_id).then((coins)=> {
+    res.status(201).json(coins[0].coins_quantity);
+  })
+}).catch((err) => { res.status(401).send(err)})
+}
+
 module.exports = {
     handlePostReaquestCreateEvent,
     getTheCoinsFromUser,
@@ -107,5 +136,7 @@ module.exports = {
     HandleAminListe,
     handleRemoveAdmin,
     handleAddNewAdmin,
-    handleDeleteEventByAdmin
+    handleDeleteEventByAdmin,
+    handlePayment,
+    handelupdateCoins
 }

@@ -64,6 +64,7 @@ useEffect(()=> {
 // to remove an admin
 useEffect(() => {
   const userId = Cookies.get("user_id")
+  const type_user = Cookies.get("type_user")
   if (type_user && +userId=== removeButton.btn_Id) { 
     present("You can't remove yourself ❗")
   }

@@ -230,6 +230,14 @@ const EventPage: React.FC<ContainerProps> = ({
           onClick={() => history.push("/tab5")}
         />
       );
+    } else if (btnpath ==="followedevents") {
+      return (
+        <IonIcon
+          className="back_button_eventpage"
+          icon={chevronBackOutline}
+          onClick={() => history.push("/followedevents")}
+        />
+      );
     }
   };
 

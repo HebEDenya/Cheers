@@ -25,6 +25,7 @@ import axios from "axios";
 import MyEvents from "./components/MyEvents";
 import FirstPage from "./pages/FirstPage";
 import EventPage from "./components/EventPage";
+import FollowedEvents from "./components/FollowedEvents";
 import "@ionic/react/css/core.css";
 import "@ionic/react/css/normalize.css";
 import "@ionic/react/css/structure.css";
@@ -178,6 +179,9 @@ const App: React.FC = () => {
             </Route>
           <Route path="/myevents" >
             <MyEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} setPath={setPath} />
+          </Route>
+          <Route path="/followedevents" >
+            <FollowedEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} setPath={setPath} />
           </Route>
           <Route path="/eventpage" >
             <EventPage viewEvent={viewEvent} btnpath={btnpath} setPath={setPath} />

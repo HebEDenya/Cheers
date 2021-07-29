@@ -8,6 +8,7 @@ const {
   selectFollowers,
   deleteFollowers,
   insertFollower,
+  followedEvents,
 } = require("../queries/query_user/queriesAz.js");
 const { cloudinary } = require("../../cloudinary");
 
@@ -108,6 +109,16 @@ const verifyFollowed = (req, res) => {
     });
 };
 
+const getFollowedEvents = (req, res) => {
+  followedEvents(req)
+  .then((result) => {
+    res.status(200).send(result)
+  })
+  .catch((err) => {
+    res.status(400).send(err)
+  })
+}
+
 module.exports = {
   selectRequest,
   updateRequest,
@@ -115,4 +126,5 @@ module.exports = {
   getPageEventRequest,
   getVoteEvent,
   verifyFollowed,
+  getFollowedEvents
 };

@@ -68,7 +68,7 @@ const Tab5: React.FC<searchProps> = ({ events, setviewEvent, setPath }) => {
                 item.location.toLowerCase().includes(search) ||
                 item.title.toLowerCase().includes(search) ||
                 item.category.toLowerCase() === search ||
-                item.price === search
+                item.price.toLowerCase() === search
               );
             })
             .map((item, index) => {

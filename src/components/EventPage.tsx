@@ -63,6 +63,8 @@ const EventPage: React.FC<ContainerProps> = ({
   const [clicked, setclicked] = useState<boolean>(true);
   const [places, setPlaces] = useState<number | null>();
   const history = useHistory();
+  const [userVerified, setUserVerified]= useState<boolean>(false)
+
 
   const userId = Cookies.get("user_id");
 
@@ -71,6 +73,7 @@ const EventPage: React.FC<ContainerProps> = ({
     if (+userId && viewEvent) {
       axios.get(`/api/vote/color/${+userId}/${viewEvent}`).then((result) => {
         if (result.data === "Followed") {
+          setUserVerified(true)
           setclicked(false);
         } else {
           setclicked(true);
@@ -104,7 +107,7 @@ const EventPage: React.FC<ContainerProps> = ({
     if (+userId && viewEvent) {
       verifyFollow();
     }
-  }, [viewEvent]);
+  }, [viewEvent,clicked]);
 
   // get all the data related to this event
   const getEventPage = () => {
@@ -185,11 +188,11 @@ const EventPage: React.FC<ContainerProps> = ({
           <IonIcon icon={alertOutline} size="small" />
         </IonFabButton>
       );
-    } else {
+    } else if (userVerified){
       return (
         <IonFabButton
           className="btn_vote_eventpage"
-          disabled={true}
+          // disabled={true}
           color="danger"
           size="small"
           onClick={() => {
@@ -197,6 +200,17 @@ const EventPage: React.FC<ContainerProps> = ({
             voteEvent();
             setPlaces(places + 1);
           }}
+        >
+          <IonIcon icon={alertOutline} size="small" />
+        </IonFabButton>
+      );
+    }else {
+      return (
+        <IonFabButton
+          className="btn_vote_eventpage"
+          disabled={true}
+          color="danger"
+          size="small"
         >
           <IonIcon icon={alertOutline} size="small" />
         </IonFabButton>

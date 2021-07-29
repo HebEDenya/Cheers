@@ -63,7 +63,6 @@ const getPageEventRequest = (req, res) => {
 
 const getVoteEvent = (req, res) => {
   const { event_id, user_id } = req.params;
-
   selectFollowers(event_id, user_id).then((result) => {
     if (result.length) {
       deleteFollowers(event_id, user_id).then((result) => {

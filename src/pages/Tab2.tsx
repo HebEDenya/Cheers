@@ -3,8 +3,6 @@ import {
   IonHeader,
   IonPage,
   IonTitle,
-  IonItem,
-  IonLabel,
   IonAvatar,
   IonBadge,
   IonText,
@@ -23,11 +21,13 @@ import axios from "axios";
 interface ContainerProps {
   coinsUser: number,
   user_id: number,
-  setLogout: any
+  setLogout: any,
+  setimageProfileUpdated: any,
+  imageProfileUpdated: boolean
 }
 
 
-const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id,setLogout}) => {
+const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id,setLogout, setimageProfileUpdated, imageProfileUpdated}) => {
   const [data, setData] = useState<any | null>([]);
   const [present] = useIonAlert();
   const history = useHistory()
@@ -41,7 +41,7 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id,setLogout}) => {
   const getUserData = () => {
     if (user_id) {
     axios
-      .get(`http://localhost:3001/api/user/${user_id}`) // For now we use user_id
+      .get(`/api/user/${user_id}`) // For now we use user_id
       .then((res) => {
         setData(res.data[0]);
       })
@@ -51,8 +51,9 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id,setLogout}) => {
   };
 
   useEffect(() => {
+    setimageProfileUpdated(false)
     getUserData();
-  },[]);
+  },[imageProfileUpdated]);
 
   return (
     <IonPage>
@@ -99,6 +100,15 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id,setLogout}) => {
         <IonCard routerLink="/myevents">
           <IonCardContent className="my_account_text">
             My Events
+            <div className="userDasbord_icon">
+              <IonIcon icon={chevronForwardOutline} className="icon-card" />
+            </div>{" "}
+          </IonCardContent>
+        </IonCard>
+        
+        <IonCard routerLink="/followedevents" >
+          <IonCardContent className="my_account_text">
+            Followed Events
             <div className="userDasbord_icon">
               <IonIcon icon={chevronForwardOutline} className="icon-card" />
             </div>{" "}

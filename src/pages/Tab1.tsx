@@ -17,9 +17,10 @@ interface ContainerProps {
   setCategories: any,
   categories:Array<any>,
   user_id: number,
+  setPath:any,
 }
 
-const Tab1: React.FC <ContainerProps>= ({events, setviewEvent, viewEvent, categories,setCategories,user_id}) => { 
+const Tab1: React.FC <ContainerProps>= ({events, setviewEvent,setPath, viewEvent, categories,setCategories,user_id}) => { 
 //  const [heartButtonClick, setHeartButtonClick] = useState(false)
 const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false)
 const [isFav, setIsFav] = useState<number>()
@@ -37,8 +38,9 @@ const slideOptsOne = {
   };
 const history = useHistory();
 
+  // if we click on img cart w go to the event page
 if(buttontoviewevent) {
-  history.push('/eventpage')
+  history.push(`/eventpage/${viewEvent}`)
   setbuttontoviewevent(false)
 }
 
@@ -93,7 +95,6 @@ return (
                   
         // <IonCard key={i} >
           
-        //     <img onClick={() => {setviewEvent(event.event_id) ; setbuttontoviewevent(true)}} src={event.image} alt=""  className="favorite_img_size" />
             
         // <IonCardHeader >
         // <IonGrid>
@@ -117,7 +118,7 @@ return (
         //     </IonGrid>     
         // </IonCardHeader>
         // </IonCard>
-               <SingleEvent setviewEvent={setviewEvent} event={event} key={i}/>   
+               <SingleEvent setviewEvent={setviewEvent} event={event} key={i} setPath={setPath}/>   
                 ))}
               
             </IonContent> 

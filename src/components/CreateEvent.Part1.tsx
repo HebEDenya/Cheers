@@ -5,15 +5,17 @@ import { locate, wifi,card, star,chevronForwardOutline,  chevronBackOutline,cale
 import './CreateEvent.scss'
 import ImageContainer from './CreateEventImage';
 import axios from 'axios';
+import moment from 'moment';
 
 interface props {
   setCoinsUser: any,
   coinsUser:number,
-  user_id:number
+  user_id:number,
+  setEventAdded:any
 }
 
 
-const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id}) => {
+const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id, setEventAdded}) => {
   const [present] = useIonAlert();
   const [spiner, setSpiner] = useState<boolean>(false)
   const [title, setTitle] = useState<string>();
@@ -87,13 +89,14 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id}
     axios.post('/api/postEvent', infoStore).then((result) => {
       
       if(result.statusText === "Created") {
+        setEventAdded(true)
         setSpiner(false)
         setCoinsUser(coinsUser-2)
         setButtonClick(true)
         refreshInfoAfterSubmit()
         present('Event created successfully 👌')
       } 
-    }).catch(e=> {console.log(e); present('An error has occurred ❌', [{ text: 'Ok' }])
+    }).catch(e=> {console.log(e); present('An error has occurred ❌', [{ text: 'Ok' }]); setSpiner(false)
     })
   }
 
@@ -106,7 +109,7 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id}
       <IonToolbar>
     <IonTitle>Create Event</IonTitle>
     <IonButtons slot="start">
-      <IonBackButton text="Back" color="dark"/>
+      <IonBackButton className="back_button" text="" color="dark"/>
       </IonButtons>
             
       </IonToolbar>
@@ -208,16 +211,16 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id}
        {/* {Start time and date of the event  } */}
         <IonItem lines="none" className="input_create_Event">
           <IonLabel className="color_subtitle_create">Event Start</IonLabel><IonIcon size="small" icon={calendar} />
-          <IonDatetime displayFormat=" MMM D, YYYY"  max="2099" min="2021" value={selectedStartDate} onIonChange={e => setSelectedStartDate(e.detail.value!)}></IonDatetime>
+          <IonDatetime displayFormat=" MMM D, YYYY"  max="2099" min={moment().format()} value={selectedStartDate} onIonChange={e => setSelectedStartDate(e.detail.value!)}></IonDatetime>
         </IonItem>
         <IonItem className="input_create_Event"  >
           <IonLabel className="color_subtitle_create">Start time</IonLabel><IonIcon size="small" icon={time} />
-          <IonDatetime displayFormat="h:mm a" value={selectedStartDate} onIonChange={e => setSelectedStartDate(e.detail.value!)}></IonDatetime>
+          <IonDatetime displayFormat="h:mm a"   value={selectedStartDate} onIonChange={e => setSelectedStartDate(e.detail.value!)}></IonDatetime>
         </IonItem>
         {/* {ent date and time of the event } */}
         <IonItem  className="input_create_Event" lines="none">
           <IonLabel className="color_subtitle_create">Event End</IonLabel><IonIcon size="small"icon={calendar} />
-          <IonDatetime displayFormat=" MMM D, YYYY"  max="2099" min="2021" value={selectEndDate} onIonChange={e => setSelectEndDate(e.detail.value!)}></IonDatetime>
+          <IonDatetime displayFormat=" MMM D, YYYY"  max="2099" min={moment().format()} value={selectEndDate} onIonChange={e => setSelectEndDate(e.detail.value!)}></IonDatetime>
         </IonItem>
         <IonItem className="input_create_Event" lines="none">
           <IonLabel className="color_subtitle_create">End time</IonLabel><IonIcon size="small" icon={time} />
@@ -260,9 +263,9 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id}
         &nbsp;
         <IonItem lines="none" >
         &nbsp;
-        {!buttonClick ? <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false);refreshInfoAfterSubmit();}} className="second_button_create_event" >Cancel</button>
+        {!buttonClick ? <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false);refreshInfoAfterSubmit();}} className="second_button_create_event">Cancel</button>
          <IonButton  size="default"  type="submit" className="button_create_event" 
-         onClick={()=> { setSpiner(true); if (verifyInput() && user_id) {  postReaquestHandler()} 
+         onClick={()=> { if (verifyInput() && user_id) {  postReaquestHandler(); setSpiner(true);} 
           else if (!verifyInput()){ present('All mandatory * fields must be filled', [{ text: 'Ok' }]) } }}>Confirme</IonButton>
          {spiner? <IonSpinner name="crescent" /> : ''}
         </>:

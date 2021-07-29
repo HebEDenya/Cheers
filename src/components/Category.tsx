@@ -53,20 +53,20 @@ const Category : React.FC<props>= ({user_id}) => {
             </IonToolbar>
           </IonHeader>
           <IonList>
-          <IonItem className="input_create_Event">
-         <IonLabel position="floating" className="color_subtitle_create">Category Name</IonLabel>
+          <IonItem className="input_create_categories">
+         <IonLabel position="floating" className="color_subtitle_categories">Category Name</IonLabel>
          <IonInput type="text" name="title" value={category_name} onIonChange={e => {setCategory_name(e.detail.value!);}} 
          clearInput required spellcheck  maxlength= {50} > 
          </IonInput>
          </IonItem>   
         </IonList>  
         &nbsp;
-        <IonItem className="input_create_Event">
+        <IonItem className="input_create_categories">
          <ImageContainer image={image} setImage={setImage}/>       
          </IonItem>
          &nbsp;
-         {!buttonClick ? <><button onClick={()=> {setButtonClick(null)}} className="second_button_create_event" >Cancel</button>
-         <IonButton  size="default"  type="submit" className="button_create_event" 
+         {!buttonClick ? <><button onClick={()=> {setButtonClick(null)}} className="second_button_create_event1" >Cancel</button>
+         <IonButton  size="default"  type="submit" className="button_create_categories" 
          onClick={()=> { if (verif()){postCategory()}
          else if (!verif()){ present('All mandatory * fields must be filled', [{ text: 'Ok' }]) }  }}>Confirm</IonButton>
         </>:''

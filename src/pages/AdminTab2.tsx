@@ -22,7 +22,8 @@
     IonRow,
     IonCol
   } from "@ionic/react";
-  import { useState, useEffect, } from "react";
+  import { useState, useEffect } from "react";
+  import { useHistory } from "react-router";
   import ExploreContainer from "../components/ExploreContainer";
   import {  trash } from "ionicons/icons";
   import axios from "axios";
@@ -31,23 +32,35 @@
   
   interface adminProps {
     events: Array<any>,
-    setEvents: any
+    setEvents: any,
+    setviewEvent:any,
+    viewEvent:number,
+    setPath: any,
   }
   
   
-  const AdminTab2: React.FC<adminProps>= ({events, setEvents}) => {
+  const AdminTab2: React.FC<adminProps>= ({events, setEvents, setviewEvent, viewEvent, setPath}) => {
   const [deleteButton, setDeleteButton] = useState<{clicked:boolean, btn_Id:number | null}>({clicked:true, btn_Id:null})
   const [present] = useIonAlert();
+  const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
+  const history = useHistory();
+
+
+    // if the btn is click w go to the event
+  if(buttontoviewevent) {
+    history.push('/eventpage')
+    setbuttontoviewevent(false)
+  }
 
   useEffect(() => {
-    setEvents(events.filter((item)=> item.event_id !==deleteButton.btn_Id))
     if(deleteButton.btn_Id) {
       axios.delete(`/api/removevent/${deleteButton.btn_Id}`).then((result)=> {
          if (result.data ="event deleted") {
-           present('Event deleted successfully ')
+          setEvents(events.filter((item)=> item.event_id !==deleteButton.btn_Id))
+           present('Event deleted successfully 👌')
          }
       }).catch(()=> {
-        present('An error has occured')
+        present('An error has occured ❌')
       })
     }}
   , [deleteButton.btn_Id])
@@ -67,7 +80,7 @@
       {events.length ? 
         events.map((item, index)=> { return (
         <IonCard key={index}>
-            <img src={item.image} alt=""  className="favorite_img_size" />
+            <img src={item.image} alt="" className="favorite_img_size" onClick={() => {setviewEvent(item.event_id) ; setbuttontoviewevent(true) ; setPath('admin')}} />
         <IonCardHeader>
         <IonGrid>
             <IonCardSubtitle>{item.title}</IonCardSubtitle>

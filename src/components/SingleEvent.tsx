@@ -11,12 +11,13 @@ import './SingleEvent.scss';
 import axios from 'axios';
 interface ContainerProps {
   event:any,
+  setPath: any,
 //   setCategories: any,
 //   categories:Array<any>,
 //   user_id: number,
   setviewEvent: React.Dispatch<React.SetStateAction<number>>,
 }
-const SingleEvent: React.FC <ContainerProps>= ({event,setviewEvent}) => { 
+const SingleEvent: React.FC <ContainerProps>= ({event,setviewEvent,setPath}) => { 
     //  const [heartButtonClick, setHeartButtonClick] = useState(false)
     const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false)
     const [isFav, setIsFav] = useState<number>()
@@ -58,7 +59,7 @@ const SingleEvent: React.FC <ContainerProps>= ({event,setviewEvent}) => {
       <IonPage>    
              
           
-          <img onClick={() => {setviewEvent(event.event_id) ; setbuttontoviewevent(true)}} src={event.image} alt=""  className="favorite_img_size" />
+             <img onClick={() => {setviewEvent(event.event_id) ; setbuttontoviewevent(true) ; setPath('tab1')}} src={event.image} alt=""  className="favorite_img_size" />
           
       <IonCardHeader >
       <IonGrid>

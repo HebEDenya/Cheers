@@ -63,7 +63,7 @@ import {
             </div>
           </IonCardContent>
         </IonCard> :
-        <IonCard onClick={() => present("You don't have permission", [{ text: 'Ok' }])}>
+        <IonCard onClick={() => present("You don't have permission 🛑", [{ text: 'Ok' }])}>
         <IonCardContent className="my_account_text">
           Manage admins
           <div className="userDasbord_icon">

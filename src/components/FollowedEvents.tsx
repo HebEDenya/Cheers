@@ -18,7 +18,7 @@ import {
   IonBackButton,
   IonButton,
 } from "@ionic/react";
-import "./MyEvents.scss";
+import "./FollowedEvents.scss";
 import axios from "axios";
 import { useHistory } from "react-router";
 
@@ -28,16 +28,19 @@ interface props {
   viewEvent: number;
   eventAdded: boolean;
   setPath: any;
+  followedEvents: any[]
+  
 }
 
-const MyEvents: React.FC<props> = ({
+const FollowedEvents: React.FC<props> = ({
   user_id,
   setviewEvent,
   viewEvent,
   eventAdded,
   setPath,
+  followedEvents
+  
 }) => {
-  const [data, setData] = useState<any | null>([]);
   const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
   const history = useHistory();
 
@@ -47,26 +50,13 @@ const MyEvents: React.FC<props> = ({
     setbuttontoviewevent(false);
   }
 
-  // Get events for the user
-  const getEvents = () => {
-    if (user_id) {
-      axios.get(`/api/events/${user_id}`).then((res) => {
-        // Hard coded ID
-        setData(res.data);
-      });
-    }
-  };
-
-  useEffect(() => {
-    getEvents();
-  }, [eventAdded]);
 
   return (
     <>
       <IonPage>
         <IonHeader>
           <IonToolbar>
-            <IonTitle className="myevent_title">My Events</IonTitle>
+            <IonTitle className="myevent_title">Followed Events</IonTitle>
             <IonButtons slot="start">
               <IonBackButton className="back_button" text="" color="dark" />
             </IonButtons>
@@ -74,8 +64,8 @@ const MyEvents: React.FC<props> = ({
         </IonHeader>
         <IonContent fullscreen>
           &nbsp;
-          {data.length ? (
-            data.map((event, key) => {
+          {followedEvents.length ? (
+            followedEvents.map((event, key) => {
               return (
                 <IonCard key={key}>
                   <img
@@ -85,7 +75,7 @@ const MyEvents: React.FC<props> = ({
                     onClick={() => {
                       setviewEvent(event.event_id);
                       setbuttontoviewevent(true);
-                      setPath("myevents");
+                      setPath("followedevents");
                     }}
                   />
                   <IonCardHeader>
@@ -113,19 +103,19 @@ const MyEvents: React.FC<props> = ({
                 &nbsp;
                 <IonCard>
                   <img
-                    src="http://res.cloudinary.com/dxhyydpng/image/upload/v1627258353/ybrxtktnn4mrvv8gzq9u.gif"
+                    src="https://res.cloudinary.com/dxhyydpng/image/upload/v1627568150/uqkkvedkbl5v9oo77nuk.gif"
                     alt=""
                     className=""
                   />
                   <IonCardHeader>
-                    <IonLabel className="no_title">No Events Yet!</IonLabel>
+                    <IonLabel className="no_title_followed">No Followed Events Yet!</IonLabel>
                     <IonButton
                       fill="outline"
                       expand="full"
-                      routerLink="/CreateEvent"
+                      routerLink="/tab1"
                     >
                       {" "}
-                      Create Events{" "}
+                      Follow Events{" "}
                     </IonButton>
                   </IonCardHeader>
                 </IonCard>
@@ -138,4 +128,4 @@ const MyEvents: React.FC<props> = ({
   );
 };
 
-export default MyEvents;
+export default FollowedEvents;

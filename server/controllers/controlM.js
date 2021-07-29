@@ -1,7 +1,8 @@
 const {queryPostRequestCreateEvent, selectCoinsFromUsers, updateCoinsUsers, getCoinsUser,getFavoriteEventsOfThUser,
-  selectEventById,removeEventFromFavorite, getAdminListe, removeAdmin,addNewAdmin, deleteEventByAdmin} = require('../queries/query_user/queryM.js')
+  selectEventById,removeEventFromFavorite, getAdminListe, removeAdmin,addNewAdmin, deleteEventByAdmin, deleteFromFavoriteByAdmin, updateCoinsAfterPurshase} = require('../queries/query_user/queryM.js')
 const {cloudinary} =require('../../cloudinary')
 const bcrypt = require('bcrypt');
+const axios = require('axios');
 require('dotenv').config();
 const saltRounds = 10;
 
@@ -38,14 +39,7 @@ const getTheCoinsFromUser = (req, res) => {
 const selectFavoriteEventsForUser =  (req, res) => {
   const {user_id} = req.params
   getFavoriteEventsOfThUser(user_id).then((result)=> {
-     let favorite = result.map((element) => {
-      return selectEventById(element.event_id).then(item => {
-        return item[0]
-      }).catch(err=> {res.status(402).send(err)})
-    })
-    Promise.all(favorite)
-    .then(result=> {res.status(200).send(result)})
-    .catch(err=> {res.status(400).send(err)})
+    res.status(200).json(result)
   })
   .catch(err=> {res.status(401).send(err)})
 }
@@ -90,9 +84,41 @@ const handleAddNewAdmin = (req, res) => {
 
 // to delete event by admin 
 const handleDeleteEventByAdmin = (req, res) => {
+  deleteFromFavoriteByAdmin(req.params.event_id).then(()=>
   deleteEventByAdmin(req.params.event_id).then(() => {
     res.status(200).send("event deleted")
   }).catch((err)=> { res.status(402).send(err)})
+  
+  ).catch((err)=> {res.status(402).send(err)})
+  
+}
+
+//to handle payment 
+
+const handlePayment = (req, res) => {
+  const { price } = req.body
+  axios.post('https://api.preprod.konnect.network/api/v1/payments/init-payment',{
+    "receiverWallet": process.env.WALLETKEY,
+    "amount": price*1000,
+    "selectedPaymentMethod": "gateway",
+    "token": "TND",
+    "lastName": "Cheers",
+    "email": "zahar.marwa.13@gmail.com",
+    "successUrl": "http://localhost:3000/confirmedPayment",
+    "failUrl": "http://localhost:3000/NotconfirmedPayment"
+    }).then((result) => {
+      res.status(200).send(result.data)
+    }).catch(err=> {res.status(401).send(err)})
+
+}
+
+const handelupdateCoins = (req, res) => {
+const {user_id,coins_quantity} = req.params
+updateCoinsAfterPurshase(user_id, coins_quantity).then((result)=> {
+  getCoinsUser(user_id).then((coins)=> {
+    res.status(201).json(coins[0].coins_quantity);
+  })
+}).catch((err) => { res.status(401).send(err)})
 }
 
 module.exports = {
@@ -103,5 +129,7 @@ module.exports = {
     HandleAminListe,
     handleRemoveAdmin,
     handleAddNewAdmin,
-    handleDeleteEventByAdmin
+    handleDeleteEventByAdmin,
+    handlePayment,
+    handelupdateCoins
 }

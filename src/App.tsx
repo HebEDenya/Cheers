@@ -26,6 +26,7 @@ import MyEvents from "./components/MyEvents";
 import Category from "./components/Category";
 import FirstPage from "./pages/FirstPage";
 import EventPage from "./components/EventPage";
+import FollowedEvents from "./components/FollowedEvents";
 import "@ionic/react/css/core.css";
 import "@ionic/react/css/normalize.css";
 import "@ionic/react/css/structure.css";
@@ -44,6 +45,8 @@ import AdminTab1 from "./pages/AdminTab1";
 import AdminTab2 from "./pages/AdminTab2";
 import AdminTab3 from "./pages/AdminTab3";
 import './pages/Admin.scss';
+import ConfirmedPayment from "./components/ConfirmedPayment";
+import NotConfirmedPayment from './components/NotConfirmedPayment'
 
 
 const App: React.FC = () => {
@@ -56,6 +59,13 @@ const App: React.FC = () => {
   const [logOut, setLogout] = useState<boolean>(false);
   const [viewEvent, setviewEvent] = useState<number | null>(null);
   const [categories, setCategories] = useState([])
+  const [eventAdded, setEventAdded] = useState<boolean>(false)
+  const [imageProfileUpdated, setimageProfileUpdated] = useState<boolean>(false)
+  const [btnpath, setPath] = useState<string>('');
+  const [followedEvents, setFollowedEvents]=useState<Array<any>>([]);
+
+
+
   
 /// for the first page to load 
   useEffect(()=> {
@@ -114,11 +124,12 @@ const App: React.FC = () => {
   useEffect(() => {
     axios.get('/api/home').then((result) => {
      setEvents(result.data)
+     setEventAdded(false)
     })
     .catch((err) => {
      console.log(err);
    });
-  },[])
+  },[eventAdded])
   // to get categories
   useEffect(() => {
     axios.get('/api/categories').then((result) => {
@@ -140,8 +151,8 @@ const App: React.FC = () => {
       <Route exact path='/register'>
     <Register /> 
     </Route>
-    <Redirect exact from="/" to="/register">
-    </Redirect>
+    {/* <Redirect exact from="/" to="/register">
+    </Redirect> */}
     <Route exact path="/login">
     <Login  login={login} setLogin={setLogin} setuser_id={setuser_id} /> 
     </Route>
@@ -149,22 +160,20 @@ const App: React.FC = () => {
     </IonReactRouter>
      :
     <IonReactRouter>  
-    <IonRouterOutlet>          
-    </IonRouterOutlet>
       <IonTabs>
         <IonRouterOutlet>
    {Cookies.get("type_user") === "superAdmin" ||  Cookies.get("type_user") === "Admin"? <Redirect exact from="/login" to="/adminTab1" /> : <Redirect exact from="/login" to="/tab1" /> }
           <Route exact path="/tab1">
-            <Tab1 user_id={user_id} events = {events} setviewEvent={setviewEvent} viewEvent={viewEvent} categories = {categories} setCategories={setCategories}/>
+            <Tab1 user_id={user_id} events = {events} setviewEvent={setviewEvent} setPath={setPath} viewEvent={viewEvent} categories = {categories} setCategories={setCategories}/>
           </Route>
           <Route exact path="/tab2">
-            <Tab2 coinsUser= {coinsUser} user_id={user_id} setLogout={setLogout}/>
+            <Tab2 coinsUser= {coinsUser} user_id={user_id} setLogout={setLogout} imageProfileUpdated={imageProfileUpdated} setimageProfileUpdated={setimageProfileUpdated}/>
           </Route>
           <Route path="/tab3" >
-            <Tab3 user_id={user_id} />
+            <Tab3 user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} setPath={setPath} />
           </Route>
           <Route path="/tab5">
-            <Tab5 events={events} />
+            <Tab5 events={events} setviewEvent={setviewEvent} viewEvent={viewEvent} setPath={setPath} />
           </Route>
          {Cookies.get("type_user") === "superAdmin" ||  Cookies.get("type_user") === "Admin"?<Route exact path="/">
             <Redirect to="/adminTab1" />
@@ -172,31 +181,40 @@ const App: React.FC = () => {
             <Redirect to="/tab1" />
           </Route>}
           <Route path="/update">
-            <UpdateProfil user_id={user_id}  />
+            <UpdateProfil user_id={user_id}  setimageProfileUpdated={setimageProfileUpdated}/>
           </Route>
           <Route path="/CreateEvent" >
-            <CreateEventComponenetPart1 setCoinsUser={setCoinsUser} coinsUser={coinsUser} user_id={user_id}/>
+            <CreateEventComponenetPart1 setCoinsUser={setCoinsUser} coinsUser={coinsUser} user_id={user_id} setEventAdded={setEventAdded}/>
           </Route>
           <Route path="/CoinsPurchase" >
             <CoinsPurchaser  coinsUser= {coinsUser}setCoinsUser={setCoinsUser} />
             </Route>
           <Route path="/myevents" >
-            <MyEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} />
+            <MyEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} setPath={setPath} />
+          </Route>
+          <Route path="/followedevents" >
+            <FollowedEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} setPath={setPath} followedEvents={followedEvents}  />
           </Route>
           <Route path="/eventpage" >
-            <EventPage viewEvent={viewEvent} />
+            <EventPage viewEvent={viewEvent} btnpath={btnpath} setPath={setPath}   setFollowedEvents={setFollowedEvents}/>
           </Route>
           <Route path="/adminTab1" >
             <AdminTab1 setLogout={setLogout} type_user= {type_user}/>
           </Route>
           <Route path="/adminTab2" >
-            <AdminTab2  events={events} setEvents={setEvents}/>
+            <AdminTab2  events={events} setEvents={setEvents} setviewEvent={setviewEvent} viewEvent={viewEvent} setPath={setPath}/>
           </Route>
           <Route path="/adminTab3" >
             <AdminTab3 type_user= {type_user}/>
           </Route>
           <Route path="/postCategory" >
             <Category user_id={user_id} />
+            </Route>
+          <Route path="/confirmedPayment" >
+            <ConfirmedPayment setCoinsUser={setCoinsUser}  setuser_id={setuser_id} coinsUser={coinsUser}/>
+          </Route>
+          <Route path="/NotconfirmedPayment" >
+            <NotConfirmedPayment />
           </Route>
         </IonRouterOutlet>
        {Cookies.get("type_user") === "superAdmin" ||  Cookies.get("type_user") === "Admin"? 

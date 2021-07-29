@@ -5,10 +5,25 @@ const getHome = () => {
 }
 
 const postCategory = (body,clodImage) => {
-    const {name, image}=body
-    return database.query(`INSERT INTO CATEGORIES(category_name,category_image) VALUES ('${name}','${image}')`)
+    return database.query(`INSERT INTO CATEGORIES(category_name,category_image) VALUES ('${body.category_name}','${clodImage}')`)
 }
+
+const getCategories = () => {
+    return database.query(`SELECT * FROM CATEGORIES`)
+}
+
+const PlusFavorite = (user_id, event_id) => {
+    return database.query(`INSERT INTO FAVORITE (user_id,event_id) VALUES (${user_id},${event_id})`)
+}
+
+const SelectFav = (user_id, event_id) => {
+    return database.query(`SELECT * FROM FAVORITE WHERE user_id=${user_id} AND event_id=${event_id}`)
+}
+
 module.exports = {
     getHome,
-    postCategory
+    postCategory,
+    getCategories,
+    PlusFavorite,
+    SelectFav,
 }

@@ -6,7 +6,7 @@ const handle = (req) => {
 
 const update = (params, body, avatarImg) => {
   return database.query(
-    `UPDATE USERS SET description = '${body.description}', image = '${avatarImg}' WHERE user_id=${params.id}`
+    `UPDATE USERS SET user_description = '${body.description}', user_image = '${avatarImg}' WHERE user_id=${params.id}`
   );
 };
 
@@ -14,8 +14,15 @@ const getEvent = (req) => {
   return database.query(`SELECT * FROM EVENT WHERE user_id=${req.params.id}`);
 };
 
+const getPageEvent = (req) => {
+  return database.query(
+    `SELECT EVENT.title, EVENT.category, EVENT.description, EVENT.image, EVENT.price, EVENT.start_time, EVENT.end_time, EVENT.location, EVENT.available_places, EVENT.event_id, USERS.user_id, USERS.username, USERS.user_image FROM EVENT INNER JOIN USERS ON EVENT.user_id=USERS.user_id WHERE EVENT.event_id=${req.params.id}`
+  );
+};
+
 module.exports = {
   handle,
   update,
   getEvent,
+  getPageEvent,
 };

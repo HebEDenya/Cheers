@@ -12,46 +12,43 @@
 #heart_favorite-hover:active {
     transform: scale(1.5);
 }
-.event_title {
-    position: relative;
-    top: 0.1rem;
-    font-weight: 10px;
-    font-size: 22px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: #5d5d5d;
-}
-
 .date_favoritr_color {
     color:rgb(216, 130, 144);
     font-size: 1.04rem;
 }
-.event_title {
+.container{
     position: relative;
-    top: 0.1rem;
-    font-weight: 10px;
-    font-size: 22px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: #5d5d5d;
+    height: 75px;
+    width: 450px;
+    justify-content: 5px;
 }
-
-.event_time {
+.container .box {
     position: relative;
-    color: #ce93d8;
-    // right: 1.3rem;
+    width: calc(175px - 7px);
+    height: calc(60px - 7px);
+    background: #ce93d8;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 10px;
+    float: left;
+    justify-content: 5px;
 }
-// .details{
-//     display: block;
-// }
+.categoryImg{
+    height: 100px;
+    width: 100px;
+    position: relative;
+    display: flex;
+}
 .favorite_img_size {
     height: 17rem;
     width: 22rem;
 
 }    
-        .favorite_img_size {
-        width: 55rem;
-        height: 22rem;
+        // .favorite_img_size {
+        // width: 55rem;
+        // height: 22rem;
     
-        }
+        // }
     
     #title_favorite_color {
         color: #251f11;
@@ -61,20 +58,4 @@
     .date_favoritr_color {
         color:rgb(216, 130, 144);
         font-size: 1.04rem;
-    }
-    
-    .event_title {
-        position: relative;
-        top: 0.1rem;
-        font-weight: 10px;
-        font-size: 22px;
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        color: #5d5d5d;
-    }
-    
-    .event_time {
-        position: relative;
-        color: #ce93d8;
-        right: 1.3rem;
-        opacity: 1;
     }

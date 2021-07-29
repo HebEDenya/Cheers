@@ -33,9 +33,7 @@ const CoinsPurchaser: React.FC<ContainerProps> = ({coinsUser, setCoinsUser}) => 
       </IonRow>
       </IonGrid>
       
-      &nbsp;
-     
-          
+      &nbsp;    
           {[...Array(3)].map((item, index)=> {
               return (
           <IonCard key={index} className="coins_card_size">

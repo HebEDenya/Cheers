@@ -8,7 +8,6 @@ interface searchProps {
   
   const Tab5: React.FC<searchProps> = ({events}) => {
     const [searchText, setSearchText] = useState<string>('');
-    const [serachExist, setsearchExist]=useState<boolean>(true)
 
     return (
       <IonPage>
@@ -22,12 +21,12 @@ interface searchProps {
      
       <IonToolbar>
       &nbsp;
-        <IonSearchbar value={searchText} type="search" spellcheck={true} onIonChange={e => setSearchText(e.detail.value!)}></IonSearchbar>
+        <IonSearchbar  value={searchText} type="search" spellcheck={true} onIonChange={e => setSearchText(e.detail.value!)}></IonSearchbar>
       </IonToolbar>
       <IonContent>
       {searchText&& events.filter((item) => {
-        let search = searchText.toLocaleLowerCase()
-         return item.location.includes(search)   || item.title.includes(search) || item.category === search || item.price === search
+        let search = searchText.toLowerCase()
+         return item.location.toLowerCase().includes(search)   || item.title.toLowerCase().includes(search) || item.category.toLowerCase() === search || item.price === search
         }).map((item,index) => {                    
          return (
             <IonCard key={index}>
@@ -41,7 +40,7 @@ interface searchProps {
             </IonRow>
             <IonRow>
             <IonCol size="10.5">
-            <IonLabel id="price_favorite_size">{item.price=== "Free"? "Free" : item.price +'Dt'}</IonLabel>
+            <IonLabel id="price_favorite_size">{item.price=== "Free"? "Free" : item.price +' DT'}</IonLabel>
             </IonCol>
             </IonRow>
             </IonGrid>     

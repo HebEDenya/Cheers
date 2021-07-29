@@ -62,8 +62,8 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id,setLogout}) => {
           <IonTitle class="ion-margin" className="avatar_username">{data.username}</IonTitle>
           <IonAvatar class="ion-margin" className="avatar_image">
             <img src={
-                data.image !== null
-                  ? data.image
+                data.user_image !== null
+                  ? data.user_image
                   : "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png"
               } alt="" />
           </IonAvatar>

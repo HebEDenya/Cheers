@@ -189,7 +189,7 @@ const EventPage: React.FC<ContainerProps> = ({
       return (
         <IonFabButton
           className="btn_vote_eventpage"
-          // disabled={true}
+          disabled={true}
           color="danger"
           size="small"
           onClick={() => {

@@ -47,17 +47,21 @@ interface ContainerProps {
   viewEvent: any;
   btnpath: string;
   setPath: any;
+  clicked: boolean,
+  setclicked: any
 }
 
 const EventPage: React.FC<ContainerProps> = ({
   viewEvent,
   btnpath,
   setPath,
+  clicked,
+  setclicked
 }) => {
   const [data, setData] = useState<any | null>([]);
   const [startTime, setstartTime] = useState<any | null>([]);
   const [endTime, setendtime] = useState<any | null>([]);
-  const [clicked, setclicked] = useState<boolean>(true);
+  // const [clicked, setclicked] = useState<boolean>(true);
   const [places, setPlaces] = useState<number | null>();
   const history = useHistory();
 
@@ -203,7 +207,7 @@ const EventPage: React.FC<ContainerProps> = ({
         <IonIcon
           className="back_button_eventpage"
           icon={chevronBackOutline}
-          onClick={() => history.push("/adminTab2")}
+          onClick={() =>{ history.push("/adminTab2") }}
         />
       );
     } else if (btnpath === "myevents") {

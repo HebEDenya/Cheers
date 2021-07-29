@@ -59,6 +59,8 @@ const App: React.FC = () => {
   const [eventAdded, setEventAdded] = useState<boolean>(false)
   const [imageProfileUpdated, setimageProfileUpdated] = useState<boolean>(false)
   const [btnpath, setPath] = useState<string>('');
+  const [clicked, setclicked] = useState<boolean>(true);
+
 
 
 
@@ -126,6 +128,7 @@ const App: React.FC = () => {
      console.log(err);
    });
   },[eventAdded])
+
   
   if (isLoding) {
     return (
@@ -183,10 +186,10 @@ const App: React.FC = () => {
             <MyEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} setPath={setPath} />
           </Route>
           <Route path="/followedevents" >
-            <FollowedEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} setPath={setPath} />
+            <FollowedEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} setPath={setPath} clicked ={clicked} />
           </Route>
           <Route path="/eventpage" >
-            <EventPage viewEvent={viewEvent} btnpath={btnpath} setPath={setPath} />
+            <EventPage viewEvent={viewEvent} btnpath={btnpath} setPath={setPath}  clicked ={clicked} setclicked={setclicked} />
           </Route>
           <Route path="/adminTab1" >
             <AdminTab1 setLogout={setLogout} type_user= {type_user}/>

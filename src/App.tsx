@@ -59,8 +59,7 @@ const App: React.FC = () => {
   const [eventAdded, setEventAdded] = useState<boolean>(false)
   const [imageProfileUpdated, setimageProfileUpdated] = useState<boolean>(false)
   const [btnpath, setPath] = useState<string>('');
-  const [clicked, setclicked] = useState<boolean>(true);
-
+  const [followedEvents, setFollowedEvents]=useState<Array<any>>([]);
 
 
 
@@ -186,10 +185,10 @@ const App: React.FC = () => {
             <MyEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} setPath={setPath} />
           </Route>
           <Route path="/followedevents" >
-            <FollowedEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} setPath={setPath} clicked ={clicked} />
+            <FollowedEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} setPath={setPath} followedEvents={followedEvents}  />
           </Route>
           <Route path="/eventpage" >
-            <EventPage viewEvent={viewEvent} btnpath={btnpath} setPath={setPath}  clicked ={clicked} setclicked={setclicked} />
+            <EventPage viewEvent={viewEvent} btnpath={btnpath} setPath={setPath}   setFollowedEvents={setFollowedEvents}/>
           </Route>
           <Route path="/adminTab1" >
             <AdminTab1 setLogout={setLogout} type_user= {type_user}/>

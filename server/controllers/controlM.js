@@ -39,14 +39,7 @@ const getTheCoinsFromUser = (req, res) => {
 const selectFavoriteEventsForUser =  (req, res) => {
   const {user_id} = req.params
   getFavoriteEventsOfThUser(user_id).then((result)=> {
-     let favorite = result.map((element) => {
-      return selectEventById(element.event_id).then(item => {
-        return item[0]
-      }).catch(err=> {res.status(402).send(err)})
-    })
-    Promise.all(favorite)
-    .then(result=> {res.status(200).send(result)})
-    .catch(err=> {res.status(400).send(err)})
+    res.status(200).json(result)
   })
   .catch(err=> {res.status(401).send(err)})
 }

@@ -137,8 +137,8 @@ const App: React.FC = () => {
       <Route exact path='/register'>
     <Register /> 
     </Route>
-    <Redirect exact from="/" to="/register">
-    </Redirect>
+    {/* <Redirect exact from="/" to="/register">
+    </Redirect> */}
     <Route exact path="/login">
     <Login  login={login} setLogin={setLogin} setuser_id={setuser_id} /> 
     </Route>

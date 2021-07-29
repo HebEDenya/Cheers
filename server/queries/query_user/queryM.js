@@ -22,7 +22,7 @@ const getCoinsUser = (id) => {
 
 // get the favorit event
 const getFavoriteEventsOfThUser = (user_id) => {
-    return database.query(`SELECT event_id FROM FAVORITE WHERE user_id =${user_id}`)
+    return database.query(`SELECT e.event_id, e.title, e.title, e.image, e.start_time, e.location , e.user_id, e.category from FAVORITE f INNER JOIN EVENT e on (e.event_id = f.event_id) WHERE f.user_id = ${user_id}`)
 }
 
 //select specefic event 

@@ -39,7 +39,9 @@ import axios from "axios";
 import "./CreateEvent.scss";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
+import { Plugins } from '@capacitor/core';
+const { App: CapApp } = Plugins;
 interface ContainerProps {
   setCoinsUser: any;
   coinsUser: number;
@@ -47,6 +49,7 @@ interface ContainerProps {
 
 const CoinsPurchaser: React.FC<ContainerProps> = ({coinsUser, setCoinsUser}) => {
   const [paymementLink, setPaymentLink] = useState<string>('')
+  const history = useHistory()
   const coinsInfo = {
     0: [50, 1, "Coins, coins, coins!", ""],
     1: [100, 2, "Coins and new friends!", ""],
@@ -57,12 +60,10 @@ const CoinsPurchaser: React.FC<ContainerProps> = ({coinsUser, setCoinsUser}) => 
     const user_id = Cookies.get("user_id")
     axios.post(`/api/payments/init-payment`, {user_id:+user_id,coins_quantity:coins, price: price}).then((result) => {     
       Cookies.set("coins", `${coins}`)
+    
       window.open(result.data.payUrl)
     })
   }
-
-
-
 
   return (
     <IonPage>
@@ -101,8 +102,8 @@ const CoinsPurchaser: React.FC<ContainerProps> = ({coinsUser, setCoinsUser}) => 
                   <IonRow>
                     <IonCol size="10">
                       <IonCardTitle className="coins_card_title_info">
-                        {coinsInfo[index][0]}
-                        <IonIcon icon={diamondOutline} size="small" />
+                        {coinsInfo[index][0] + " "}
+                        <IonIcon icon={diamondOutline} size="small"/>
                       </IonCardTitle>
                     </IonCol>
                     <IonCol>

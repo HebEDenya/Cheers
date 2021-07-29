@@ -47,21 +47,20 @@ interface ContainerProps {
   viewEvent: any;
   btnpath: string;
   setPath: any;
-  clicked: boolean,
-  setclicked: any
+  setFollowedEvents: (any)=> any
 }
 
 const EventPage: React.FC<ContainerProps> = ({
   viewEvent,
   btnpath,
   setPath,
-  clicked,
-  setclicked
+  
+  setFollowedEvents
 }) => {
   const [data, setData] = useState<any | null>([]);
   const [startTime, setstartTime] = useState<any | null>([]);
   const [endTime, setendtime] = useState<any | null>([]);
-  // const [clicked, setclicked] = useState<boolean>(true);
+  const [clicked, setclicked] = useState<boolean>(true);
   const [places, setPlaces] = useState<number | null>();
   const history = useHistory();
 
@@ -85,7 +84,12 @@ const EventPage: React.FC<ContainerProps> = ({
     if (+userId && viewEvent) {
       axios
         .put(`/api/vote/${+userId}/${viewEvent}`)
-        .then((result) => {})
+        .then((result) => {
+        return  axios.get(`/api/followedevents/${+userId}`)
+
+        }).then((res) => {
+            setFollowedEvents(res.data);
+          })
         .catch((err) => {
           console.log(err);
         });

@@ -28,7 +28,7 @@ interface props {
   viewEvent: number;
   eventAdded: boolean;
   setPath: any;
-  clicked: boolean;
+  followedEvents: any[]
   
 }
 
@@ -38,10 +38,9 @@ const FollowedEvents: React.FC<props> = ({
   viewEvent,
   eventAdded,
   setPath,
-  clicked,
+  followedEvents
   
 }) => {
-  const [data, setData] = useState<any | null>([]);
   const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
   const history = useHistory();
 
@@ -51,18 +50,6 @@ const FollowedEvents: React.FC<props> = ({
     setbuttontoviewevent(false);
   }
 
-  // Get events for the user
-  const getEvents = () => {
-    if (user_id) {
-      axios.get(`/api/followedevents/${user_id}`).then((res) => {
-        setData(res.data);
-      });
-    }
-  };
-
-  useEffect(() => {
-    getEvents();
-  }, [clicked]);
 
   return (
     <>
@@ -77,8 +64,8 @@ const FollowedEvents: React.FC<props> = ({
         </IonHeader>
         <IonContent fullscreen>
           &nbsp;
-          {data.length ? (
-            data.map((event, key) => {
+          {followedEvents.length ? (
+            followedEvents.map((event, key) => {
               return (
                 <IonCard key={key}>
                   <img

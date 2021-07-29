@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import {
   IonContent,
@@ -36,22 +37,33 @@ import {
   calendarNumberSharp,
   timeSharp,
   checkmarkCircleOutline,
+  addCircleOutline,
+  chevronBackOutline,
+  alertOutline,
 } from "ionicons/icons";
 import Cookies from "js-cookie";
 import "./EventPage.scss";
 interface ContainerProps {
   viewEvent: any;
+  btnpath: string;
+  setPath: any;
 }
 
-const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
+const EventPage: React.FC<ContainerProps> = ({
+  viewEvent,
+  btnpath,
+  setPath,
+}) => {
   const [data, setData] = useState<any | null>([]);
   const [startTime, setstartTime] = useState<any | null>([]);
   const [endTime, setendtime] = useState<any | null>([]);
   const [clicked, setclicked] = useState<boolean>(true);
   const [places, setPlaces] = useState<number | null>();
+  const history = useHistory();
 
   const userId = Cookies.get("user_id");
 
+  // verify if the user have a place in this event
   const verifyFollow = () => {
     if (+userId && viewEvent) {
       axios.get(`/api/vote/color/${+userId}/${viewEvent}`).then((result) => {
@@ -63,6 +75,8 @@ const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
       });
     }
   };
+
+  // update if the user take a place in this event
   const voteEvent = () => {
     if (+userId && viewEvent) {
       axios
@@ -95,12 +109,20 @@ const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
       });
     }
   };
+
   // return the available_places depend of n places
   const availablePlaces = () => {
     if (places === -1) {
-      return <IonLabel className="place_eventpage">Open to everyone</IonLabel>;
+      return (
+      <IonLabel className="place_eventpage">
+        Open to everyone
+        </IonLabel>
+      );
     } else if (places === 0) {
-      return <IonLabel className="place_eventpage">Full</IonLabel>;
+      return ( <IonLabel className="place_eventpage">
+        Full
+        </IonLabel>
+      );
     } else {
       return (
         <IonLabel className="place_eventpage">
@@ -125,7 +147,7 @@ const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
             color="light"
             size="small"
           >
-            <IonIcon icon={checkmarkCircleOutline} size="small" />
+            <IonIcon icon={addCircleOutline} size="small" />
           </IonFabButton>
         );
       } else if (!clicked) {
@@ -143,9 +165,79 @@ const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
             <IonIcon icon={checkmarkCircleOutline} size="small" />
           </IonFabButton>
         );
-      }
+      } 
+    } else if (places === -1) {
+      return (
+        <IonFabButton
+          className="btn_vote_eventpage"
+          disabled={true}
+          color="danger"
+          size="small"
+        >
+          <IonIcon icon={alertOutline} size="small" />
+        </IonFabButton>
+      );
     } else {
-      return "";
+      return (
+        <IonFabButton
+          className="btn_vote_eventpage"
+          // disabled={true}
+          color="danger"
+          size="small"
+          onClick={() => {
+            setclicked(true);
+            voteEvent();
+            setPlaces(places + 1);
+          }}
+        >
+          <IonIcon icon={alertOutline} size="small" />
+        </IonFabButton>
+      );
+    }
+  };
+
+  // change the back button path depend on where u open evnt page
+  const Path = () => {
+    if (btnpath === "admin") {
+      return (
+        <IonIcon
+          className="back_button_eventpage"
+          icon={chevronBackOutline}
+          onClick={() => history.push("/adminTab2")}
+        />
+      );
+    } else if (btnpath === "myevents") {
+      return (
+        <IonIcon
+          className="back_button_eventpage"
+          icon={chevronBackOutline}
+          onClick={() => history.push("/myevents")}
+        />
+      );
+    } else if (btnpath === "tab1") {
+      return (
+        <IonIcon
+          className="back_button_eventpage"
+          icon={chevronBackOutline}
+          onClick={() => history.push("/tab1")}
+        />
+      );
+    } else if (btnpath === "search") {
+      return (
+        <IonIcon
+          className="back_button_eventpage"
+          icon={chevronBackOutline}
+          onClick={() => history.push("/tab5")}
+        />
+      );
+    } else if (btnpath ==="followedevents") {
+      return (
+        <IonIcon
+          className="back_button_eventpage"
+          icon={chevronBackOutline}
+          onClick={() => history.push("/followedevents")}
+        />
+      );
     }
   };
 
@@ -158,6 +250,7 @@ const EventPage: React.FC<ContainerProps> = ({ viewEvent }) => {
           <IonLabel className="title_eventpage">{data.title}</IonLabel>
           {availablePlaces()}
           {btnClick()}
+          {Path()}
           <IonDatetime
             className="start_time_eventpage"
             displayFormat="HH:mm"

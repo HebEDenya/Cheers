@@ -35,10 +35,11 @@
     setEvents: any,
     setviewEvent:any,
     viewEvent:number,
+    setPath: any,
   }
   
   
-  const AdminTab2: React.FC<adminProps>= ({events, setEvents, setviewEvent, viewEvent}) => {
+  const AdminTab2: React.FC<adminProps>= ({events, setEvents, setviewEvent, viewEvent, setPath}) => {
   const [deleteButton, setDeleteButton] = useState<{clicked:boolean, btn_Id:number | null}>({clicked:true, btn_Id:null})
   const [present] = useIonAlert();
   const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
@@ -79,7 +80,7 @@
       {events.length ? 
         events.map((item, index)=> { return (
         <IonCard key={index}>
-            <img src={item.image} alt="" className="favorite_img_size" onClick={() => {setviewEvent(item.event_id) ; setbuttontoviewevent(true)}} />
+            <img src={item.image} alt="" className="favorite_img_size" onClick={() => {setviewEvent(item.event_id) ; setbuttontoviewevent(true) ; setPath('admin')}} />
         <IonCardHeader>
         <IonGrid>
             <IonCardSubtitle>{item.title}</IonCardSubtitle>

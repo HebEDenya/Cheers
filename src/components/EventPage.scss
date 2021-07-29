@@ -10,41 +10,42 @@
     position: relative;
     display:flex;
     font-family: 'Roboto', sans-serif;
-    font-size: 15px;
-    top: 3.5rem;
+    font-size: 14px;
+    font-weight: normal;
+    top: 1.5rem;
     left: 1.5rem;
-    color: gray
+    background: -webkit-linear-gradient(rgb(255, 255, 255), rgb(190, 190, 190));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .place_eventpage {
     position: relative;
-    display:flex;
+    display: flex;
     font-family: 'Roboto', sans-serif;
     font-size: 15px;
-    top: 4.5rem;
+    top: 2.5rem;
     left: 1.4rem;
-    color: gray
+    background: -webkit-linear-gradient(rgb(255, 255, 255), rgb(190, 190, 190));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
+
 .title_eventpage {
     position: relative;
     display: flex;
     font-family: 'Roboto', sans-serif;
     font-size: 28px;
     font-weight: bold;
-    top: 4rem;
+    top: 1.8rem;
     left: 1.4rem;
     color: white;
-}
-
-.image_bg {
-    // background-color: #000000;
-    background-image: linear-gradient(180deg, #000000 53%, #ce93d8 75%);
 }
 
 .vote_eventpage {
     position: relative;
     left: 19rem;
-    top: 2.7rem;
+    top: 20rem;
 }
 .start-time_eventpage {
     display: flex;
@@ -52,7 +53,7 @@
     font-family: 'Roboto', sans-serif;
     font-size: 12px;
     font-weight: normal;
-    top: 2.6rem;
+    bottom: 6rem;
     left: 1.5rem;
     color: white;
     opacity: 0.8;
@@ -64,7 +65,7 @@
     font-family: 'Roboto', sans-serif;
     font-size: 12px;
     font-weight: normal;
-    top: 0.39rem;
+    bottom: 8.15rem;
     left: 6.5rem;
     color: white;
     opacity: 0.8;
@@ -87,7 +88,7 @@
     font-family: 'Roboto', sans-serif;
     font-size: 12px;
     font-weight: normal;
-    top: 9.4rem;
+    top: 0.9rem;
     left: 14rem;
     color: white;
     opacity: 0.8;
@@ -98,7 +99,7 @@
     font-family: 'Roboto', sans-serif;
     font-size: 12px;
     font-weight: normal;
-    top: 7.2rem;
+    bottom: 1.19rem;
     left: 17rem;
     color: white;
     opacity: 0.8;
@@ -107,25 +108,27 @@
     position: relative;
     display:flex;
     font-family: 'Roboto', sans-serif;
-    font-size: 15px;
-    top: 0.5rem;
+    font-size: 16px;
+    font-weight: lighter;
+    bottom: 7.7rem;
     left: 3rem;
-    color: gray
+    color: white;
 }
 
 .price_eventpage {
     position: relative;
     display:flex;
     font-family: 'Roboto', sans-serif;
-    font-size: 15px;
-    top: 0.3rem;
+    font-size: 16px;
+    font-weight: lighter;
+    bottom: 7.6rem;
     left: 3.1rem;
-    color: gray
+    color: white
 }
 .avatar_eventpage {
     display: flex;
     position: relative;
-    top: 0rem;
+    bottom: 6.5rem;
     left: 1.5rem;
 
 }
@@ -135,17 +138,16 @@
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: lighter;
-    bottom: 2.5rem;
-    left: 5.5rem;
+    bottom: 9rem;
+    left: 5.4rem;
     color: white;
-    display:inline;
 }
 .organizer_eventpage {
     position: relative;
     display:flex;
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
-    bottom: 2.5rem;
+    bottom: 8.8rem;
     left: 5.4rem;
     color: gray
 } 
@@ -155,7 +157,7 @@
     font-family: 'Roboto', sans-serif;
     font-size: 18px;
     font-weight: bold;
-    bottom: 0.5rem;
+    bottom: 9.5rem;
     left: 1.5rem;
     color: white
 }
@@ -170,8 +172,8 @@
     color:white;
     margin: 20px;
     padding: 10px;
-    bottom: 2rem;
-    right: 0.5rem;
+    bottom: 11rem;
+    right: 0.3rem;
 }
 p {
     flex: 1 1 auto;
@@ -182,7 +184,7 @@ p {
       display: flex;
       position: relative;
       color: white;
-      bottom: 5.3rem;
+      bottom: 14rem;
       left: 7.1rem;
       font-size: 12px;
       opacity: 0.8;
@@ -191,7 +193,7 @@ p {
       display: flex;
       position: relative;
       color: white;
-      top: 5.4rem;
+      bottom: 3rem;
       left: 17.5rem;
       font-size: 12px;
       opacity: 0.8;
@@ -205,21 +207,21 @@ p {
 .icon_eventpage {
     position: relative;
     display:flex;
-    bottom: 0.5rem;
+    bottom: 8.7rem;
     left: 1.5rem;
     color: white;
 }
 .calendar_eventpage {
     position: relative;
     display:flex;
-    top: 4rem;
+    bottom: 4.55rem;
     left: 1.5rem;
     color: white;
 }
 .time_icon_eventpage {
     position: relative;
     display:flex;
-    top: 4.9rem;
+    bottom: 3.6rem;
     left: 14rem;
     color: white;
 }
@@ -227,22 +229,30 @@ p {
 .icon_cash_eventpage {
     position: relative;
     display:flex;
-    bottom: 0.7rem;
+    bottom: 8.5rem;
     left: 1.5rem;
     color: white;
 }
 
 .btn_eventpage {
     position: relative;
-    color:white;
     display: flex;
-    bottom: 5.3rem;
+    bottom: 11.5rem;
     left: 19rem;
 }
 
 .btn_vote_eventpage {
     position: relative;
     display: flex;
-    top: 2rem;
+    top: 0.2rem;
     left: 19rem;
+} 
+
+.back_button_eventpage {
+    position: fixed; 
+    display: flex;
+    color: white;
+    font-size: 25px;
+    top: 2rem;
+    left: 0.5rem;
 }

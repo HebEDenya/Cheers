@@ -246,6 +246,14 @@ const EventPage: React.FC<ContainerProps> = ({
           onClick={() => history.push("/followedevents")}
         />
       );
+    } else if (btnpath === "favorites") {
+      return (
+        <IonIcon
+          className="back_button_eventpage"
+          icon={chevronBackOutline}
+          onClick={() => history.push("/tab3")}
+        />
+      );
     }
   };
 

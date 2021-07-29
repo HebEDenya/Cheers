@@ -44,6 +44,8 @@ import AdminTab1 from "./pages/AdminTab1";
 import AdminTab2 from "./pages/AdminTab2";
 import AdminTab3 from "./pages/AdminTab3";
 import './pages/Admin.scss';
+import ConfirmedPayment from "./components/ConfirmedPayment";
+import NotConfirmedPayment from './components/NotConfirmedPayment'
 
 const App: React.FC = () => {
   const [isLoding, setIsLoading] = useState<boolean>(true)
@@ -57,6 +59,8 @@ const App: React.FC = () => {
   const [eventAdded, setEventAdded] = useState<boolean>(false)
   const [imageProfileUpdated, setimageProfileUpdated] = useState<boolean>(false)
   const [btnpath, setPath] = useState<string>('');
+  const [clicked, setclicked] = useState<boolean>(true);
+
 
 
 
@@ -124,6 +128,7 @@ const App: React.FC = () => {
      console.log(err);
    });
   },[eventAdded])
+
   
   if (isLoding) {
     return (
@@ -137,8 +142,8 @@ const App: React.FC = () => {
       <Route exact path='/register'>
     <Register /> 
     </Route>
-    <Redirect exact from="/" to="/register">
-    </Redirect>
+    {/* <Redirect exact from="/" to="/register">
+    </Redirect> */}
     <Route exact path="/login">
     <Login  login={login} setLogin={setLogin} setuser_id={setuser_id} /> 
     </Route>
@@ -181,10 +186,10 @@ const App: React.FC = () => {
             <MyEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} setPath={setPath} />
           </Route>
           <Route path="/followedevents" >
-            <FollowedEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} setPath={setPath} />
+            <FollowedEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} setPath={setPath} clicked ={clicked} />
           </Route>
           <Route path="/eventpage" >
-            <EventPage viewEvent={viewEvent} btnpath={btnpath} setPath={setPath} />
+            <EventPage viewEvent={viewEvent} btnpath={btnpath} setPath={setPath}  clicked ={clicked} setclicked={setclicked} />
           </Route>
           <Route path="/adminTab1" >
             <AdminTab1 setLogout={setLogout} type_user= {type_user}/>
@@ -194,6 +199,12 @@ const App: React.FC = () => {
           </Route>
           <Route path="/adminTab3" >
             <AdminTab3 type_user= {type_user}/>
+          </Route>
+          <Route path="/confirmedPayment" >
+            <ConfirmedPayment setCoinsUser={setCoinsUser}  setuser_id={setuser_id} coinsUser={coinsUser}/>
+          </Route>
+          <Route path="/NotconfirmedPayment" >
+            <NotConfirmedPayment />
           </Route>
         </IonRouterOutlet>
        {Cookies.get("type_user") === "superAdmin" ||  Cookies.get("type_user") === "Admin"? 

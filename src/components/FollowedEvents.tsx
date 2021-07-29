@@ -28,6 +28,8 @@ interface props {
   viewEvent: number;
   eventAdded: boolean;
   setPath: any;
+  clicked: boolean;
+  
 }
 
 const FollowedEvents: React.FC<props> = ({
@@ -36,6 +38,8 @@ const FollowedEvents: React.FC<props> = ({
   viewEvent,
   eventAdded,
   setPath,
+  clicked,
+  
 }) => {
   const [data, setData] = useState<any | null>([]);
   const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
@@ -51,7 +55,6 @@ const FollowedEvents: React.FC<props> = ({
   const getEvents = () => {
     if (user_id) {
       axios.get(`/api/followedevents/${user_id}`).then((res) => {
-        console.log(res.data);
         setData(res.data);
       });
     }
@@ -59,7 +62,7 @@ const FollowedEvents: React.FC<props> = ({
 
   useEffect(() => {
     getEvents();
-  }, [eventAdded]);
+  }, [clicked]);
 
   return (
     <>

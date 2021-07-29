@@ -16,7 +16,7 @@ import {
   IonButtons,
   IonHeader,
   IonProgressBar,
-  IonText,
+  IonFooter,
   IonContent,
   IonInput,
   IonSelectOption,
@@ -32,27 +32,38 @@ import {
   IonButton,
   IonGrid,
   IonCol,
+  IonNote,
 } from "@ionic/react";
 import { diamondOutline } from "ionicons/icons";
 import axios from "axios";
 import "./CreateEvent.scss";
 import { useState, useEffect } from "react";
-
+import Cookies from "js-cookie";
+import {Link, useHistory} from 'react-router-dom'
+import { Plugins } from '@capacitor/core';
+const { App: CapApp } = Plugins;
 interface ContainerProps {
   setCoinsUser: any;
   coinsUser: number;
 }
 
-const CoinsPurchaser: React.FC<ContainerProps> = ({
-  coinsUser,
-  setCoinsUser,
-}) => {
+const CoinsPurchaser: React.FC<ContainerProps> = ({coinsUser, setCoinsUser}) => {
+  const [paymementLink, setPaymentLink] = useState<string>('')
+  const history = useHistory()
   const coinsInfo = {
     0: [50, 1, "Coins, coins, coins!", ""],
     1: [100, 2, "Coins and new friends!", ""],
     2: [150, 3, "More coins, more fun !", ""],
   };
-  const [user_id, setuser_id] = useState<number>(5);
+
+  const goToPayment = (coins, price) => {
+    const user_id = Cookies.get("user_id")
+    axios.post(`/api/payments/init-payment`, {user_id:+user_id,coins_quantity:coins, price: price}).then((result) => {     
+      Cookies.set("coins", `${coins}`)
+    
+      window.open(result.data.payUrl)
+    })
+  }
 
   return (
     <IonPage>
@@ -91,8 +102,8 @@ const CoinsPurchaser: React.FC<ContainerProps> = ({
                   <IonRow>
                     <IonCol size="10">
                       <IonCardTitle className="coins_card_title_info">
-                        {coinsInfo[index][0]}
-                        <IonIcon icon={diamondOutline} size="small" />
+                        {coinsInfo[index][0] + " "}
+                        <IonIcon icon={diamondOutline} size="small"/>
                       </IonCardTitle>
                     </IonCol>
                     <IonCol>
@@ -106,7 +117,8 @@ const CoinsPurchaser: React.FC<ContainerProps> = ({
               <IonCardContent className="text_size_coins">
                 {coinsInfo[index][2]}
               </IonCardContent>
-              <IonButton expand="full" color="primary">
+              <IonButton expand="full" color="primary" onClick={()=> {let coins = coinsInfo[index][0]; let price = coinsInfo[index][1]; goToPayment(coins, price)
+              }}>
                 Buy Now
               </IonButton>
               &nbsp;
@@ -114,6 +126,9 @@ const CoinsPurchaser: React.FC<ContainerProps> = ({
           );
         })}
       </IonContent>
+      <IonFooter className="ion-no-border">
+      <IonNote className="coins_contact_admin">Contact us: Cheers@gmail.com </IonNote>      
+    </IonFooter>
     </IonPage>
   );
 };

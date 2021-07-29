@@ -39,6 +39,7 @@ import {
   checkmarkCircleOutline,
   addCircleOutline,
   chevronBackOutline,
+  alertOutline,
 } from "ionicons/icons";
 import Cookies from "js-cookie";
 import "./EventPage.scss";
@@ -112,9 +113,16 @@ const EventPage: React.FC<ContainerProps> = ({
   // return the available_places depend of n places
   const availablePlaces = () => {
     if (places === -1) {
-      return <IonLabel className="place_eventpage">Open to everyone</IonLabel>;
+      return (
+      <IonLabel className="place_eventpage">
+        Open to everyone
+        </IonLabel>
+      );
     } else if (places === 0) {
-      return <IonLabel className="place_eventpage">Full</IonLabel>;
+      return ( <IonLabel className="place_eventpage">
+        Full
+        </IonLabel>
+      );
     } else {
       return (
         <IonLabel className="place_eventpage">
@@ -157,12 +165,38 @@ const EventPage: React.FC<ContainerProps> = ({
             <IonIcon icon={checkmarkCircleOutline} size="small" />
           </IonFabButton>
         );
-      }
+      } 
+    } else if (places === -1) {
+      return (
+        <IonFabButton
+          className="btn_vote_eventpage"
+          disabled={true}
+          color="danger"
+          size="small"
+        >
+          <IonIcon icon={alertOutline} size="small" />
+        </IonFabButton>
+      );
     } else {
-      return "";
+      return (
+        <IonFabButton
+          className="btn_vote_eventpage"
+          // disabled={true}
+          color="danger"
+          size="small"
+          onClick={() => {
+            setclicked(true);
+            voteEvent();
+            setPlaces(places + 1);
+          }}
+        >
+          <IonIcon icon={alertOutline} size="small" />
+        </IonFabButton>
+      );
     }
   };
 
+  // change the back button path depend on where u open evnt page
   const Path = () => {
     if (btnpath === "admin") {
       return (

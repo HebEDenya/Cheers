@@ -50,7 +50,6 @@ const FollowedEvents: React.FC<props> = ({
     setbuttontoviewevent(false);
   }
 
-
   return (
     <>
       <IonPage>

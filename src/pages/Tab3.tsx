@@ -1,18 +1,29 @@
 import { IonContent, IonHeader, IonCol,IonTitle,IonPage,IonCardContent,IonIcon,IonButton,IonImg,IonDatetime,useIonAlert, IonCardHeader, IonCard,IonListHeader,IonList,IonLabel,IonCardSubtitle,IonCardTitle, IonGrid, IonRow, IonToolbar } from '@ionic/react';
 import { heart} from 'ionicons/icons';
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import moment from "moment";
 import './Tab3.scss';
 
 interface ContainerProps {
-  user_id: number
+  user_id: number,
+  setviewEvent:any,
+  viewEvent:number,
 }
 
-const Tab3: React.FC<ContainerProps> = ({user_id}) => {
+const Tab3: React.FC<ContainerProps> = ({user_id, setviewEvent, viewEvent}) => {
   const [heartButtonClick, setHeartButtonClick]= useState<{clicked:boolean, btn_Id: number | null}>({clicked:false, btn_Id:null })
   const [favoriteEvent, setFavoriteEvent]=useState<Array<any>>([])
   const [present] = useIonAlert();
+  const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
+  const history = useHistory();
+  
+  // if we click on img cart w go to the event page
+  if(buttontoviewevent) {
+    history.push('/eventpage')
+    setbuttontoviewevent(false)
+  }
 
   useEffect(()=> {
     if (user_id) {
@@ -27,7 +38,7 @@ const Tab3: React.FC<ContainerProps> = ({user_id}) => {
     if(heartButtonClick.btn_Id) {
       axios.delete(`/api/removefromfavorite/${heartButtonClick.btn_Id}/${user_id}`).then((result)=> {
          if (result.data ="Event removed") {
-           present('Event removed successfully from favorite')
+           present('Event removed successfully from favorite 👌')
          }
       })
     }}
@@ -48,7 +59,7 @@ const Tab3: React.FC<ContainerProps> = ({user_id}) => {
       {favoriteEvent.length ? 
         favoriteEvent.map((item, index)=> { return (
         <IonCard key={index}>
-            <img src={item.image} alt=""  className="favorite_img_size" />
+            <img src={item.image} alt=""  className="favorite_img_size"  onClick={() => {setviewEvent(item.event_id) ; setbuttontoviewevent(true)}} />
         <IonCardHeader>
         <IonGrid>
             <IonCardSubtitle>{item.title}</IonCardSubtitle>
@@ -58,7 +69,7 @@ const Tab3: React.FC<ContainerProps> = ({user_id}) => {
             </IonRow>
             <IonRow>
             <IonCol size="10.5">
-            <IonLabel id="price_favorite_size">{item.price=== "Free"? "Free" : item.price +'Dt'}</IonLabel>
+            <IonLabel id="price_favorite_size">{item.price=== "Free"? "Free" : item.price +' DT'}</IonLabel>
           </IonCol>
             <IonCol>
           <IonIcon onClick={()=> {setHeartButtonClick({clicked:true, btn_Id:item.event_id})}} icon={heart}  id="heart_favorite-hover"/> 
@@ -73,10 +84,10 @@ const Tab3: React.FC<ContainerProps> = ({user_id}) => {
         &nbsp;
         <IonContent fullscreen>
            &nbsp;
-          <IonLabel id="favorite_title_emptypage">Your favorite liste is empty </IonLabel>
           <IonCard>
           <img src="https://i.gifer.com/r8e.gif" alt=""  className="favorite_img_size" />
           <IonCardHeader>
+          <IonLabel className="no_title_fav">No Favorites Yet!</IonLabel>
           <IonButton fill="outline" expand="full" routerLink="/tab1"> Check some events </IonButton>
         </IonCardHeader>
         </IonCard>

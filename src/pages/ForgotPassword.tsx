@@ -3,37 +3,37 @@ import { IonIcon, IonContent, IonHeader, IonPage,useIonAlert , IonTitle, IonTool
 import axios from 'axios';
 import { lockClosed, person, mailOpen } from 'ionicons/icons';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router'
+import { Link, RouteComponentProps } from 'react-router-dom';
 import Cookies from "js-cookie";
+
+interface resetProps extends RouteComponentProps<{
+id: string;
+}>{}
 // import './Register.scss';
 //import { star } from 'ionicons/icons';
-const NewPass: React.FC = () => {
+const Forgot: React.FC<resetProps> = ({match}) => {
     const [email,setEmail] = useState<string>();
     const [user_id, setUser_id] = useState<string>();
     const [newPassword, setNewPassword] = useState<string>();
     const [isRegistred, setIsregistred] = useState<boolean>(false)
     const [present] = useIonAlert();
-    const history = useHistory();
-    const resetPassword = () => {
-        console.log('dsfbkk')
-      axios.post("http://localhost:3001/api/user/mail", {
-        email: email,
+
+     const forgotPassword = () => {
+        console.log('clicked')
+      axios.put("http://localhost:3001/api/user/newpassword", {
+        userId: match.params.id,
+        newPassword: newPassword,
       }).then((response) => {
-              console.log(response)
-        present(`${response.data.message}`, [{ text: 'Ok',handler: (d) => {
-            console.log('ok pressed')
-            if (response.data.status==='ok')
-             history.push('/reset')
-        }  }])
-    
+        console.log(response)
+          setIsregistred(true)
+          present(`${response.data.message}`, [{ text: 'Ok' }])
         }) 
-    }
+     }
     
     
     
 
-  
+    
   return (
     <IonPage>
     <IonHeader className="ion-no-border"> 
@@ -43,24 +43,24 @@ const NewPass: React.FC = () => {
     <br /><br /><br /><br /><br />
 
     <IonToolbar>    
-        <IonTitle className="ion-text-center custom-font ">Forgot Password</IonTitle>
+        <IonTitle className="ion-text-center custom-font ">Reset Password {match.params.id} </IonTitle>
       </IonToolbar>
       <br /><br /><br /><br /><br />
 
       <IonList className="ion-padding-bottom ion-margin-horizontal">
       <IonItem>
-        <IonLabel position="floating">E-mail</IonLabel>
-          <IonInput clear-input type="email" value={email} placeholder="Enter E-mail..." onIonChange={e => setEmail(e.detail.value!)}>
-          <IonIcon size="small" slot="start" icon={mailOpen} />
-          </IonInput>
-        </IonItem>
+                <IonLabel position="floating">Password :</IonLabel>
+                <IonIcon name="lockClosed"></IonIcon>
+                  <IonInput clear-input type="password" value={newPassword} placeholder="Enter New Password..." onIonChange={e => setNewPassword(e.detail.value!)}>
+                    <IonIcon size="small" slot="start" icon={lockClosed} /></IonInput>
+                </IonItem>
         
          
       </IonList>
       <br /><br />
       <div className="ion-text-center custom-font">
 
-      <IonButton  onClick={() => { Cookies.set("reset", 'true'); resetPassword() }  } size="small"  fill="solid">Reset</IonButton>
+      <IonButton  onClick={() => {Cookies.set("reset", 'false'); forgotPassword() }  } size="small"  fill="solid">Submit</IonButton>
      </div>
       <br /><br /><br /><br /><br />
 
@@ -72,4 +72,4 @@ const NewPass: React.FC = () => {
   </IonPage>
   );
 };
-export default NewPass;
+export default Forgot;

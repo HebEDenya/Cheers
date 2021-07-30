@@ -1,0 +1,165 @@
+.location_height_create {
+  height: 4rem  !important;
+  width: 90% !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 1rem;
+}
+
+#second_button {
+  background: transparent;
+}
+
+.color_title_create {
+  color: #ce93d8;
+  font-size: 22px;
+}
+
+.text_size_coins {
+  font-size: 18px;
+}
+
+.coins_card_size {
+  height: 11rem;
+}
+
+.coins_card_title_info {
+  font-size: 20px;
+  color: #383a3e;
+}
+
+.coins_icon_size {
+  font-size: 22px;
+}
+
+.color_subtitle_create {
+  color: #505164 !important;
+}
+
+.progrssiveBar_createEvent {
+  width: 90% !important;
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  margin-left: 1rem !important;
+}
+
+.input_create_Event {
+  width: 90% !important;
+  margin-left: 1rem;
+}
+
+.obligatoire {
+  color: #fb235a;
+}
+
+.button_create_event {
+  background-color: #ce93d8;
+  margin-right: 1.5rem !important;
+  width: 50% !important;
+  -webkit-box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 0.2rem !important;
+}
+
+.button_create_event:active {
+  background-color: #ce93d8 !important;
+  -webkit-transform: translateY(-2px) scale(1.2);
+          transform: translateY(-2px) scale(1.2);
+}
+
+.second_button_create_event {
+  background-color: white !important;
+  margin-right: 1.5rem !important;
+  width: 50% !important;
+  -webkit-box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 0.2rem !important;
+  height: 80%;
+  border: 1px solid #222428;
+}
+
+.second_button_create_event:hover {
+  background-color: #ce93d8 !important;
+  color: white;
+  border: none;
+}
+
+.second_button_create_event:active {
+  -webkit-transform: translateY(-2px) scale(1.2);
+          transform: translateY(-2px) scale(1.2);
+}
+
+.check_create {
+  position: relative;
+  left: 2.3rem;
+  width: 80%;
+  bottom: 3rem;
+  border: 2px solid;
+  color: #ce93d8;
+}
+
+.check_create:hover {
+  border: 2px solid;
+  background-color: #ce93d8;
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+.flech_icon_create {
+  position: relative;
+  left: 5.5rem;
+}
+
+.icon_next_createEvent {
+  position: relative !important;
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  left: 9.5rem;
+}
+
+.color_title_coins {
+  color: #ce93d8;
+  font-size: 30px;
+  margin-left: 0.4rem;
+}
+
+.spinner_create_event {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  bottom: 0.1rem;
+  right: 0.5rem;
+}
+
+@media (max-width: 350px) {
+  .icon_next_createEvent {
+    left: 7.5rem;
+  }
+}
+
+@media (min-width: 414px) {
+  .icon_next_createEvent {
+    left: 10.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .icon_next_createEvent {
+    left: 21rem;
+  }
+  .image_create_event {
+    position: relative;
+    left: 24rem;
+  }
+}
+
+@media (width: 360px) {
+  .icon_next_createEvent {
+    left: 8.8rem;
+  }
+}
+/*# sourceMappingURL=CreateEvent.css.map */

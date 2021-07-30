@@ -7,12 +7,12 @@ const database = new Prohairesis(DATABASE_URL);
 // USER TABLE
 database.query(`CREATE TABLE IF NOT EXISTS USERS (
     user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(120) NOT NULL,
+    email VARCHAR(120) NOT NULL UNIQUE,
     type_user VARCHAR(50),
-    username VARCHAR(200),
+    username VARCHAR(200) UNIQUE,
     password VARCHAR (500) NOT NULL,
-    description VARCHAR (5000),
-    image VARCHAR(5000),
+    user_description VARCHAR (5000),
+    user_image VARCHAR(5000),
     coins_quantity INT DEFAULT 40,
     numberOfFollowers INT
 )`).then((res) => {
@@ -106,7 +106,7 @@ database.query(`CREATE TABLE IF NOT EXISTS FOLLOWERS (
     followee_id INT NOT NULL,
     followed_id INT NOT NULL,
     FOREIGN KEY (followee_id) REFERENCES USERS (user_id),
-    FOREIGN KEY (followed_id) REFERENCES USERS (user_id)
+    FOREIGN KEY (followed_id) REFERENCES EVENT (event_id)
      
 )`).then((res) => {
     console.log('followers table created');

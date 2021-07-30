@@ -1,0 +1,48 @@
+.event_title {
+  position: relative;
+  top: 0.1rem;
+  font-weight: 10px;
+  font-size: 22px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: #5d5d5d;
+}
+
+.event_time {
+  position: relative;
+  font-weight: 20px;
+  color: #ce93d8;
+  right: 1.3rem;
+  opacity: 1;
+}
+
+.favorite_img_size {
+  height: 17rem;
+  width: 22rem;
+}
+
+.no_title {
+  position: relative;
+  left: 4rem;
+  bottom: 3rem;
+  font-family: 'Lucida Console';
+  font-weight: bold;
+  font-size: 18px;
+  color: #b3b3b3;
+}
+
+.icon_eventpage {
+  position: relative;
+}
+
+.myevent_title {
+  position: relative;
+  left: -1rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  color: #161616;
+}
+
+.back_button {
+  --icon-font-size: 25px;
+}
+/*# sourceMappingURL=MyEvents.css.map */

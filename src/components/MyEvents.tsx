@@ -8,27 +8,38 @@ import {
   IonItem,
   IonInput,
   IonLabel,
-  IonText,
-  IonListHeader,
   IonContent,
-  IonTextarea,
   IonCard,
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
   IonDatetime,
   IonButtons,
-  IonBackButton
+  IonBackButton,
+  IonButton
 } from "@ionic/react";
 import "./MyEvents.scss";
 import axios from "axios";
+import { useHistory } from "react-router";
 
 interface props {
   user_id:number
+  setviewEvent:any,
+  viewEvent:number,
+  eventAdded:boolean
 }
 
-const MyEvents: React.FC<props> = ({user_id}) => {
+const MyEvents: React.FC<props> = ({user_id, setviewEvent, viewEvent, eventAdded}) => {
   const [data, setData] = useState<any | null>([]);
+  const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
+  const history = useHistory();
+
+  // if the btn clicked we go to the event page
+  if(buttontoviewevent) {
+    history.push('/eventpage')
+    setbuttontoviewevent(false)
+  }
+
 
   // Get events for the user
   const getEvents = () => {
@@ -42,25 +53,26 @@ const MyEvents: React.FC<props> = ({user_id}) => {
 
   useEffect(() => {
     getEvents();
-  }, []);
-
+  }, [eventAdded]);
+  
   return (
     <>
       <IonPage>
       <IonHeader>
     <IonToolbar>
-    <IonTitle>My Events</IonTitle>
+    <IonTitle className="myevent_title">My Events</IonTitle>
     <IonButtons slot="start">
-    <IonBackButton text="Back" color="dark"/> 
+    <IonBackButton className="back_button" text="" color="dark"/> 
     </IonButtons>
     </IonToolbar>
     </IonHeader>
         <IonContent fullscreen>
           &nbsp;
-          {data.map((event, key) => {
+          {data.length ? 
+          data.map((event, key) => {
             return (
               <IonCard key={key}>
-                <img className="favorite_img_size" src={event.image} alt="" />
+                <img className="favorite_img_size" src={event.image} alt="" onClick={() => {setviewEvent(event.event_id) ; setbuttontoviewevent(true)}} />
                 <IonCardHeader>
                   <IonCardSubtitle>{event.title}</IonCardSubtitle>
                   <IonCardTitle className="event_title">
@@ -77,8 +89,22 @@ const MyEvents: React.FC<props> = ({user_id}) => {
                   </IonLabel>
                 </IonCardHeader>
               </IonCard>
-            );
-          })}
+            )
+          }) : 
+          <>
+        &nbsp;
+        <IonContent fullscreen>
+           &nbsp;
+          <IonCard>
+          <img src="http://res.cloudinary.com/dxhyydpng/image/upload/v1627258353/ybrxtktnn4mrvv8gzq9u.gif" alt=""  className="" />
+          <IonCardHeader>
+          <IonLabel className="no_title">No Events Yet!</IonLabel>
+          <IonButton fill="outline" expand="full" routerLink="/CreateEvent"> Create Events </IonButton>
+        </IonCardHeader>
+        </IonCard>
+        </IonContent>
+        </>
+        }
         </IonContent>
       </IonPage>
     </>

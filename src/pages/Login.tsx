@@ -46,12 +46,12 @@ const Login: React.FC<loginProps> = ({ login, setLogin, setuser_id }) => {
     })
   }
   useEffect(() => {
-    axios.get("http://localhost:3001/api/user/login").then((response) => {
-      if (response.data.auth === true) {
-        console.log(response.data.auth);
-        setLoginStatus(response.data.result[0].username)
-      }
-    })
+    // axios.get("http://localhost:3001/api/user/login").then((response) => {
+    //   if (response.data.auth === true) {
+    //     console.log(response.data.auth);
+    //     setLoginStatus(response.data.result[0].username)
+    //   }
+    // })
   }, [])
   return (
     <IonPage>
@@ -81,7 +81,6 @@ const Login: React.FC<loginProps> = ({ login, setLogin, setuser_id }) => {
                 <IonItem>
                 <IonLabel position="floating">Password :</IonLabel>
                 <IonIcon name="lockClosed"></IonIcon>
-                {/* <ion-icon name="lock"></ion-icon> */}
                   <IonInput clear-input type="password" value={password} placeholder="Enter Password..." onIonChange={e => setPassword(e.detail.value!)}>
                     <IonIcon size="small" slot="start" icon={lockClosed} /></IonInput>
                 </IonItem>
@@ -102,7 +101,7 @@ const Login: React.FC<loginProps> = ({ login, setLogin, setuser_id }) => {
                 </div>
               </IonList>
               <IonToolbar>
-            <div className="ion-text-center custom-font" ><Link to="/password">Reset <IonIcon size="small" slot="start" icon={lockClosed} /></Link></div>
+            <div className="ion-text-center custom-font" ><Link to="/password">Forgot password ? <IonIcon size="small" slot="start" icon={lockClosed} /></Link></div>
           </IonToolbar>
             </IonCol>
 

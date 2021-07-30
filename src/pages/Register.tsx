@@ -19,7 +19,6 @@ const Register: React.FC = () => {
         username: usernameReg,
         password: passwordReg,
       }).then((response) => {
-        console.log(response)
         if(response.data.message && response.statusText ==="OK") {
           setIsregistred(true)
           present(`${response.data.message}`, [{ text: 'Ok' }])
@@ -51,9 +50,9 @@ const Register: React.FC = () => {
         <IonLabel position="floating">Username</IonLabel>
           <IonInput clear-input type="text" value={usernameReg} placeholder="Enter Username..." onIonChange={e => setUsernameReg(e.detail.value!)}>
           <IonIcon size="small" slot="start" icon={person} />
-
           </IonInput>
         </IonItem>
+        
         <IonItem>
         <IonLabel position="floating">Password</IonLabel>
           <IonInput clear-input type="password" value={passwordReg} placeholder="Enter Password..."  onIonChange={e => setPasswordReg(e.detail.value!)}>

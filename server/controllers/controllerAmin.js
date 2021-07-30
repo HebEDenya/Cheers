@@ -6,35 +6,59 @@ const saltRounds = 10;
 const nodemailer = require("nodemailer");
 
 
-const resetPassword = () => {
-  
-  console.log('clicked')
-  
+const forgotPassword = (req, res) => {/*forgot password*/ 
+  console.log('reset started')
+  let email = req.body.email;
   var transporter = nodemailer.createTransport({
-      service: "gmail",
-     
-      auth: {
-        user: 'khemissimohamedamin@gmail.com',
-        pass: 'Amin+21696546196'
-      }
-    });
-    //get id user by email 
-
-    var mailOptions = {
-      from: 'khemissimohamedamin@gmail.com',
-      to: 'aminehamouda@hotmail.com',
-      subject: 'Sending Email using Node.js',
-      text: 'That was easy! liens/resetpassword/5 '
-    };
+    service: "gmail",
+   
+    auth: {
+      user: 'khemissimohamedamin@gmail.com',
+      pass: 'Amin+21696546196'
+    }
+  });
+  
+  
+  database.query(`SELECT * FROM USERS WHERE email = '${email}'`).then((result) => {
+    if(result.length > 0) {
+      //get id user by email 
+      //console.log(result);
+     // res.send(result)
+  var htmlMail =""
+  htmlMail =''
+  htmlMail=htmlMail+ 'Hello ' + result[0].username + ', \n'
+  htmlMail=htmlMail+'To Reset your Password, please click on this Link:<b> <a href="http://localhost:3000/reset">Here </a></b>'
+  htmlMail=htmlMail+' \nBest Regards, \nCheers Team'
+  
+  var mailOptions = {
+    from: 'khemissimohamedamin@gmail.com',
+    to: email,
+    subject: 'Reset your password for Cheers account',
+    text: 'Hello ' + result[0].username + ', \nTo Reset your Password, please click on this Link: http://localhost:3000/reset/'+result[0].user_id+'\nBest Regards, \nCheers Team',
+   // html: htmlMail,
     
-    transporter.sendMail(mailOptions, function(err, info){
-      if (err) {
-        
-        console.log('errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', err);
-      } else {
-        console.log('Email sent: ', info );
-      }
-    });
+  };
+      transporter.sendMail(mailOptions, function(err, info){
+        if (err) {
+          
+          console.log('There no Cheers account associate to the provided email !', err);
+          res.send({message : 'There no Cheers account associate to the provided email !', status:'ko'})
+        } else {
+          console.log('Email sent: ', info );
+          res.send({message : 'Please check your emails we just sent you a reset password link !', status:'ok'})
+      
+        }
+      });
+      
+    }else{
+      console.log('There no Cheers account associate to the provided email !');
+      res.send({message : 'There no Cheers account associate to the provided email !', status:'ko'})
+    
+    }
+    
+  })
+  
+    
   }
 
 const verifyJWT = (req, res, next) => {
@@ -96,8 +120,8 @@ const userRegister = (req, res) => {
       })
     }
 
-    const updatePssword = (req, res) => {
-      const email = req.body.email;
+    const updatePassword = (req, res) => {
+      const userId = req.body.userId;
       const newPassword = "";
         //encrpt req.body.newPassword
           //hashing password
@@ -106,7 +130,7 @@ const userRegister = (req, res) => {
           res.status(400).send(err)
         } else {
          // newPassword = hash;
-          database.query(`UPDATE USERS SET password = '${hash}' WHERE email = '${email}'`)
+          database.query(`UPDATE USERS SET password = '${hash}' WHERE user_id = '${userId}'`)
             .then((result) => {
               console.log(result);
               res.send(result);
@@ -116,12 +140,59 @@ const userRegister = (req, res) => {
       
     }
 
+    const getMyChat = (req, res) => {
+      const data = req.body.data;
+      var transporter = nodemailer.createTransport({
+        service: "gmail",
+       
+        auth: {
+          user: 'khemissimohamedamin@gmail.com',
+          pass: 'Amin+21696546196'
+        }
+      });
+      //"SELECT * FROM USERS WHERE username= (" + user_name + ")"
+      database.query(`SELECT * FROM MESSAGE WHERE sender_id = '${receiver_id}'`).then((result) => {
+        console.log(result)
+
+        var mailOptions = {
+          from: data.email,
+          to: 'khemissimohamedamin@gmail.com',
+          subject: `Message Form ${data.firstName}`,
+          html: `
+          
+          <h3>Informations</h3>
+          <ul>
+          <li>First Name: ${data.firstName}</li>
+          <li>Last Name: ${data.lastName}</li>
+          <li>E-mail: ${data.email}</li>
+          </ul>
+
+          <h3>Message</h3>
+          <p>${data.text}</p>
+          `,
+          
+        };
+            transporter.sendMail(mailOptions, function(err, info){
+              if (err) {
+                
+                console.log('There no email !', err);
+                res.send({message : 'There no Cheers account associate to the provided email !', status:'ko'})
+              } else {
+                console.log('Email sent: ', info );
+                res.send({message : 'Please check your emails we just sent you a Message !', status:'ok'})
+            
+              }
+            });
+            })
+          }
+
 
 module.exports = {
     userLogin,
     userRegister,
     handelVerJWT,
     verifyJWT,
-    updatePssword,
-    resetPassword
+    updatePassword,
+    forgotPassword,
+    getMyChat
 }

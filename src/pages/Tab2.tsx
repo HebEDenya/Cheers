@@ -13,28 +13,38 @@ import {
   IonIcon,
   useIonAlert
 } from "@ionic/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, } from "react";
 import ExploreContainer from "../components/ExploreContainer";
-import { chevronForwardOutline } from "ionicons/icons";
+import { chevronForwardOutline, logOut } from "ionicons/icons";
+import { useHistory } from "react-router";
 import "./Tab2.scss";
 import axios from "axios";
 
 interface ContainerProps {
   coinsUser: number,
-  user_id: number
+  user_id: number,
+  setLogout: any,
+  setimageProfileUpdated: any,
+  imageProfileUpdated: boolean
+
 }
 
 
-const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id}) => {
+const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id,setLogout, setimageProfileUpdated, imageProfileUpdated}) => {
   const [data, setData] = useState<any | null>([]);
   const [present] = useIonAlert();
-
+  const history = useHistory()
+  
+  const LogoutRedirect = () => {
+    setLogout(true);
+    history.go(0)
+  }
 
   // Get the user Data from the Database
   const getUserData = () => {
     if (user_id) {
     axios
-      .get(`http://localhost:3001/api/user/${user_id}`) // For now we use user_id
+      .get(`/api/user/${user_id}`) // For now we use user_id
       .then((res) => {
         setData(res.data[0]);
       })
@@ -44,8 +54,9 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id}) => {
   };
 
   useEffect(() => {
+    setimageProfileUpdated(false)
     getUserData();
-  },[]);
+  },[imageProfileUpdated]);
 
   return (
     <IonPage>
@@ -55,8 +66,8 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id}) => {
           <IonTitle class="ion-margin" className="avatar_username">{data.username}</IonTitle>
           <IonAvatar class="ion-margin" className="avatar_image">
             <img src={
-                data.image !== null
-                  ? data.image
+                data.user_image !== null
+                  ? data.user_image
                   : "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png"
               } alt="" />
           </IonAvatar>
@@ -108,7 +119,7 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id}) => {
       </IonCardContent>
         </IonCard>
 
-        <IonCard>
+        <IonCard onClick={()=>{LogoutRedirect()}} >
           <IonCardContent className="my_account_text">
             Log Out
             <div className="userDasbord_icon">

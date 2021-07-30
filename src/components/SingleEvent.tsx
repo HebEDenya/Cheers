@@ -3,7 +3,6 @@ import {IonCol, IonRow} from '@ionic/react';
 import { IonContent , IonPage,IonIcon,IonCardTitle,IonDatetime,IonCardHeader,IonLabel,IonGrid,IonCardSubtitle} from '@ionic/react';
 // import { Icon, InlineIcon } from '@iconify/react';
 import { heart,heartOutline} from 'ionicons/icons';
-import ExploreContainer from '../components/ExploreContainer';
 import { useHistory } from 'react-router-dom';
 import Cookies from "js-cookie";
 // import ExploreContainer from '../components/ExploreContainer';
@@ -53,37 +52,32 @@ const SingleEvent: React.FC <ContainerProps>= ({event,setviewEvent,setPath}) => 
      )} 
     }
     console.log(checker);
-    
-    
-    return (
-      <IonPage>    
-             
-          
-             <img onClick={() => {setviewEvent(event.event_id) ; setbuttontoviewevent(true) ; setPath('tab1')}} src={event.image} alt=""  className="favorite_img_size" />
+    return ( 
+           <>  
+             <img onClick={() => {setviewEvent(event.event_id) ; setbuttontoviewevent(true) ; setPath('tab1')}} src={event.image} alt=""  className="favorite_img_size_cat" />
           
       <IonCardHeader >
       <IonGrid>
           <IonCardSubtitle>{event.title}</IonCardSubtitle>
-          <IonCardTitle className="event_title">{event.location}</IonCardTitle>
+          <IonCardTitle className="event_title_cat">{event.location}</IonCardTitle>
           <IonRow>
-          <IonDatetime className="event_time" value={event.start_time} display-timezone="utc" disabled={true}></IonDatetime>
+          <IonDatetime className="event_time_cat" value={event.start_time} display-timezone="utc" disabled={true}></IonDatetime>
           </IonRow>
           <IonRow>
           <IonCol size="10.5">
-          <IonLabel id="price_favorite_size">{event.price=== "Free"? "Free" : event.price +' DT'}</IonLabel>
+          <IonLabel id="price_favorite_size_cat">{event.price=== "Free"? "Free" : event.price +' DT'}</IonLabel>
         </IonCol>
           <IonCol>
             {!checker.checker ?
-          <IonIcon onClick={()=> {addToFavorite(event.event_id);if (isFav===event.event_id){ setChecker({checker:true, event_id:event.event_id})}} } icon={heartOutline}  id="heart_favorite-hover"/> 
+          <IonIcon onClick={()=> {addToFavorite(event.event_id);if (isFav===event.event_id){ setChecker({checker:true, event_id:event.event_id})}} } icon={heartOutline}  id="heart_favorite_cat-hover"/> 
            :
-          <IonIcon onClick={()=> {addToFavorite(event.event_id);if (isFav===event.event_id){ setChecker({checker:false, event_id:event.event_id})} } } icon={heart}  id="heart_favorite-hover"/> 
+          <IonIcon onClick={()=> {addToFavorite(event.event_id);if (isFav===event.event_id){ setChecker({checker:false, event_id:event.event_id})} } } icon={heart}  id="heart_favorite_cat-hover"/> 
             }
           </IonCol>
           </IonRow>
           </IonGrid>     
       </IonCardHeader>
-                
-        </IonPage>
+        </>
       );
     };
     export default SingleEvent;

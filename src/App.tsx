@@ -23,6 +23,7 @@ import Tab5 from "./pages/Tab5";
 import UpdateProfil from "./components/UpdateProfil";
 import axios from "axios";
 import MyEvents from "./components/MyEvents";
+// import ChosenCategory from "./components/ChosenCategory";
 import Category from "./components/Category";
 import FirstPage from "./pages/FirstPage";
 import EventPage from "./components/EventPage";
@@ -62,6 +63,7 @@ const App: React.FC = () => {
   const [eventAdded, setEventAdded] = useState<boolean>(false)
   const [imageProfileUpdated, setimageProfileUpdated] = useState<boolean>(false)
   const [btnpath, setPath] = useState<string>('');
+  const [categorypath, setCategoryPath] = useState<string>('');
   const [followedEvents, setFollowedEvents]=useState<Array<any>>([]);
 
 
@@ -133,6 +135,7 @@ const App: React.FC = () => {
   // to get categories
   useEffect(() => {
     axios.get('/api/categories').then((result) => {
+      console.log(result.data)
       setCategories(result.data)
     }).catch((err) => {
       console.log(err);
@@ -164,7 +167,7 @@ const App: React.FC = () => {
         <IonRouterOutlet>
    {Cookies.get("type_user") === "superAdmin" ||  Cookies.get("type_user") === "Admin"? <Redirect exact from="/login" to="/adminTab1" /> : <Redirect exact from="/login" to="/tab1" /> }
           <Route exact path="/tab1">
-            <Tab1 user_id={user_id} events = {events} setviewEvent={setviewEvent} setPath={setPath} viewEvent={viewEvent} categories = {categories} setCategories={setCategories}/>
+            <Tab1 user_id={user_id} events = {events}  setviewEvent={setviewEvent} setPath={setPath} viewEvent={viewEvent} categories = {categories} setCategories={setCategories}/>
           </Route>
           <Route exact path="/tab2">
             <Tab2 coinsUser= {coinsUser} user_id={user_id} setLogout={setLogout} imageProfileUpdated={imageProfileUpdated} setimageProfileUpdated={setimageProfileUpdated}/>
@@ -198,6 +201,9 @@ const App: React.FC = () => {
           <Route path="/eventpage" >
             <EventPage viewEvent={viewEvent} btnpath={btnpath} setPath={setPath}   setFollowedEvents={setFollowedEvents}/>
           </Route>
+          {/* <Route path="/categoryEvents" >
+            <ChosenCategory setCategoryPath={setPath} />
+          </Route> */}
           <Route path="/adminTab1" >
             <AdminTab1 setLogout={setLogout} type_user= {type_user}/>
           </Route>

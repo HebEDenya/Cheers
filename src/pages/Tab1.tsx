@@ -24,10 +24,12 @@ const Tab1: React.FC <ContainerProps>= ({events, setviewEvent,setPath, viewEvent
 //  const [heartButtonClick, setHeartButtonClick] = useState(false)
 const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false)
 const [isFav, setIsFav] = useState<number>()
+const [categoryChosen, setCategoryChosen] = useState<string>('');
 const [checker, setChecker] = useState<{checker:boolean | null, event_id:number | null}>({checker:null, event_id:null})
 const slideOptsOne = {
   initialSlide: 0,
     slidesPerView: 1,
+    scrollbar: true,
     autoplay:true,pagination: {
       el: '.swiper-pagination',
       clickable: true,
@@ -36,6 +38,7 @@ const slideOptsOne = {
       },
     }
   };
+
 const history = useHistory();
 
   // if we click on img cart w go to the event page
@@ -79,48 +82,18 @@ return (
         <IonSlides  options={slideOptsOne}>
       <IonSlide className='container' >
       {categories.map((category,index) => (
-        <IonList className='box'>
-              {/* <IonImg
-              key={index} 
-              class="scroll-content"
-              style={{ display: 'flex',flexDirection:'column',flex:4}}
-              src={category.category_image} className="categoryImg"/> */}
-              <IonItem className="i">{category.category_name}</IonItem>
+        <IonList className='box'>  
+              <IonItem className="i" onClick={() => {setCategoryChosen(category.category_name) ; console.log(categoryChosen)} }>{category.category_name}</IonItem>
               </IonList>
             ))}      
         </IonSlide>
         </IonSlides>
               <IonContent className="events">
-                {events.map((event,i) => (
-                  
-        // <IonCard key={i} >
-          
-            
-        // <IonCardHeader >
-        // <IonGrid>
-        //     <IonCardSubtitle>{event.title}</IonCardSubtitle>
-        //     <IonCardTitle className="event_title">{event.location}</IonCardTitle>
-        //     <IonRow>
-        //     <IonDatetime className="event_time" value={event.start_time} display-timezone="utc" disabled={true}></IonDatetime>
-        //     </IonRow>
-        //     <IonRow>
-        //     <IonCol size="10.5">
-        //     <IonLabel id="price_favorite_size">{event.price=== "Free"? "Free" : event.price +' DT'}</IonLabel>
-        //   </IonCol>
-        //     <IonCol>
-        //       {!checker.checker ?
-        //     <IonIcon onClick={()=> {addToFavorite(event.event_id);if (isFav===event.event_id){ setChecker({checker:true, event_id:event.event_id})}} } icon={heartOutline}  id="heart_favorite-hover"/> 
-        //      :
-        //     <IonIcon onClick={()=> {addToFavorite(event.event_id);if (isFav===event.event_id){ setChecker({checker:false, event_id:event.event_id})} } } icon={heart}  id="heart_favorite-hover"/> 
-        //       }
-        //     </IonCol>
-        //     </IonRow>
-        //     </IonGrid>     
-        // </IonCardHeader>
-        // </IonCard>
-               <SingleEvent setviewEvent={setviewEvent} event={event} key={i} setPath={setPath}/>   
-                ))}
+                {events.filter((event) => {if(categoryChosen.length) { return event.category === categoryChosen} else {return event}}).map((event,i) => (
               
+               <SingleEvent setviewEvent={setviewEvent} event={event} key={i} setPath={setPath}/>
+              
+                ))}
             </IonContent> 
         <ExploreContainer name="Tab 1 page" />
     </IonPage>

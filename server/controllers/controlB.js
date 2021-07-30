@@ -1,4 +1,4 @@
-const { getHome,postCategory,getCategories,PlusFavorite,SelectFav } = require("../queries/query_user/queryB.js");
+const { getHome,getCategory,postCategory,getCategories,PlusFavorite,SelectFav } = require("../queries/query_user/queryB.js");
 const { removeEventFromFavorite} = require('../queries/query_user/queryM.js');
 const {cloudinary} =require('../../cloudinary')
 
@@ -53,6 +53,12 @@ SelectFav(user_id,event_id).then((result) => {
 })
 }
 
+const ChoseCategory = (req, res) => {
+  getCategory().then((result) => {
+    res.send(result);
+  });
+};
+
 
 
 module.exports = {
@@ -60,4 +66,5 @@ module.exports = {
     CategoryPosting,
     gettingGategories,
     addToFav,
+    ChoseCategory,
   };

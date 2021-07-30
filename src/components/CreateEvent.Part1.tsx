@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import {IonToolbar,useIonAlert, IonLabel ,IonFooter,IonSpinner, IonTitle,IonPage, IonBackButton, IonButtons,IonHeader,IonProgressBar,IonText,IonContent, IonInput,IonSelectOption, IonItem, IonList, IonSegment, IonIcon,IonSegmentButton, IonTextarea,IonListHeader, IonSelect, IonDatetime, IonButton } from '@ionic/react';
+import {IonToolbar,useIonAlert, IonLabel ,IonFooter,IonSpinner, IonTitle,IonPage, IonBackButton, IonButtons,IonHeader,IonProgressBar,IonText,IonContent, IonInput,IonSelectOption, IonItem, IonList, IonSegment, IonIcon,IonSegmentButton, IonTextarea,IonListHeader, IonSelect, IonDatetime, IonButton, IonLoading } from '@ionic/react';
 import { locate, wifi,card, star,chevronForwardOutline,  chevronBackOutline,calendar, time } from 'ionicons/icons';
 import './CreateEvent.scss'
 import ImageContainer from './CreateEventImage';
@@ -267,7 +267,6 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id,
          <IonButton  size="default"  type="submit" className="button_create_event" 
          onClick={()=> { if (verifyInput() && user_id) {  postReaquestHandler(); setSpiner(true);} 
           else if (!verifyInput()){ present('All mandatory * fields must be filled', [{ text: 'Ok' }]) } }}>Confirme</IonButton>
-         {spiner? <IonSpinner name="crescent" /> : ''}
         </>:
         <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false); }} className="second_button_create_event" > Account</button>
         <IonButton  size="default" routerLink="/myevents"  className="button_create_event" onClick={()=> {setButtonClick(false); setSwitchPageCreateEvent(false); }}>View Events</IonButton>
@@ -276,6 +275,11 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id,
       }
       </IonItem>
         &nbsp;
+        <IonLoading
+        isOpen={spiner}
+        message="Loading... 🕔"
+        onDidDismiss={()=> setSpiner(false)}
+        ></IonLoading>
       </IonContent> 
     }
     {!buttonClick?

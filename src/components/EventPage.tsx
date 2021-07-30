@@ -75,8 +75,10 @@ const EventPage: React.FC<ContainerProps> = ({
         if (result.data === "Followed") {
           setUserVerified(true)
           setclicked(false);
+          
         } else {
           setclicked(true);
+          
         }
       });
     }
@@ -143,6 +145,7 @@ const EventPage: React.FC<ContainerProps> = ({
     }
   };
 
+   
   // To switch button and color and inc or dec places
   const btnClick = () => {
     if (places && places !== -1) {

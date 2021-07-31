@@ -19,6 +19,7 @@ import axios from "axios";
 import { lockClosed, person, mailOpen } from "ionicons/icons";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { resultingClientExists } from "workbox-core/_private";
 // import './Register.scss';
 //import { star } from 'ionicons/icons';
 const Register: React.FC = () => {
@@ -36,7 +37,21 @@ const Register: React.FC = () => {
         password: passwordReg,
       })
       .then((response) => {
-        if (response.data.message && response.statusText === "OK") {
+        if (
+          response.data === '"email" length must be at least 6 characters long'
+        ) {
+          present("Please verify your Email ❌");
+        } else if (
+          response.data ===
+          '"password" length must be at least 8 characters long'
+        ) {
+          present("Password minimum 8 characters ❌");
+        } else if (
+          response.data ===
+          '"username" length must be at least 6 characters long'
+        ) {
+          present("Username minimum 8 characters ❌");
+        } else if (response.data.message && response.statusText === "OK") {
           setIsregistred(true);
           present(`${response.data.message}`, [{ text: "Ok" }]);
         }

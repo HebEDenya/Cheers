@@ -62,12 +62,12 @@ const App: React.FC = () => {
   const [type_user, setTypeUser] = useState<string | null>(null);
   const [logOut, setLogout] = useState<boolean>(false);
   const [viewEvent, setviewEvent] = useState<number | null>(null);
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState<any[]>([])
   const [eventAdded, setEventAdded] = useState<boolean>(false)
   const [imageProfileUpdated, setimageProfileUpdated] = useState<boolean>(false)
   const reset = Cookies.get("reset")
   Cookies.set("reset", `${reset}`) 
-
+  const [favoriteEvents, setFavoriteEvents] = useState<any[]>([])
   const [btnpath, setPath] = useState<string>('');
   const [categorypath, setCategoryPath] = useState<string>('');
   const [followedEvents, setFollowedEvents]=useState<Array<any>>([]);
@@ -209,7 +209,7 @@ const App: React.FC = () => {
             <UpdateProfil user_id={user_id}  setimageProfileUpdated={setimageProfileUpdated}/>
           </Route>
           <Route path="/CreateEvent" >
-            <CreateEventComponenetPart1 setCoinsUser={setCoinsUser} coinsUser={coinsUser} user_id={user_id} setEventAdded={setEventAdded}/>
+            <CreateEventComponenetPart1 setCoinsUser={setCoinsUser} coinsUser={coinsUser} user_id={user_id} setEventAdded={setEventAdded} categories={categories}/>
           </Route>
           <Route path="/CoinsPurchase" >
             <CoinsPurchaser coinsUser= {coinsUser}setCoinsUser={setCoinsUser} />
@@ -223,9 +223,6 @@ const App: React.FC = () => {
           <Route path="/eventpage" >
             <EventPage viewEvent={viewEvent} btnpath={btnpath} setPath={setPath}   setFollowedEvents={setFollowedEvents}/>
           </Route>
-          {/* <Route path="/categoryEvents" >
-            <ChosenCategory setCategoryPath={setPath} />
-          </Route> */}
           <Route path="/adminTab1" >
             <AdminTab1 setLogout={setLogout} type_user= {type_user}/>
           </Route>

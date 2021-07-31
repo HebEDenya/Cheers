@@ -3,6 +3,7 @@ const {queryPostRequestCreateEvent, selectCoinsFromUsers, updateCoinsUsers, getC
 const {cloudinary} =require('../../cloudinary')
 const bcrypt = require('bcrypt');
 const axios = require('axios');
+const {addingAdminInputValidation} = require('../validationInput.js')
 require('dotenv').config();
 const saltRounds = 10;
 
@@ -72,6 +73,9 @@ const handleRemoveAdmin = (req, res)=> {
 //to add new admin
 const handleAddNewAdmin = (req, res) => {
   const {username, email,type_user,password} = req.body
+  const { error } = addingAdminInputValidation(req.body);
+  if (error) return res.status(203).send(error.details[0].message);
+  else {
   bcrypt.hash(password, saltRounds, (err, hash) => {
     if (err) {
       res.status(400).send(err)
@@ -79,7 +83,7 @@ const handleAddNewAdmin = (req, res) => {
     addNewAdmin(username, email,type_user,hash).then((result) => {
     res.status(200).send("added")
   }).catch((err)=> { res.status(401).send(err)})
-  })
+  })}
 }
 
 // to delete event by admin 

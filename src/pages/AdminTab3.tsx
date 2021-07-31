@@ -110,7 +110,15 @@ const AdminTab3: React.FC<adminProps> = ({ type_user }) => {
           password: adminPassword,
         })
         .then((result) => {
-          if (result.data === "added") {
+          console.log( result.data);
+          if (result.data === '"email" must be a valid email') {
+             present("Email not valid 🛑");
+          } else if (result.data === '"password" length must be at least 8 characters long') {
+            present("Password minimum 8 characters 🛑");
+          }  else if (result.data === '"username" length must be at least 6 characters long') {
+            present("Username minimum 6 characters 🛑");
+          }
+         else  if (result.data === "added") {
             present("Admin added successfully");
             setAddButton(false);
             setAdminList(
@@ -128,7 +136,7 @@ const AdminTab3: React.FC<adminProps> = ({ type_user }) => {
           console.log(err);
         });
     } else {
-      present("Missing input(s)");
+      present("Missing input(s) ❗");
     }
   };
 

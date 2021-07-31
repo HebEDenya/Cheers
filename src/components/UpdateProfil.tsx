@@ -24,7 +24,7 @@ import axios from "axios";
 
 interface ContainerProps {
   user_id: number,
-  setimageProfileUpdated:any
+  setimageProfileUpdated:(any) => any;
 }
 
 const UpdateProfil: React.FC<ContainerProps> = ({user_id, setimageProfileUpdated}) => {

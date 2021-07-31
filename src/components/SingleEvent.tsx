@@ -20,7 +20,7 @@ import "./SingleEvent.scss";
 import axios from "axios";
 interface ContainerProps {
   event: any;
-  setPath: any;
+  setPath: (any) => any;
 
   setviewEvent: React.Dispatch<React.SetStateAction<number>>;
 }

@@ -14,7 +14,6 @@ import {
   IonContent,
   IonLoading,
 } from "@ionic/react";
-import ImageContainer from "./CreateEventImage";
 import "./Category.scss";
 import axios from "axios";
 
@@ -25,20 +24,19 @@ interface props {
 const Category: React.FC<props> = ({ user_id }) => {
   const [present] = useIonAlert();
   const [category_name, setCategory_name] = useState<string>("");
-  const [image, setImage] = useState<string>("");
   const [spiner, setSpiner] = useState<boolean>(false);
   const [deleteCat, setDelete] = useState<string>("");
 
   var verif = () => {
     let inputVerif = true;
-    if (!(category_name.length > 0) && !(image.length > 0)) {
+    if (!(category_name.length > 0)) {
       inputVerif = false;
     }
     return inputVerif;
   };
 
   const postCategory = () => {
-    const body = { category_name: category_name, category_image: image };
+    const body = { category_name: category_name };
     axios
       .post("/api/admin/postCategory", body)
       .then((result) => {
@@ -110,9 +108,6 @@ const Category: React.FC<props> = ({ user_id }) => {
           </IonItem>
         </IonList>
         &nbsp;
-        <IonItem className="input_create_categories">
-          <ImageContainer image={image} setImage={setImage} />
-        </IonItem>
         &nbsp;
         <IonButton
           size="default"

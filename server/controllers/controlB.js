@@ -8,17 +8,10 @@ const homeGet = (req, res) => {
     });
   };
 const CategoryPosting = (req,res) => { 
-    const fileStr = req.body.category_image;
-    cloudinary.uploader.upload(fileStr, {
-     upload_preset :'dev_setups'})
-     .then((result) => { 
-       let image =result.url;
-       postCategory(req.body, image)
+       postCategory(req.body)
        .then((result)=> {  
          res.status(201).json("added") 
        }).catch(()=> {res.status(401).send('request error')})
-         
-       }).catch(()=> { res.status(401).send('cloudinary error')})
 }
 
 const gettingGategories = (req,res) => {
@@ -28,10 +21,8 @@ const gettingGategories = (req,res) => {
 }
 
 const addToFav = (req,res) => {
-  console.log(req.body);
  const {user_id, event_id} = req.body
 SelectFav(user_id,event_id).then((result) => {
-  console.log(result)
   if(result.length){
     removeEventFromFavorite(event_id,user_id).then(
       res.status(200).send('removed')

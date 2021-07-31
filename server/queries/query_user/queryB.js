@@ -4,8 +4,8 @@ const getHome = () => {
     return database.query(`SELECT  * FROM EVENT `)
 }
 
-const postCategory = (body,clodImage) => {
-    return database.query(`INSERT INTO CATEGORIES(category_name,category_image) VALUES ('${body.category_name}','${clodImage}')`)
+const postCategory = (body) => {
+    return database.query(`INSERT INTO CATEGORIES(category_name) VALUES ('${body.category_name}')`)
 }
 
 const getCategories = () => {

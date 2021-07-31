@@ -26,7 +26,6 @@ interface ContainerProps {
   setLogout: any,
   setimageProfileUpdated: any,
   imageProfileUpdated: boolean
-
 }
 
 
@@ -103,6 +102,15 @@ const Tab2: React.FC<ContainerProps> = ({coinsUser, user_id,setLogout, setimageP
         <IonCard routerLink="/myevents">
           <IonCardContent className="my_account_text">
             My Events
+            <div className="userDasbord_icon">
+              <IonIcon icon={chevronForwardOutline} className="icon-card" />
+            </div>{" "}
+          </IonCardContent>
+        </IonCard>
+        
+        <IonCard routerLink="/followedevents" >
+          <IonCardContent className="my_account_text">
+            Followed Events
             <div className="userDasbord_icon">
               <IonIcon icon={chevronForwardOutline} className="icon-card" />
             </div>{" "}

@@ -8,6 +8,7 @@ const {
   selectFollowers,
   deleteFollowers,
   insertFollower,
+  followedEvents,
 } = require("../queries/query_user/queriesAz.js");
 const { cloudinary } = require("../../cloudinary");
 
@@ -62,16 +63,12 @@ const getPageEventRequest = (req, res) => {
 
 const getVoteEvent = (req, res) => {
   const { event_id, user_id } = req.params;
-
   selectFollowers(event_id, user_id).then((result) => {
-    console.log("select", result);
     if (result.length) {
       deleteFollowers(event_id, user_id).then((result) => {
-        console.log("delete", result);
       });
       unvoteEvent(req)
         .then((result) => {
-          console.log(result);
           res.status(200).send("Unfollowed");
         })
         .catch((err) => {
@@ -79,11 +76,9 @@ const getVoteEvent = (req, res) => {
         });
     } else {
       insertFollower(event_id, user_id).then((result) => {
-        console.log("insert", result);
       });
       voteEvent(req)
         .then((result) => {
-          console.log(result);
           res.status(200).send("Followed");
         })
         .catch((err) => {
@@ -108,6 +103,16 @@ const verifyFollowed = (req, res) => {
     });
 };
 
+const getFollowedEvents = (req, res) => {
+  followedEvents(req)
+  .then((result) => {
+    res.status(200).send(result)
+  })
+  .catch((err) => {
+    res.status(400).send(err)
+  })
+}
+
 module.exports = {
   selectRequest,
   updateRequest,
@@ -115,4 +120,5 @@ module.exports = {
   getPageEventRequest,
   getVoteEvent,
   verifyFollowed,
+  getFollowedEvents
 };

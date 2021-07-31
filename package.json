@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/parser": "^7.14.8",
-    "@capacitor/android": "^3.1.1",
+    "@capacitor/android": "3.1.2",
     "@capacitor/app": "1.0.2",
     "@capacitor/camera": "^1.0.3",
     "@capacitor/core": "^3.1.1",
@@ -26,6 +26,7 @@
     "@types/react-dom": "^16.9.10",
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
+    "animated-number-react": "^0.1.2",
     "antd-mobile": "^2.3.4",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
@@ -102,6 +103,7 @@
     "@iconify-icons/bx": "^1.1.0",
     "@iconify-icons/ion": "^1.1.2",
     "@iconify/react": "^1.1.4",
+    "@ionic/lab": "3.2.10",
     "nodemon": "^2.0.12"
   },
   "description": "An Ionic project",

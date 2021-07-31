@@ -25,6 +25,7 @@ import axios from "axios";
 import MyEvents from "./components/MyEvents";
 import FirstPage from "./pages/FirstPage";
 import EventPage from "./components/EventPage";
+import FollowedEvents from "./components/FollowedEvents";
 import "@ionic/react/css/core.css";
 import "@ionic/react/css/normalize.css";
 import "@ionic/react/css/structure.css";
@@ -46,6 +47,8 @@ import AdminTab1 from "./pages/AdminTab1";
 import AdminTab2 from "./pages/AdminTab2";
 import AdminTab3 from "./pages/AdminTab3";
 import './pages/Admin.scss';
+import ConfirmedPayment from "./components/ConfirmedPayment";
+import NotConfirmedPayment from './components/NotConfirmedPayment'
 
 const App: React.FC = () => {
   const [isLoding, setIsLoading] = useState<boolean>(true)
@@ -61,6 +64,8 @@ const App: React.FC = () => {
   const reset = Cookies.get("reset")
   Cookies.set("reset", `${reset}`) 
 
+  const [btnpath, setPath] = useState<string>('');
+  const [followedEvents, setFollowedEvents]=useState<Array<any>>([]);
 
 
 
@@ -133,6 +138,7 @@ const App: React.FC = () => {
      console.log(err);
    });
   },[eventAdded])
+
   
   if (isLoding) {
     return (
@@ -171,16 +177,16 @@ const App: React.FC = () => {
         <IonRouterOutlet>
    {Cookies.get("type_user") === "superAdmin" ||  Cookies.get("type_user") === "Admin"? <Redirect exact from="/login" to="/adminTab1" /> : <Redirect exact from="/login" to="/tab1" /> }
           <Route exact path="/tab1">
-            <Tab1  events = {events} setviewEvent={setviewEvent} viewEvent={viewEvent}/>
+            <Tab1  events = {events} setviewEvent={setviewEvent} viewEvent={viewEvent} setPath={setPath}/>
           </Route>
           <Route exact path="/tab2">
             <Tab2 coinsUser= {coinsUser} user_id={user_id} setLogout={setLogout} imageProfileUpdated={imageProfileUpdated} setimageProfileUpdated={setimageProfileUpdated}/>
           </Route>
           <Route path="/tab3" >
-            <Tab3 user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} />
+            <Tab3 user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} setPath={setPath} />
           </Route>
           <Route path="/tab5">
-            <Tab5 events={events} setviewEvent={setviewEvent} viewEvent={viewEvent} />
+            <Tab5 events={events} setviewEvent={setviewEvent} viewEvent={viewEvent} setPath={setPath} />
           </Route>
           <Route path="/chat">
             <Chat />
@@ -200,19 +206,28 @@ const App: React.FC = () => {
             <CoinsPurchaser coinsUser= {coinsUser}setCoinsUser={setCoinsUser} />
             </Route>
           <Route path="/myevents" >
-            <MyEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} />
+            <MyEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} setPath={setPath} />
+          </Route>
+          <Route path="/followedevents" >
+            <FollowedEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} setPath={setPath} followedEvents={followedEvents}  />
           </Route>
           <Route path="/eventpage" >
-            <EventPage viewEvent={viewEvent} />
+            <EventPage viewEvent={viewEvent} btnpath={btnpath} setPath={setPath}   setFollowedEvents={setFollowedEvents}/>
           </Route>
           <Route path="/adminTab1" >
             <AdminTab1 setLogout={setLogout} type_user= {type_user}/>
           </Route>
           <Route path="/adminTab2" >
-            <AdminTab2  events={events} setEvents={setEvents} setviewEvent={setviewEvent} viewEvent={viewEvent}/>
+            <AdminTab2  events={events} setEvents={setEvents} setviewEvent={setviewEvent} viewEvent={viewEvent} setPath={setPath}/>
           </Route>
           <Route path="/adminTab3" >
             <AdminTab3 type_user= {type_user}/>
+          </Route>
+          <Route path="/confirmedPayment" >
+            <ConfirmedPayment setCoinsUser={setCoinsUser}  setuser_id={setuser_id} coinsUser={coinsUser}/>
+          </Route>
+          <Route path="/NotconfirmedPayment" >
+            <NotConfirmedPayment />
           </Route>
         </IonRouterOutlet>
        {Cookies.get("type_user") === "superAdmin" || Cookies.get("type_user") === "Admin"? 

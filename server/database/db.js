@@ -7,9 +7,9 @@ const database = new Prohairesis(DATABASE_URL);
 // USER TABLE
 database.query(`CREATE TABLE IF NOT EXISTS USERS (
     user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(120) NOT NULL UNIQUE,
+    email VARCHAR(120) NOT NULL,
     type_user VARCHAR(50),
-    username VARCHAR(200) UNIQUE,
+    username VARCHAR(200),
     password VARCHAR (500) NOT NULL,
     user_description VARCHAR (5000),
     user_image VARCHAR(5000),
@@ -61,12 +61,14 @@ database.query(`CREATE TABLE IF NOT EXISTS MESSAGE (
     message_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     sender_id INT NOT NULL,
     receiver_id INT NOT NULL,
+    event_id INT NOT NULL,
     time DATETIME NOT NULL,
     text VARCHAR(10000) NOT NULL,
     attachement_id INT,
     FOREIGN KEY (sender_id) REFERENCES USERS (user_id),
     FOREIGN KEY (receiver_id) REFERENCES USERS (user_id),
-    FOREIGN KEY (attachement_id) REFERENCES ATTACHEMENT (attachement_id)    
+    FOREIGN KEY (attachement_id) REFERENCES ATTACHEMENT (attachement_id) ,
+    FOREIGN KEY (event_id) REFERENCES EVENT (event_id)    
 )`).then((res) => {
     console.log('MESSAGE table created');
 }).catch((e) => {
@@ -116,5 +118,3 @@ database.query(`CREATE TABLE IF NOT EXISTS FOLLOWERS (
 
 
 module.exports.database = database;
-
-

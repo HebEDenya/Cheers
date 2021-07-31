@@ -11,7 +11,9 @@ const update = (params, body, avatarImg) => {
 };
 
 const getEvent = (req) => {
-  return database.query(`SELECT * FROM EVENT WHERE user_id=${req.params.id}`);
+  return database.query(
+    `SELECT * FROM EVENT WHERE user_id=${req.params.id} ORDER BY start_time DESC`
+  );
 };
 
 const getPageEvent = (req) => {
@@ -21,24 +23,40 @@ const getPageEvent = (req) => {
 };
 
 const voteEvent = (req) => {
-  return database.query(`UPDATE EVENT SET available_places = available_places - 1 WHERE event_id=${req.params.event_id}`)
-}
+  return database.query(
+    `UPDATE EVENT SET available_places = available_places - 1 WHERE event_id=${req.params.event_id}`
+  );
+};
 
 const unvoteEvent = (req) => {
-  return database.query(`UPDATE EVENT SET available_places = available_places + 1 WHERE event_id=${req.params.event_id}`)
-}
+  return database.query(
+    `UPDATE EVENT SET available_places = available_places + 1 WHERE event_id=${req.params.event_id}`
+  );
+};
 
 const selectFollowers = (event_id, user_id) => {
-  return database.query(`SELECT * FROM FOLLOWERS WHERE followed_id=${event_id} AND followee_id=${user_id}`)
-}
+  return database.query(
+    `SELECT * FROM FOLLOWERS WHERE followed_id=${event_id} AND followee_id=${user_id}`
+  );
+};
 
 const deleteFollowers = (event_id, user_id) => {
-  return database.query(`DELETE FROM FOLLOWERS WHERE followed_id=${event_id} AND followee_id=${user_id}`)
-}
+  return database.query(
+    `DELETE FROM FOLLOWERS WHERE followed_id=${event_id} AND followee_id=${user_id}`
+  );
+};
 
 const insertFollower = (event_id, user_id) => {
-  return database.query(`INSERT INTO FOLLOWERS (followee_id, followed_id) VALUES (${user_id}, ${event_id})`)
-}
+  return database.query(
+    `INSERT INTO FOLLOWERS (followee_id, followed_id) VALUES (${user_id}, ${event_id})`
+  );
+};
+
+const followedEvents = (req) => {
+  return database.query(
+    `SELECT e.event_id, e.title, e.price, e.image, e.start_time, e.location , e.user_id, e.category from FOLLOWERS f INNER JOIN EVENT e on (e.event_id = f.followed_id) WHERE f.followee_id = ${req.params.id}`
+  );
+};
 
 module.exports = {
   handle,
@@ -50,4 +68,5 @@ module.exports = {
   selectFollowers,
   deleteFollowers,
   insertFollower,
+  followedEvents,
 };

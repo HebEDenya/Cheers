@@ -10,9 +10,10 @@ interface ContainerProps {
   user_id: number,
   setviewEvent:any,
   viewEvent:number,
+  setPath: any,
 }
 
-const Tab3: React.FC<ContainerProps> = ({user_id, setviewEvent, viewEvent}) => {
+const Tab3: React.FC<ContainerProps> = ({user_id, setviewEvent, viewEvent, setPath}) => {
   const [heartButtonClick, setHeartButtonClick]= useState<{clicked:boolean, btn_Id: number | null}>({clicked:false, btn_Id:null })
   const [favoriteEvent, setFavoriteEvent]=useState<Array<any>>([])
   const [present] = useIonAlert();
@@ -59,7 +60,7 @@ const Tab3: React.FC<ContainerProps> = ({user_id, setviewEvent, viewEvent}) => {
       {favoriteEvent.length ? 
         favoriteEvent.map((item, index)=> { return (
         <IonCard key={index}>
-            <img src={item.image} alt=""  className="favorite_img_size"  onClick={() => {setviewEvent(item.event_id) ; setbuttontoviewevent(true)}} />
+            <img src={item.image} alt=""  className="favorite_img_size"  onClick={() => {setviewEvent(item.event_id) ; setbuttontoviewevent(true) ; setPath('favorites')}} />
         <IonCardHeader>
         <IonGrid>
             <IonCardSubtitle>{item.title}</IonCardSubtitle>

@@ -22,7 +22,7 @@ const getCoinsUser = (id) => {
 
 // get the favorit event
 const getFavoriteEventsOfThUser = (user_id) => {
-    return database.query(`SELECT event_id FROM FAVORITE WHERE user_id =${user_id}`)
+    return database.query(`SELECT e.event_id, e.title, e.title, e.image,e.price, e.start_time, e.location , e.user_id, e.category from FAVORITE f INNER JOIN EVENT e on (e.event_id = f.event_id) WHERE f.user_id = ${user_id}`)
 }
 
 //select specefic event 
@@ -59,6 +59,11 @@ const deleteFromFavoriteByAdmin = (id) => {
     return database.query(`DELETE FROM FAVORITE WHERE event_id = ${id}`)
 }
 
+const updateCoinsAfterPurshase = (user_id, coins) => {
+    return database.query(`UPDATE USERS SET coins_quantity = coins_quantity +'${coins}' WHERE user_id =${user_id}`)
+}
+
+
 module.exports = {
     queryPostRequestCreateEvent,
     selectCoinsFromUsers,
@@ -71,5 +76,6 @@ module.exports = {
     removeAdmin,
     addNewAdmin,
     deleteEventByAdmin,
-    deleteFromFavoriteByAdmin
+    deleteFromFavoriteByAdmin,
+    updateCoinsAfterPurshase
 }

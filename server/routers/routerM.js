@@ -14,5 +14,7 @@ router.post('/addadmin',controler.handleAddNewAdmin)
 router.delete('/removevent/:event_id', controler.handleDeleteEventByAdmin)
 router.post('/payments/init-payment', controler.handlePayment)
 router.put('/paymentInfo/:user_id/:coins_quantity',controler.handelupdateCoins)
+router.delete('/deleteCategory/:category_name',controler.handlDeleteCategory)
+
 
 module.exports = router;

@@ -63,6 +63,10 @@ const updateCoinsAfterPurshase = (user_id, coins) => {
     return database.query(`UPDATE USERS SET coins_quantity = coins_quantity +'${coins}' WHERE user_id =${user_id}`)
 }
 
+//todelet a category
+const deleteCategory = (category_name) => {
+    return database.query(`DELETE FROM CATEGORIES WHERE category_name='${category_name}' `)
+}
 
 module.exports = {
     queryPostRequestCreateEvent,
@@ -77,5 +81,6 @@ module.exports = {
     addNewAdmin,
     deleteEventByAdmin,
     deleteFromFavoriteByAdmin,
-    updateCoinsAfterPurshase
+    updateCoinsAfterPurshase,
+    deleteCategory
 }

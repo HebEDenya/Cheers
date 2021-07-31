@@ -174,7 +174,7 @@ const Category : React.FC<props>= ({user_id}) => {
         &nbsp;
           <IonLabel className="category_admin_description_text_style"> To add a category</IonLabel>
           <IonItem className="input_create_categories">
-         <IonLabel position="floating" className="color_subtitle_categories">Category Name</IonLabel>
+         <IonLabel position="floating" className="color_subtitle_categories">Category Name </IonLabel>
          <IonInput type="text" name="title" value={category_name} onIonChange={e => {setCategory_name(e.detail.value!);}} 
          clearInput required spellcheck  maxlength= {50} > 
          </IonInput>

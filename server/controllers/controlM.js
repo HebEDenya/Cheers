@@ -1,5 +1,5 @@
 const {queryPostRequestCreateEvent, selectCoinsFromUsers, updateCoinsUsers, getCoinsUser,getFavoriteEventsOfThUser,
-  selectEventById,removeEventFromFavorite, getAdminListe, removeAdmin,addNewAdmin, deleteEventByAdmin, deleteFromFavoriteByAdmin, updateCoinsAfterPurshase} = require('../queries/query_user/queryM.js')
+  selectEventById,removeEventFromFavorite, getAdminListe, removeAdmin,addNewAdmin, deleteEventByAdmin, deleteFromFavoriteByAdmin, updateCoinsAfterPurshase,deleteCategory } = require('../queries/query_user/queryM.js')
 const {cloudinary} =require('../../cloudinary')
 const bcrypt = require('bcrypt');
 const axios = require('axios');
@@ -111,7 +111,7 @@ const handlePayment = (req, res) => {
     }).catch(err=> {res.status(401).send(err)})
 
 }
-
+// update coins after pay
 const handelupdateCoins = (req, res) => {
 const {user_id,coins_quantity} = req.params
 updateCoinsAfterPurshase(user_id, coins_quantity).then((result)=> {
@@ -120,7 +120,20 @@ updateCoinsAfterPurshase(user_id, coins_quantity).then((result)=> {
   })
 }).catch((err) => { res.status(401).send(err)})
 }
+//delete a category by admin
 
+const handlDeleteCategory = (req, res) => {
+  const {category_name} = req.params;
+  deleteCategory(category_name).then((result)=> {
+    if (result.affectedRows) {
+      res.status(201).send("deleted")
+    } else {
+      res.status(200).send("not found")
+    }
+  }).catch((err) => {
+    res.status(401).send(err)
+  })
+  }
 module.exports = {
     handlePostReaquestCreateEvent,
     getTheCoinsFromUser,
@@ -131,5 +144,6 @@ module.exports = {
     handleAddNewAdmin,
     handleDeleteEventByAdmin,
     handlePayment,
-    handelupdateCoins
+    handelupdateCoins,
+    handlDeleteCategory
 }

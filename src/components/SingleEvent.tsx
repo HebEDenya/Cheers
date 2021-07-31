@@ -11,9 +11,7 @@ import axios from 'axios';
 interface ContainerProps {
   event:any,
   setPath: any,
-//   setCategories: any,
-//   categories:Array<any>,
-//   user_id: number,
+
   setviewEvent: React.Dispatch<React.SetStateAction<number>>,
 }
 const SingleEvent: React.FC <ContainerProps>= ({event,setviewEvent,setPath}) => { 
@@ -41,31 +39,28 @@ const SingleEvent: React.FC <ContainerProps>= ({event,setviewEvent,setPath}) => 
       const user_id = Cookies.get("user_id")
       if(user_id){
           axios.post('/api/favorite',{event_id:event_id, user_id:+user_id}).then((res) =>{ console.log(res)
-          // setChecker({checker:null, event_id:null})
           setIsFav(event_id);
           if(res.data === 'removed'){
-            setChecker({checker:true, event_id:event_id})
+            setChecker({checker:false, event_id:event_id})
           }else {
-            setChecker(({checker:false, event_id:event_id}))
+            setChecker(({checker:true, event_id:event_id}))
           }
         }).catch((err) => console.log(err)
      )} 
     }
-    console.log(checker);
-    //bechiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiir
     return ( 
            <>  
           
       <IonCard >
       <img onClick={() => {setviewEvent(event.event_id) ; setbuttontoviewevent(true) ; setPath('tab1')}} src={event.image} alt=""  className="favorite_img_size_cat" />
 
-          <IonCardSubtitle>{event.title}</IonCardSubtitle>
+          <IonCardSubtitle className="title_category_style_card">{event.title}</IonCardSubtitle>
           <IonCardTitle className="event_title_cat">{event.location}</IonCardTitle>
           
           <IonDatetime className="event_time_cat" value={event.start_time} display-timezone="utc" disabled={true}></IonDatetime>
-         
+          <IonGrid>
           <IonRow>
-          <IonCol size="10.5">
+          <IonCol size="10">
           <IonLabel id="price_favorite_size_cat">{event.price=== "Free"? "Free" : event.price +' DT'}</IonLabel>
         </IonCol>
           <IonCol>
@@ -76,6 +71,7 @@ const SingleEvent: React.FC <ContainerProps>= ({event,setviewEvent,setPath}) => 
             }
           </IonCol>
           </IonRow>
+          </IonGrid>
            
       </IonCard>
         </>

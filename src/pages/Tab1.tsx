@@ -65,7 +65,6 @@ const addToFavorite = (event_id) => {
       )
   } 
 }
-console.log(checker);
 
 
 return (
@@ -73,7 +72,7 @@ return (
       <IonHeader>
         <IonListHeader>
              <IonLabel className="favorite_title_size"  color="primary" >
-             Categories
+             Home
          </IonLabel>
          </IonListHeader>
       </IonHeader>
@@ -82,7 +81,7 @@ return (
         <IonList >
       <IonSlides className='container' >
       {categories.map((category,index) => (
-        <IonSlide className='box'>  
+        <IonSlide className='box' key={index}>  
               {/* <img className='categoryImg' onClick={() => {setCategoryChosen(category.category_name)}} src={category.category_image} alt="categoryImg"/> */}
               <IonItem className="i" onClick={() => {setCategoryChosen(category.category_name) ; console.log(categoryChosen)} }>{category.category_name}</IonItem>
               </IonSlide>

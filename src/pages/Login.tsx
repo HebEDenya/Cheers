@@ -25,12 +25,10 @@ const Login: React.FC<loginProps> = ({ login, setLogin, setuser_id }) => {
   const [present] = useIonAlert();
 
   const userLogin = () => {
-    console.log('clicked')
     axios.post("http://localhost:3001/api/user/login", {
       username: username,
       password: password
     }).then((response) => {
-      console.log(response, 'hhhhhhh')
       if (response.data.message) {
         setLoginStatus(false);
         present(`${response.data.message}`, [{ text: 'Ok' }])

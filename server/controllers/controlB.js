@@ -59,6 +59,21 @@ const ChoseCategory = (req, res) => {
   });
 };
 
+const verifyFavorites = (req, res) => {
+  const { event_id, user_id} = req.params;
+  SelectFav(event_id, user_id)
+    .then((result) => {
+      if (result.length) {
+        res.status(200).send("Favorite");
+      } else {
+        res.status(200).send("UnFavorite")
+      }
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    });
+};
+
 
 
 module.exports = {
@@ -67,4 +82,5 @@ module.exports = {
     gettingGategories,
     addToFav,
     ChoseCategory,
+    verifyFavorites,
   };

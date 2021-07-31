@@ -6,5 +6,6 @@ router.post('/admin/postCategory', controlerB.CategoryPosting);
 router.get('/categories',controlerB.gettingGategories);
 router.post('/favorite',controlerB.addToFav);
 router.get('/categoryEvents',controlerB.ChoseCategory)
+router.get('/singlefavorite/:event_id/:user_id', controlerB.verifyFavorites)
 
 module.exports = router;

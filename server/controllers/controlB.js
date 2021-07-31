@@ -15,7 +15,7 @@ const CategoryPosting = (req,res) => {
        let image =result.url;
        postCategory(req.body, image)
        .then((result)=> {  
-         res.status(201).json(result) 
+         res.status(201).json("added") 
        }).catch(()=> {res.status(401).send('request error')})
          
        }).catch(()=> { res.status(401).send('cloudinary error')})

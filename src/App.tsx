@@ -135,7 +135,6 @@ const App: React.FC = () => {
   // to get categories
   useEffect(() => {
     axios.get('/api/categories').then((result) => {
-      console.log(result.data)
       setCategories(result.data)
     }).catch((err) => {
       console.log(err);

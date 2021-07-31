@@ -72,6 +72,14 @@ import {
         </IonCardContent>
       </IonCard>
         }
+         <IonCard routerLink="/postCategory">
+          <IonCardContent className="my_account_text" >
+            Manage Categories
+            <div className="userDasbord_icon">
+              <IonIcon icon={chevronForwardOutline} className="icon-card" />
+            </div>
+          </IonCardContent>
+        </IonCard>
         <IonCard onClick={()=>{LogoutRedirect()}}>
           <IonCardContent className="my_account_text">
             Log Out

@@ -261,9 +261,9 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id,
         </IonInput>
         </IonItem>
         &nbsp;
-        <IonItem lines="none"  >
+        <IonItem lines="none" >
         &nbsp;
-        {!buttonClick ? <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false);refreshInfoAfterSubmit();}} className="second_button_create_event" >Cancel</button>
+        {!buttonClick ? <><button onClick={()=> {setButtonClick(null); setSwitchPageCreateEvent(false);refreshInfoAfterSubmit();}} className="second_button_create_event">Cancel</button>
          <IonButton  size="default"  type="submit" className="button_create_event" 
          onClick={()=> { if (verifyInput() && user_id) {  postReaquestHandler(); setSpiner(true);} 
           else if (!verifyInput()){ present('All mandatory * fields must be filled', [{ text: 'Ok' }]) } }}>Confirme</IonButton>

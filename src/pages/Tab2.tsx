@@ -3,8 +3,6 @@ import {
   IonHeader,
   IonPage,
   IonTitle,
-  IonItem,
-  IonLabel,
   IonAvatar,
   IonBadge,
   IonText,

@@ -1,0 +1,340 @@
+.img_eventpage {
+  position: relative;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  height: auto;
+}
+
+.category_eventpage {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  top: 1.5rem;
+  left: 1.5rem;
+  background: -webkit-linear-gradient(white, #bebebe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.place_eventpage {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  top: 2.5rem;
+  left: 1.4rem;
+  background: -webkit-linear-gradient(white, #bebebe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.place_eventpage_places {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  bottom: 0rem;
+  left: 0.3rem;
+  background: -webkit-linear-gradient(white, #bebebe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.title_eventpage {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  top: 1.8rem;
+  left: 1.4rem;
+  color: white;
+}
+
+.vote_eventpage {
+  position: relative;
+  left: 19rem;
+  top: 20rem;
+}
+
+.start-time_eventpage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  bottom: 6rem;
+  left: 1.5rem;
+  color: white;
+  opacity: 0.8;
+}
+
+.end-time_eventpage {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  bottom: 8.15rem;
+  left: 6.5rem;
+  color: white;
+  opacity: 0.8;
+}
+
+.time_eventpage {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  top: 5.8rem;
+  left: 15.2rem;
+  color: white;
+  opacity: 0.8;
+}
+
+.start_time_eventpage {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  top: 0.9rem;
+  left: 14rem;
+  color: white;
+  opacity: 0.8;
+}
+
+.end_time_eventpage {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  bottom: 1.19rem;
+  left: 17rem;
+  color: white;
+  opacity: 0.8;
+}
+
+.location_eventpage {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: lighter;
+  bottom: 7.7rem;
+  left: 3rem;
+  color: white;
+}
+
+.price_eventpage {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: lighter;
+  bottom: 7.6rem;
+  left: 3.1rem;
+  color: white;
+}
+
+.avatar_eventpage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  bottom: 6.5rem;
+  left: 1.5rem;
+}
+
+.organizer_name_eventpage {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: lighter;
+  bottom: 9rem;
+  left: 5.4rem;
+  color: white;
+}
+
+.organizer_eventpage {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  bottom: 8.8rem;
+  left: 5.4rem;
+  color: gray;
+}
+
+.about_eventpage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  bottom: 9.5rem;
+  left: 1.5rem;
+  color: white;
+}
+
+.abouttext_eventpage {
+  position: relative;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: white;
+  margin: 20px;
+  padding: 10px;
+  bottom: 11rem;
+  right: 0.3rem;
+}
+
+p {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+}
+
+.span_date {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  color: white;
+  bottom: 14rem;
+  left: 7.1rem;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.span_time {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  color: white;
+  bottom: 3rem;
+  left: 17.5rem;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.image_bg {
+  --ion-background-color: linear-gradient(180deg, #272727 88%, #272727 100%) no-repeat center center / cover;
+}
+
+.icon_eventpage {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  bottom: 8.7rem;
+  left: 1.5rem;
+  color: white;
+}
+
+.calendar_eventpage {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  bottom: 4.55rem;
+  left: 1.5rem;
+  color: white;
+}
+
+.time_icon_eventpage {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  bottom: 3.6rem;
+  left: 14rem;
+  color: white;
+}
+
+.icon_cash_eventpage {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  bottom: 8.5rem;
+  left: 1.5rem;
+  color: white;
+}
+
+.btn_eventpage {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  bottom: 11.5rem;
+  left: 19rem;
+}
+
+.btn_vote_eventpage {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  top: 0.2rem;
+  left: 19rem;
+}
+
+.back_button_eventpage {
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: white;
+  font-size: 25px;
+  top: 2rem;
+  left: 0.5rem;
+}
+/*# sourceMappingURL=EventPage.css.map */

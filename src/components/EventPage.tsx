@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 import AnimatedNumber from "animated-number-react";
 import {
   IonContent,
@@ -363,9 +364,15 @@ const EventPage: React.FC<ContainerProps> = ({
             {data.username}
           </IonLabel>
           <IonLabel className="organizer_eventpage">Organizer</IonLabel>
+          <Link to={{
+               pathname: "/chat",
+   
+    state: { ownerid: data.user_id, eventid: viewEvent, eventtitle:data.title}
+  }}>
           <IonFabButton className="btn_eventpage" color="light" size="small">
             <IonIcon icon={chatbubbleEllipsesOutline} size="small" />
           </IonFabButton>
+          </Link>
           <IonLabel className="about_eventpage">About</IonLabel>
           <IonText className="abouttext_eventpage">
             <p>{data.description}</p>

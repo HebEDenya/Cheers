@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "cheers_pjr",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import AnimatedNumber from "animated-number-react";
 import {
   IonContent,
   IonHeader,
@@ -47,33 +48,40 @@ interface ContainerProps {
   viewEvent: any;
   btnpath: string;
   setPath: any;
-  setFollowedEvents: (any)=> any
+  setFollowedEvents: (any) => any;
 }
 
 const EventPage: React.FC<ContainerProps> = ({
   viewEvent,
   btnpath,
   setPath,
-  
-  setFollowedEvents
+
+  setFollowedEvents,
 }) => {
   const [data, setData] = useState<any | null>([]);
   const [startTime, setstartTime] = useState<any | null>([]);
   const [endTime, setendtime] = useState<any | null>([]);
   const [clicked, setclicked] = useState<boolean>(true);
   const [places, setPlaces] = useState<number | null>();
+  const [organizerId, setOrganizeId] = useState<any | null>([]);
   const history = useHistory();
+  const [userVerified, setUserVerified]= useState<boolean>(false)
+
 
   const userId = Cookies.get("user_id");
+  const formatValue = (value) => value.toFixed(0);
 
   // verify if the user have a place in this event
   const verifyFollow = () => {
     if (+userId && viewEvent) {
       axios.get(`/api/vote/color/${+userId}/${viewEvent}`).then((result) => {
         if (result.data === "Followed") {
+          setUserVerified(true)
           setclicked(false);
+          
         } else {
           setclicked(true);
+          
         }
       });
     }
@@ -85,11 +93,11 @@ const EventPage: React.FC<ContainerProps> = ({
       axios
         .put(`/api/vote/${+userId}/${viewEvent}`)
         .then((result) => {
-        return  axios.get(`/api/followedevents/${+userId}`)
-
-        }).then((res) => {
-            setFollowedEvents(res.data);
-          })
+          return axios.get(`/api/followedevents/${+userId}`);
+        })
+        .then((res) => {
+          setFollowedEvents(res.data);
+        })
         .catch((err) => {
           console.log(err);
         });
@@ -104,12 +112,13 @@ const EventPage: React.FC<ContainerProps> = ({
     if (+userId && viewEvent) {
       verifyFollow();
     }
-  }, [viewEvent]);
+  }, [viewEvent,clicked]);
 
   // get all the data related to this event
   const getEventPage = () => {
     if (viewEvent !== null) {
       axios.get(`/api/eventpage/${viewEvent}`).then((res) => {
+        setOrganizeId(res.data[0].user_id);
         setData(res.data[0]);
         setstartTime(res.data[0].start_time.split("T")[1]);
         setendtime(res.data[0].end_time.split("T")[1]);
@@ -121,25 +130,29 @@ const EventPage: React.FC<ContainerProps> = ({
   // return the available_places depend of n places
   const availablePlaces = () => {
     if (places === -1) {
-      return (
-      <IonLabel className="place_eventpage">
-        Open to everyone
-        </IonLabel>
-      );
+      return <IonLabel className="place_eventpage">Open to everyone</IonLabel>;
     } else if (places === 0) {
-      return ( <IonLabel className="place_eventpage">
-        Full
-        </IonLabel>
-      );
+      return <IonLabel className="place_eventpage">Full</IonLabel>;
     } else {
       return (
+        <>
         <IonLabel className="place_eventpage">
-          Available : {places} places'
+          Available :{" "}{" "}
+          <AnimatedNumber
+            formatValue={formatValue}
+            value={places}
+            duration={300}
+            delay={1}
+          />{" "}
+          <IonLabel className="place_eventpage_places">places'</IonLabel>
         </IonLabel>
+        
+        </>
       );
     }
   };
 
+   
   // To switch button and color and inc or dec places
   const btnClick = () => {
     if (places && places !== -1) {
@@ -173,7 +186,7 @@ const EventPage: React.FC<ContainerProps> = ({
             <IonIcon icon={checkmarkCircleOutline} size="small" />
           </IonFabButton>
         );
-      } 
+      }
     } else if (places === -1) {
       return (
         <IonFabButton
@@ -185,7 +198,7 @@ const EventPage: React.FC<ContainerProps> = ({
           <IonIcon icon={alertOutline} size="small" />
         </IonFabButton>
       );
-    } else {
+    } else if (userVerified){
       return (
         <IonFabButton
           className="btn_vote_eventpage"
@@ -201,6 +214,17 @@ const EventPage: React.FC<ContainerProps> = ({
           <IonIcon icon={alertOutline} size="small" />
         </IonFabButton>
       );
+    }else {
+      return (
+        <IonFabButton
+          className="btn_vote_eventpage"
+          disabled={true}
+          color="danger"
+          size="small"
+        >
+          <IonIcon icon={alertOutline} size="small" />
+        </IonFabButton>
+      );
     }
   };
 
@@ -211,7 +235,9 @@ const EventPage: React.FC<ContainerProps> = ({
         <IonIcon
           className="back_button_eventpage"
           icon={chevronBackOutline}
-          onClick={() =>{ history.push("/adminTab2") }}
+          onClick={() => {
+            history.push("/adminTab2");
+          }}
         />
       );
     } else if (btnpath === "myevents") {
@@ -238,7 +264,7 @@ const EventPage: React.FC<ContainerProps> = ({
           onClick={() => history.push("/tab5")}
         />
       );
-    } else if (btnpath ==="followedevents") {
+    } else if (btnpath === "followedevents") {
       return (
         <IonIcon
           className="back_button_eventpage"

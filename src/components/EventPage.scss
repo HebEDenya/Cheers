@@ -31,6 +31,18 @@
     -webkit-text-fill-color: transparent;
 }
 
+.place_eventpage_places {
+    position: relative;
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    bottom: 0rem;
+    left: 0.3rem;
+    background: -webkit-linear-gradient(rgb(255, 255, 255), rgb(190, 190, 190));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .title_eventpage {
     position: relative;
     display: flex;

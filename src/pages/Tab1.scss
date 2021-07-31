@@ -1,26 +1,11 @@
-.category-photos {
-    display: flex;
-}
-.category {
-    height : 120px !important;
-}
-// #heart_favorite-hover {
-//     font-size: 1.5rem;
-//     color:rgb(216, 130, 144);
-// }
-// #heart_favorite-hover:active {
-//     transform: scale(1.5);
-// }
-// .date_favoritr_color {
-//     color:rgb(216, 130, 144);
-//     font-size: 1.04rem;
-// }
+
+
 .container{
     position: relative;
     height: 75px;
-    width: 450px;
+    width: 350px;
     justify-content: 5px;
-    // display: flex;
+    display: flex;
 }
 .container .box {
     position: relative;
@@ -29,21 +14,17 @@
     background: #ce93d8;
     box-sizing: border-box;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 5px;
     float: left;
     justify-content: 5px;
+    // margin: 0;
+    // width: auto;
+    // left: 0;
+    // animation: 20s slider infinite; 
 }
-.categoryImg{
-    height: 100px;
-    width: 100px;
-    position: relative;
-    display: flex;
+.i{
+    background: #ce93d8;
+    color: black;
 }
-
-        // .favorite_img_size {
-        // width: 55rem;
-        // height: 22rem;
-    
-        // }
     
   

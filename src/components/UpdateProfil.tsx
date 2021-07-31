@@ -16,6 +16,7 @@ import {
   useIonAlert,
   IonButtons,
   IonBackButton,
+  IonLoading,
 } from "@ionic/react";
 import "./UpdateProfil.scss";
 import ImageContainer from "./CreateEventImage";
@@ -34,6 +35,7 @@ const UpdateProfil: React.FC<ContainerProps> = ({user_id, setimageProfileUpdated
   );
   const [img, setImg] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [spiner, setSpiner] = useState<boolean>(false)
   // Get the image of the user
   const getUserData = () => {
     if (user_id) {
@@ -55,13 +57,15 @@ const UpdateProfil: React.FC<ContainerProps> = ({user_id, setimageProfileUpdated
       .put(`http://localhost:3001/api/user/${user_id}/updateprofil`, { description, image })
       .then((result) => {
         if (result.statusText === "OK") {
+          setSpiner(false);
           present("Your profil have been Updated 👌", [{ text: "Done" }]);
           setimageProfileUpdated(true)
           setImageUpdated(true)
         } 
       })
       .catch((err) => {
-        console.log(err);
+        setSpiner(false);
+        present("An error has occured ‼", [{ text: "Ok" }]);
       });}
   };
 
@@ -71,7 +75,7 @@ const UpdateProfil: React.FC<ContainerProps> = ({user_id, setimageProfileUpdated
 
   // // Function combine confirm and update.
   const onClickBtn = () => {
-    present("Loading ... 🕓", [{ text: "Ok" }]);
+    setSpiner(true);
     confirmUpdate();
   };
 
@@ -126,6 +130,11 @@ const UpdateProfil: React.FC<ContainerProps> = ({user_id, setimageProfileUpdated
           >
             Confirm
           </IonButton>
+          <IonLoading
+          isOpen={spiner}
+          message="Loading... 🕔"
+          onDidDismiss={()=> setSpiner(false)}
+          ></IonLoading>
         </IonContent>
       </IonPage>
     </>

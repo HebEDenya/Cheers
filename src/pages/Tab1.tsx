@@ -79,15 +79,16 @@ return (
       </IonHeader>
       &nbsp;
 
-        <IonSlides  options={slideOptsOne}>
-      <IonSlide className='container' >
+        <IonList >
+      <IonSlides className='container' >
       {categories.map((category,index) => (
-        <IonList className='box'>  
+        <IonSlide className='box'>  
+              {/* <img className='categoryImg' onClick={() => {setCategoryChosen(category.category_name)}} src={category.category_image} alt="categoryImg"/> */}
               <IonItem className="i" onClick={() => {setCategoryChosen(category.category_name) ; console.log(categoryChosen)} }>{category.category_name}</IonItem>
-              </IonList>
+              </IonSlide>
             ))}      
-        </IonSlide>
         </IonSlides>
+        </IonList>
               <IonContent className="events">
                 {events.filter((event) => {if(categoryChosen.length) { return event.category === categoryChosen} else {return event}}).map((event,i) => (
               

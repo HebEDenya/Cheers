@@ -23,6 +23,8 @@ import Tab5 from "./pages/Tab5";
 import UpdateProfil from "./components/UpdateProfil";
 import axios from "axios";
 import MyEvents from "./components/MyEvents";
+// import ChosenCategory from "./components/ChosenCategory";
+import Category from "./components/Category";
 import FirstPage from "./pages/FirstPage";
 import EventPage from "./components/EventPage";
 import FollowedEvents from "./components/FollowedEvents";
@@ -50,6 +52,7 @@ import './pages/Admin.scss';
 import ConfirmedPayment from "./components/ConfirmedPayment";
 import NotConfirmedPayment from './components/NotConfirmedPayment'
 
+
 const App: React.FC = () => {
   const [isLoding, setIsLoading] = useState<boolean>(true)
   const [coinsUser, setCoinsUser] = useState<number>(40)
@@ -59,12 +62,14 @@ const App: React.FC = () => {
   const [type_user, setTypeUser] = useState<string | null>(null);
   const [logOut, setLogout] = useState<boolean>(false);
   const [viewEvent, setviewEvent] = useState<number | null>(null);
+  const [categories, setCategories] = useState([])
   const [eventAdded, setEventAdded] = useState<boolean>(false)
   const [imageProfileUpdated, setimageProfileUpdated] = useState<boolean>(false)
   const reset = Cookies.get("reset")
   Cookies.set("reset", `${reset}`) 
 
   const [btnpath, setPath] = useState<string>('');
+  const [categorypath, setCategoryPath] = useState<string>('');
   const [followedEvents, setFollowedEvents]=useState<Array<any>>([]);
 
 
@@ -138,7 +143,14 @@ const App: React.FC = () => {
      console.log(err);
    });
   },[eventAdded])
-
+  // to get categories
+  useEffect(() => {
+    axios.get('/api/categories').then((result) => {
+      setCategories(result.data)
+    }).catch((err) => {
+      console.log(err);
+    });
+  },[])
   
   if (isLoding) {
     return (
@@ -170,14 +182,11 @@ const App: React.FC = () => {
     </IonReactRouter>
      :
     <IonReactRouter>  
-     
-     <Route exact path='/reset/:id' component={ForgotPassword} />
-     <Route exact path='/password' component= {NewPass} />
       <IonTabs>
         <IonRouterOutlet>
    {Cookies.get("type_user") === "superAdmin" ||  Cookies.get("type_user") === "Admin"? <Redirect exact from="/login" to="/adminTab1" /> : <Redirect exact from="/login" to="/tab1" /> }
           <Route exact path="/tab1">
-            <Tab1  events = {events} setviewEvent={setviewEvent} viewEvent={viewEvent} setPath={setPath}/>
+            <Tab1 user_id={user_id} events = {events}  setviewEvent={setviewEvent} setPath={setPath} viewEvent={viewEvent} categories = {categories} setCategories={setCategories}/>
           </Route>
           <Route exact path="/tab2">
             <Tab2 coinsUser= {coinsUser} user_id={user_id} setLogout={setLogout} imageProfileUpdated={imageProfileUpdated} setimageProfileUpdated={setimageProfileUpdated}/>
@@ -214,6 +223,9 @@ const App: React.FC = () => {
           <Route path="/eventpage" >
             <EventPage viewEvent={viewEvent} btnpath={btnpath} setPath={setPath}   setFollowedEvents={setFollowedEvents}/>
           </Route>
+          {/* <Route path="/categoryEvents" >
+            <ChosenCategory setCategoryPath={setPath} />
+          </Route> */}
           <Route path="/adminTab1" >
             <AdminTab1 setLogout={setLogout} type_user= {type_user}/>
           </Route>
@@ -223,6 +235,9 @@ const App: React.FC = () => {
           <Route path="/adminTab3" >
             <AdminTab3 type_user= {type_user}/>
           </Route>
+          <Route path="/postCategory" >
+            <Category user_id={user_id} />
+            </Route>
           <Route path="/confirmedPayment" >
             <ConfirmedPayment setCoinsUser={setCoinsUser}  setuser_id={setuser_id} coinsUser={coinsUser}/>
           </Route>

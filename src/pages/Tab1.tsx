@@ -1,25 +1,44 @@
-import React, {useState,useEffect} from 'react';
-import {IonicSafeString, IonInfiniteScroll, IonInfiniteScrollContent, IonNote,IonCol, IonRow} from '@ionic/react';
-import { IonContent, IonHeader, IonPage,IonIcon,IonCardTitle,IonDatetime, IonCard,IonCardHeader,IonLabel,IonGrid, IonListHeader,IonImg,IonList,IonItem ,IonCardSubtitle} from '@ionic/react';
-import { Icon, InlineIcon } from '@iconify/react';
-import heartIcon from '@iconify-icons/ion/heart-outline';
+import React, {useState} from 'react';
+import {IonCol, IonRow} from '@ionic/react';
+import SingleEvent from '../components/SingleEvent';
+import { IonContent ,IonSlides, IonSlide, IonHeader, IonPage,IonIcon,IonCardTitle,IonDatetime, IonCard,IonCardHeader,IonLabel,IonGrid, IonListHeader,IonImg,IonList,IonItem ,IonCardSubtitle} from '@ionic/react';
+// import { Icon, InlineIcon } from '@iconify/react';
+import { heart,heartOutline} from 'ionicons/icons';
 import ExploreContainer from '../components/ExploreContainer';
 import { useHistory } from 'react-router-dom';
+import Cookies from "js-cookie";
 // import ExploreContainer from '../components/ExploreContainer';
 import './Tab1.scss';
+import axios from 'axios';
 interface ContainerProps {
   events:Array<any>,
   setviewEvent:any,
   viewEvent:number,
+  setCategories: any,
+  categories:Array<any>,
+  user_id: number,
   setPath:any,
 }
 
-
-const Tab1: React.FC <ContainerProps>= ({events, setviewEvent, viewEvent, setPath}) => {
- const [categories, setCategories] = useState(['https://images.squarespace-cdn.com/content/v1/5acb6f9fb27e3910337cdd37/1588499747331-SQOD997KAC1GTGN3A6IP/ke17ZwdGBToddI8pDm48kMMrhUZ3rQXTcnRxiSGi1G17gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmaUzSiviepfuOufnJa7SEDRKl7z_LUwe8cDB0iQ_YpMlSenNy3wuK8-Q9DCm8gcSo/IMG_1877.JPG?format=1500w','https://images.squarespace-cdn.com/content/v1/55b76e9ee4b03c58b8546b0c/1589791183324-DGUJ55BN5Z404VS53IYJ/cover-davidsfonds1.3.jpg?format=2500w'])
- 
+const Tab1: React.FC <ContainerProps>= ({events, setviewEvent,setPath, viewEvent, categories,setCategories,user_id}) => { 
 //  const [heartButtonClick, setHeartButtonClick] = useState(false)
-const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
+const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false)
+const [isFav, setIsFav] = useState<number>()
+const [categoryChosen, setCategoryChosen] = useState<string>('');
+const [checker, setChecker] = useState<{checker:boolean | null, event_id:number | null}>({checker:null, event_id:null})
+const slideOptsOne = {
+  initialSlide: 0,
+    slidesPerView: 1,
+    scrollbar: true,
+    autoplay:true,pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+      renderBullet: function (index, className) {
+        return '<span class="' + className + '">' + (index + 1) + '</span>';
+      },
+    }
+  };
+
 const history = useHistory();
 
   // if we click on img cart w go to the event page
@@ -27,6 +46,26 @@ if(buttontoviewevent) {
   history.push(`/eventpage/${viewEvent}`)
   setbuttontoviewevent(false)
 }
+
+const addToFavorite = (event_id) => {
+  const user_id = Cookies.get("user_id")
+  if(user_id){
+      axios.post('/api/favorite',{event_id:event_id, user_id:+user_id}).then((res) =>{ console.log(res)
+
+      // setChecker({checker:null, event_id:null})
+      setIsFav(event_id);
+      if(res.data === 'removed'){
+        setChecker({checker:true, event_id:event_id})
+      }else {
+        setChecker(({checker:false, event_id:event_id}))
+      }
+    }  
+
+      ).catch((err) => console.log(err)
+      )
+  } 
+}
+
 
 return (
   <IonPage>
@@ -37,45 +76,24 @@ return (
          </IonLabel>
          </IonListHeader>
       </IonHeader>
-      
-        {/* <IonItem>
-            {categories.map((category,index) => (
-              <IonImg
-              key={key} 
-              class="scroll-content"
-              style={{ display: 'flex',flexDirection:'column',flex:4}}
-              src={category} className="categoryImg"/>
-            ))}
-            </IonItem> */}
+      &nbsp;
 
+        <IonList >
+      <IonSlides className='container' >
+      {categories.map((category,index) => (
+        <IonSlide className='box' key={index}>  
+              {/* <img className='categoryImg' onClick={() => {setCategoryChosen(category.category_name)}} src={category.category_image} alt="categoryImg"/> */}
+              <IonItem className="i" onClick={() => {setCategoryChosen(category.category_name) ; console.log(categoryChosen)} }>{category.category_name}</IonItem>
+              </IonSlide>
+            ))}      
+        </IonSlides>
+        </IonList>
               <IonContent className="events">
-                {events.map((event,i) => (
-                  
-        <IonCard key={i} >
-          
-            <img onClick={() => {setviewEvent(event.event_id) ; setbuttontoviewevent(true) ; setPath('tab1')}} src={event.image} alt=""  className="favorite_img_size" />
-            
-        <IonCardHeader >
-        <IonGrid>
-            <IonCardSubtitle>{event.title}</IonCardSubtitle>
-            <IonCardTitle className="event_title">{event.location}</IonCardTitle>
-            <IonRow>
-            <IonDatetime className="event_time" value={event.start_time} display-timezone="utc" disabled={true}></IonDatetime>
-            </IonRow>
-            <IonRow>
-            <IonCol size="10.5">
-            <IonLabel id="price_favorite_size">{event.price=== "Free"? "Free" : event.price +' DT'}</IonLabel>
-          </IonCol>
-            <IonCol>
-          <Icon icon={heartIcon} id="heart_favorite-hover"/> 
-          </IonCol>
-            </IonRow>
-            </IonGrid>     
-        </IonCardHeader>
-        </IonCard>
-                  
-                ))}
+                {events.filter((event) => {if(categoryChosen.length) { return event.category === categoryChosen} else {return event}}).map((event,i) => (
               
+               <SingleEvent setviewEvent={setviewEvent} event={event} key={i} setPath={setPath}/>
+              
+                ))}
             </IonContent> 
         <ExploreContainer name="Tab 1 page" />
     </IonPage>

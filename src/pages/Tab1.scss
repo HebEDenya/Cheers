@@ -1,76 +1,30 @@
-.category-photos {
+
+
+.container{
+    position: relative;
+    height: 75px;
+    width: 350px;
+    justify-content: 5px;
     display: flex;
 }
-.categoryImg {
-    justify-content : 55px;
-    height : 120px !important;
-    width: 60px !important;
-}
-
-
-.event_title {
+.container .box {
     position: relative;
-    top: 0.1rem;
-    font-weight: 10px;
-    font-size: 22px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: #5d5d5d;
+    width: calc(175px - 7px);
+    height: calc(60px - 7px);
+    background: #ce93d8;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 5px;
+    float: left;
+    justify-content: 5px;
+    // margin: 0;
+    // width: auto;
+    // left: 0;
+    // animation: 20s slider infinite; 
 }
-
-.date_favoritr_color {
-    color:rgb(216, 130, 144);
-    font-size: 1.04rem;
+.i{
+    background: #ce93d8;
+    color: black;
 }
-.event_title {
-    position: relative;
-    top: 0.1rem;
-    font-weight: 10px;
-    font-size: 22px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: #5d5d5d;
-}
-
-.event_time {
-    position: relative;
-    color: #ce93d8;
-    // right: 1.3rem;
-}
-// .details{
-//     display: block;
-// }
-.favorite_img_size {
-    height: 17rem;
-    width: 22rem;
-
-}    
-        .favorite_img_size {
-        width: 55rem;
-        height: 22rem;
     
-        }
-    
-    #title_favorite_color {
-        color: #251f11;
-        font-size: 1.2rem;
-    }
-    
-    .date_favoritr_color {
-        color:rgb(216, 130, 144);
-        font-size: 1.04rem;
-    }
-    
-    .event_title {
-        position: relative;
-        top: 0.1rem;
-        font-weight: 10px;
-        font-size: 22px;
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        color: #5d5d5d;
-    }
-    
-    .event_time {
-        position: relative;
-        color: #ce93d8;
-        right: 1.3rem;
-        opacity: 1;
-    }
+  

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 import AnimatedNumber from "animated-number-react";
 import {
   IonContent,
@@ -65,6 +66,8 @@ const EventPage: React.FC<ContainerProps> = ({
   const [places, setPlaces] = useState<number | null>();
   const [organizerId, setOrganizeId] = useState<any | null>([]);
   const history = useHistory();
+  const [userVerified, setUserVerified]= useState<boolean>(false)
+
 
   const userId = Cookies.get("user_id");
   const formatValue = (value) => value.toFixed(0);
@@ -74,9 +77,12 @@ const EventPage: React.FC<ContainerProps> = ({
     if (+userId && viewEvent) {
       axios.get(`/api/vote/color/${+userId}/${viewEvent}`).then((result) => {
         if (result.data === "Followed") {
+          setUserVerified(true)
           setclicked(false);
+          
         } else {
           setclicked(true);
+          
         }
       });
     }
@@ -107,7 +113,7 @@ const EventPage: React.FC<ContainerProps> = ({
     if (+userId && viewEvent) {
       verifyFollow();
     }
-  }, [viewEvent]);
+  }, [viewEvent,clicked]);
 
   // get all the data related to this event
   const getEventPage = () => {
@@ -147,6 +153,7 @@ const EventPage: React.FC<ContainerProps> = ({
     }
   };
 
+   
   // To switch button and color and inc or dec places
   const btnClick = () => {
     if (places && places !== -1) {
@@ -192,7 +199,7 @@ const EventPage: React.FC<ContainerProps> = ({
           <IonIcon icon={alertOutline} size="small" />
         </IonFabButton>
       );
-    } else {
+    } else if (userVerified){
       return (
         <IonFabButton
           className="btn_vote_eventpage"
@@ -204,6 +211,17 @@ const EventPage: React.FC<ContainerProps> = ({
             voteEvent();
             setPlaces(places + 1);
           }}
+        >
+          <IonIcon icon={alertOutline} size="small" />
+        </IonFabButton>
+      );
+    }else {
+      return (
+        <IonFabButton
+          className="btn_vote_eventpage"
+          disabled={true}
+          color="danger"
+          size="small"
         >
           <IonIcon icon={alertOutline} size="small" />
         </IonFabButton>
@@ -346,9 +364,15 @@ const EventPage: React.FC<ContainerProps> = ({
             {data.username}
           </IonLabel>
           <IonLabel className="organizer_eventpage">Organizer</IonLabel>
+          <Link to={{
+               pathname: "/chat",
+   
+    state: { ownerid: data.user_id, eventid: viewEvent, eventtitle:data.title}
+  }}>
           <IonFabButton className="btn_eventpage" color="light" size="small">
             <IonIcon icon={chatbubbleEllipsesOutline} size="small" />
           </IonFabButton>
+          </Link>
           <IonLabel className="about_eventpage">About</IonLabel>
           <IonText className="abouttext_eventpage">
             <p>{data.description}</p>

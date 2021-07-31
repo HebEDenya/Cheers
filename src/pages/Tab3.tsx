@@ -32,7 +32,6 @@ const Tab3: React.FC<ContainerProps> = ({user_id, setviewEvent, viewEvent, setPa
       setFavoriteEvent(result.data) 
     })}
   }, [])
-
   useEffect(() => {
     if (user_id) {
     setFavoriteEvent(favoriteEvent.filter((item)=> item.event_id !==heartButtonClick.btn_Id))

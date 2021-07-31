@@ -1,0 +1,86 @@
+.email-address {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  left: 9rem;
+  bottom: 4rem;
+  font-weight: 10px;
+  font-size: 16px;
+  font-family: 'Trebuchet MS';
+  color: #5d5d5d;
+}
+
+.icon-card {
+  margin-left: 17rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 1rem;
+}
+
+.coins_position {
+  position: relative;
+  left: 10rem;
+  top: 0.5rem;
+}
+
+.userDasbord_icon {
+  position: relative;
+  bottom: 1.1rem;
+}
+
+.my_account_text {
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+  top: 0.5rem;
+  color: black;
+  font-size: 16px;
+}
+
+.avatar_image {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.avatar_username {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  top: 4rem;
+  left: 1.2rem;
+  font-weight: 10px;
+  font-size: 22px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: #1f436d;
+}
+
+@media (min-width: 414px) {
+  .userDasbord_icon {
+    left: 2rem;
+  }
+  .coins_position {
+    left: 12rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .userDasbord_icon {
+    left: 25rem;
+  }
+  .coins_position {
+    left: 35rem;
+  }
+}
+
+@media (width: 320px) {
+  .coins_position {
+    left: 9rem;
+  }
+}
+/*# sourceMappingURL=Tab2.css.map */

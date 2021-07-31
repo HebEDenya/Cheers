@@ -1,6 +1,7 @@
 import { IonIcon, IonContent, IonHeader, IonPage,useIonAlert , IonTitle, IonToolbar, IonInput, IonItem, IonLabel, IonList, IonItemDivider, IonButton, IonFooter, } from '@ionic/react';
 //import ExploreContainer from '../components/ExploreContainer';
 import axios from 'axios';
+import { lockClosed, person, mailOpen } from 'ionicons/icons';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 // import './Register.scss';
@@ -27,28 +28,44 @@ const Register: React.FC = () => {
   return (
     <IonPage>
     <IonHeader className="ion-no-border"> 
-      <IonToolbar>    
-        <IonTitle className="ion-text-center custom-font ">Register</IonTitle>
-      </IonToolbar>
+     
     </IonHeader>
     <IonContent>
+    <br /><br /><br /><br /><br />
+
+    <IonToolbar>    
+        <IonTitle className="ion-text-center custom-font ">Register</IonTitle>
+      </IonToolbar>
+      <br /><br /><br /><br /><br />
+
       <IonList className="ion-padding-bottom ion-margin-horizontal">
-        <IonItemDivider>E-mail</IonItemDivider>
         <IonItem>
-          <IonInput clear-input type="email" value={emailReg} placeholder="Enter E-mail..." onIonChange={e => setemailReg(e.detail.value!)}></IonInput>
+        <IonLabel position="floating">E-mail</IonLabel>
+          <IonInput clear-input type="email" value={emailReg} placeholder="Enter E-mail..." onIonChange={e => setemailReg(e.detail.value!)}>
+          <IonIcon size="small" slot="start" icon={mailOpen} />
+          </IonInput>
         </IonItem>
-        <IonItemDivider>Username</IonItemDivider>
+        
         <IonItem>
-          <IonInput clear-input type="text" value={usernameReg} placeholder="Enter Username..." onIonChange={e => setUsernameReg(e.detail.value!)}></IonInput>
+        <IonLabel position="floating">Username</IonLabel>
+          <IonInput clear-input type="text" value={usernameReg} placeholder="Enter Username..." onIonChange={e => setUsernameReg(e.detail.value!)}>
+          <IonIcon size="small" slot="start" icon={person} />
+          </IonInput>
         </IonItem>
-        <IonItemDivider>Password</IonItemDivider>
+        
         <IonItem>
-          <IonInput clear-input type="password" value={passwordReg} placeholder="Enter Password..."  onIonChange={e => setPasswordReg(e.detail.value!)}></IonInput>
+        <IonLabel position="floating">Password</IonLabel>
+          <IonInput clear-input type="password" value={passwordReg} placeholder="Enter Password..."  onIonChange={e => setPasswordReg(e.detail.value!)}>
+          <IonIcon size="small" slot="start" icon={lockClosed} />
+          </IonInput>
         </IonItem>
       </IonList>
+      <br /><br />
       <div className="ion-text-center custom-font">
-     {!isRegistred? <IonButton onClick={ userRegister} size="small" shape="round" fill="outline">Signup</IonButton>: <IonButton routerLink="Login" size="small" shape="round" fill="outline">Go to log in</IonButton> }
+     {!isRegistred? <IonButton onClick={ userRegister} size="small"  fill="solid">Signup</IonButton>: <IonButton routerLink="Login" size="small" shape="round" fill="outline">Go to log in</IonButton> }
       </div>
+      <br /><br /><br /><br /><br />
+
       <IonToolbar>
     <div className="ion-text-center custom-font">Have an account? <Link to="/login">Login</Link></div>
   </IonToolbar>

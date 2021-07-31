@@ -23,6 +23,8 @@ import Tab5 from "./pages/Tab5";
 import UpdateProfil from "./components/UpdateProfil";
 import axios from "axios";
 import MyEvents from "./components/MyEvents";
+// import ChosenCategory from "./components/ChosenCategory";
+import Category from "./components/Category";
 import FirstPage from "./pages/FirstPage";
 import EventPage from "./components/EventPage";
 import FollowedEvents from "./components/FollowedEvents";
@@ -38,7 +40,10 @@ import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import Login from "./pages/Login";
+import NewPass from "./pages/NewPass";
+import ForgotPassword from "./pages/ForgotPassword";
 import Register from "./pages/Register";
+import Chat from "./pages/Chat";
 import Cookies from "js-cookie";
 import AdminTab1 from "./pages/AdminTab1";
 import AdminTab2 from "./pages/AdminTab2";
@@ -46,6 +51,7 @@ import AdminTab3 from "./pages/AdminTab3";
 import './pages/Admin.scss';
 import ConfirmedPayment from "./components/ConfirmedPayment";
 import NotConfirmedPayment from './components/NotConfirmedPayment'
+
 
 const App: React.FC = () => {
   const [isLoding, setIsLoading] = useState<boolean>(true)
@@ -56,9 +62,14 @@ const App: React.FC = () => {
   const [type_user, setTypeUser] = useState<string | null>(null);
   const [logOut, setLogout] = useState<boolean>(false);
   const [viewEvent, setviewEvent] = useState<number | null>(null);
+  const [categories, setCategories] = useState([])
   const [eventAdded, setEventAdded] = useState<boolean>(false)
   const [imageProfileUpdated, setimageProfileUpdated] = useState<boolean>(false)
+  const reset = Cookies.get("reset")
+  Cookies.set("reset", `${reset}`) 
+
   const [btnpath, setPath] = useState<string>('');
+  const [categorypath, setCategoryPath] = useState<string>('');
   const [followedEvents, setFollowedEvents]=useState<Array<any>>([]);
 
 
@@ -73,11 +84,13 @@ const App: React.FC = () => {
 
 
   // add id to cookies 
-      if ( login.auth) {
+      if ( login.auth && login.result.rememberMe) {
+       const reset = null
       const id = login.result.user_id
       const type_user = login.result.type_user      
       Cookies.set("user_id", `${id}`) 
       Cookies.set("type_user", `${type_user}`) 
+
     }
  
  // to get cookie
@@ -99,6 +112,9 @@ const App: React.FC = () => {
     Cookies.remove("type_user")   
     localStorage.removeItem('token')
   }
+
+//verifie redict
+// const redirectVerify
 
   ///// to get the users coins
   const handleGettingUserCoinsInfo = () => {
@@ -127,36 +143,50 @@ const App: React.FC = () => {
      console.log(err);
    });
   },[eventAdded])
-
+  // to get categories
+  useEffect(() => {
+    axios.get('/api/categories').then((result) => {
+      setCategories(result.data)
+    }).catch((err) => {
+      console.log(err);
+    });
+  },[])
   
   if (isLoding) {
     return (
-    <FirstPage />
+       <FirstPage />
     )
   }  else {
   return (
   <IonApp>
+    <IonReactRouter>
+    <Route exact path='/reset/:id' component={ForgotPassword} />
+    <Route exact path='/password' component= {NewPass} />
+        
+      </IonReactRouter>
     {!login.auth && user_id===null ? 
     <IonReactRouter>
+      
       <Route exact path='/register'>
     <Register /> 
     </Route>
-    {/* <Redirect exact from="/" to="/register">
-    </Redirect> */}
+    {/* <Redirect exact from="/" to="/register"></Redirect> */}
     <Route exact path="/login">
     <Login  login={login} setLogin={setLogin} setuser_id={setuser_id} /> 
     </Route>
-    <Redirect exact from="/tab2" to="/login"></Redirect>
+    <Route exact path='/reset/:id' component={ForgotPassword} />
+     <Route exact path='/password' component= {NewPass} />
+   
+    {reset === 'true'? <Redirect exact from="/" to="/reset/:id"></Redirect>: <Redirect exact from="/tab2" to="/login"></Redirect> }
+    
     </IonReactRouter>
      :
     <IonReactRouter>  
-    <IonRouterOutlet>          
-    </IonRouterOutlet>
       <IonTabs>
         <IonRouterOutlet>
    {Cookies.get("type_user") === "superAdmin" ||  Cookies.get("type_user") === "Admin"? <Redirect exact from="/login" to="/adminTab1" /> : <Redirect exact from="/login" to="/tab1" /> }
           <Route exact path="/tab1">
-            <Tab1  events = {events} setviewEvent={setviewEvent} viewEvent={viewEvent} setPath={setPath}/>
+            <Tab1 user_id={user_id} events = {events}  setviewEvent={setviewEvent} setPath={setPath} viewEvent={viewEvent} categories = {categories} setCategories={setCategories}/>
           </Route>
           <Route exact path="/tab2">
             <Tab2 coinsUser= {coinsUser} user_id={user_id} setLogout={setLogout} imageProfileUpdated={imageProfileUpdated} setimageProfileUpdated={setimageProfileUpdated}/>
@@ -166,6 +196,9 @@ const App: React.FC = () => {
           </Route>
           <Route path="/tab5">
             <Tab5 events={events} setviewEvent={setviewEvent} viewEvent={viewEvent} setPath={setPath} />
+          </Route>
+          <Route path="/chat">
+            <Chat />
           </Route>
          {Cookies.get("type_user") === "superAdmin" ||  Cookies.get("type_user") === "Admin"?<Route exact path="/">
             <Redirect to="/adminTab1" />
@@ -179,7 +212,7 @@ const App: React.FC = () => {
             <CreateEventComponenetPart1 setCoinsUser={setCoinsUser} coinsUser={coinsUser} user_id={user_id} setEventAdded={setEventAdded}/>
           </Route>
           <Route path="/CoinsPurchase" >
-            <CoinsPurchaser  coinsUser= {coinsUser}setCoinsUser={setCoinsUser} />
+            <CoinsPurchaser coinsUser= {coinsUser}setCoinsUser={setCoinsUser} />
             </Route>
           <Route path="/myevents" >
             <MyEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} setPath={setPath} />
@@ -190,6 +223,9 @@ const App: React.FC = () => {
           <Route path="/eventpage" >
             <EventPage viewEvent={viewEvent} btnpath={btnpath} setPath={setPath}   setFollowedEvents={setFollowedEvents}/>
           </Route>
+          {/* <Route path="/categoryEvents" >
+            <ChosenCategory setCategoryPath={setPath} />
+          </Route> */}
           <Route path="/adminTab1" >
             <AdminTab1 setLogout={setLogout} type_user= {type_user}/>
           </Route>
@@ -199,6 +235,9 @@ const App: React.FC = () => {
           <Route path="/adminTab3" >
             <AdminTab3 type_user= {type_user}/>
           </Route>
+          <Route path="/postCategory" >
+            <Category user_id={user_id} />
+            </Route>
           <Route path="/confirmedPayment" >
             <ConfirmedPayment setCoinsUser={setCoinsUser}  setuser_id={setuser_id} coinsUser={coinsUser}/>
           </Route>
@@ -206,7 +245,7 @@ const App: React.FC = () => {
             <NotConfirmedPayment />
           </Route>
         </IonRouterOutlet>
-       {Cookies.get("type_user") === "superAdmin" ||  Cookies.get("type_user") === "Admin"? 
+       {Cookies.get("type_user") === "superAdmin" || Cookies.get("type_user") === "Admin"? 
         <IonTabBar slot="bottom" >
       <IonTabButton tab="Admin1" href="/adminTab1" className="amdin_tool_bar" >
         <IonIcon icon={home} className="amdin_tool_bar"/>
@@ -229,7 +268,7 @@ const App: React.FC = () => {
         <IonTabButton tab="tab3" href="/tab3">
           <IonIcon icon={heart} />
         </IonTabButton>
-        <IonTabButton tab="tab4" href="#">
+        <IonTabButton tab="tab4" href="/chat">
           <IonIcon icon={chatboxEllipses} />
         </IonTabButton>
         <IonTabButton tab="tab5" href="/tab5" >

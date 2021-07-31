@@ -61,12 +61,14 @@ database.query(`CREATE TABLE IF NOT EXISTS MESSAGE (
     message_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     sender_id INT NOT NULL,
     receiver_id INT NOT NULL,
+    event_id INT NOT NULL,
     time DATETIME NOT NULL,
     text VARCHAR(10000) NOT NULL,
     attachement_id INT,
     FOREIGN KEY (sender_id) REFERENCES USERS (user_id),
     FOREIGN KEY (receiver_id) REFERENCES USERS (user_id),
-    FOREIGN KEY (attachement_id) REFERENCES ATTACHEMENT (attachement_id)    
+    FOREIGN KEY (attachement_id) REFERENCES ATTACHEMENT (attachement_id) ,
+    FOREIGN KEY (event_id) REFERENCES EVENT (event_id)    
 )`).then((res) => {
     console.log('MESSAGE table created');
 }).catch((e) => {
@@ -114,7 +116,16 @@ database.query(`CREATE TABLE IF NOT EXISTS FOLLOWERS (
     console.log(e);
 })
 
+//CATEGORIES TABLE
+database.query(`CREATE TABLE IF NOT EXISTS CATEGORIES (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR (200),
+    category_image VARCHAR(5000)
+)`).then((res) => {
+    console.log('categories table created');
+}).catch((e) => {
+    console.log(e);
+})
+
 
 module.exports.database = database;
-
-

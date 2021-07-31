@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,kBAAkB,CAAC;EACf,QAAQ,EAAE,QAAQ;EAClB,IAAI,EAAE,MAAM;EACZ,MAAM,EAAE,IAAI;EACZ,WAAW,EAAE,gBAAgB;EAC7B,WAAW,EAAE,IAAI;EACjB,SAAS,EAAE,IAAI;EACf,KAAK,EAAE,OAAO;CACjB",
+    "sources": [
+        "FollowedEvents.scss"
+    ],
+    "names": [],
+    "file": "FollowedEvents.css"
+}

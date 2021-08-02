@@ -30,12 +30,12 @@ import "./Tab1.scss";
 import axios from "axios";
 interface ContainerProps {
   events: Array<any>;
-  setviewEvent: any;
+  setviewEvent: (any) => any;
   viewEvent: number;
-  setCategories: any;
+  setCategories: (any) => any;
   categories: Array<any>;
   user_id: number;
-  setPath: any;
+  setPath: (any) => any;
 }
 
 const Tab1: React.FC<ContainerProps> = ({

@@ -43,7 +43,7 @@ import {Link, useHistory} from 'react-router-dom'
 import { Plugins } from '@capacitor/core';
 const { App: CapApp } = Plugins;
 interface ContainerProps {
-  setCoinsUser: any;
+  setCoinsUser: (any) => any;
   coinsUser: number;
 }
 

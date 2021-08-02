@@ -21,7 +21,6 @@ import axios from "axios";
 interface ContainerProps {
   event: any;
   setPath: (any) => any;
-
   setviewEvent: React.Dispatch<React.SetStateAction<number>>;
 }
 const SingleEvent: React.FC<ContainerProps> = ({
@@ -101,7 +100,7 @@ const SingleEvent: React.FC<ContainerProps> = ({
           }}
           src={event.image}
           alt=""
-          className="favorite_img_size_cat"
+          className="favorite_img_size-cat"
         />
         <IonCardHeader>
           <IonCardSubtitle className="title_category_style_card">

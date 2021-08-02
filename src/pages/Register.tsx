@@ -22,6 +22,7 @@ import { Link } from "react-router-dom";
 import { resultingClientExists } from "workbox-core/_private";
 // import './Register.scss';
 //import { star } from 'ionicons/icons';
+
 const Register: React.FC = () => {
   const [emailReg, setemailReg] = useState<string>();
   const [usernameReg, setUsernameReg] = useState<string>();
@@ -120,7 +121,7 @@ const Register: React.FC = () => {
         <br />
         <div className="ion-text-center custom-font">
           {!isRegistred ? (
-            <IonButton onClick={userRegister} size="small" fill="solid">
+            <IonButton onClick={userRegister} size="default" fill="solid">
               Signup
             </IonButton>
           ) : (

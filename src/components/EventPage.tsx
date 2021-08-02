@@ -48,7 +48,7 @@ import "./EventPage.scss";
 interface ContainerProps {
   viewEvent: any;
   btnpath: string;
-  setPath: any;
+  setPath: (any) => any;
   setFollowedEvents: (any) => any;
 }
 

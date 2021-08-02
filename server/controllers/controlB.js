@@ -2,9 +2,12 @@ const { getHome,getCategory,postCategory,getCategories,PlusFavorite,SelectFav } 
 const { removeEventFromFavorite} = require('../queries/query_user/queryM.js');
 const {cloudinary} =require('../../cloudinary')
 
+
+
 const homeGet = (req, res) => {
-    getHome().then((result) => {
-      res.send(result);
+  console.log(req.query)
+    getHome(req.query.user_id).then((result) => {
+    res.send(result);
     });
   };
 const CategoryPosting = (req,res) => { 
@@ -50,6 +53,21 @@ const ChoseCategory = (req, res) => {
   });
 };
 
+const checkLike = (req, res) => {
+  addToFav().then((result) => {
+    res.send(result);
+  });
+};
+
+// const changeStatus = (req,res) => {
+//   const {Liked} =req.params;
+//   addToLiked(Liked).then((result) => {
+//     res.status(200).json('Liked,unliked')
+//   }).catch((err) => {
+//     res.status(401)
+//   })
+// }
+
 const verifyFavorites = (req, res) => {
   const { event_id, user_id} = req.params;
   SelectFav(event_id, user_id)
@@ -74,4 +92,6 @@ module.exports = {
     addToFav,
     ChoseCategory,
     verifyFavorites,
+    // changeStatus
+    checkLike,
   };

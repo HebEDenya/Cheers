@@ -37,5 +37,4 @@ app.use('/api',routesB);
 app.use('/api', routesAmin);
 
 
-
 app.listen(port, () => { console.log(`I look at you port ${port}`); })

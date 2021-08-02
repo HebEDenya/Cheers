@@ -4,8 +4,8 @@ const getHome = (user_id=0) => {
     return database.query(`SELECT EVENT.*,  FAVORITE.user_id = ${user_id} AS isFavorite  FROM EVENT LEFT JOIN FAVORITE ON (FAVORITE.event_id=EVENT.event_id)`)
 }
 
-const postCategory = (body,clodImage) => {
-    return database.query(`INSERT INTO CATEGORIES(category_name,category_image) VALUES ('${body.category_name}','${clodImage}')`)
+const postCategory = (body) => {
+    return database.query(`INSERT INTO CATEGORIES(category_name) VALUES ('${body.category_name}')`)
 }
 
 const getCategories = () => {

@@ -7,5 +7,5 @@ router.get('/categories',controlerB.gettingGategories);
 router.post('/favorite',controlerB.addToFav);
 router.get('/categoryEvents',controlerB.ChoseCategory)
 router.get('/singlefavorite/:event_id/:user_id', controlerB.verifyFavorites)
-
+router.get('/verifying/:event_id/:user_id',controlerB.checkLike);
 module.exports = router;

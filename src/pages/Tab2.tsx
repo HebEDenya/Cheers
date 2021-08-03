@@ -21,8 +21,8 @@ import axios from "axios";
 interface ContainerProps {
   coinsUser: number;
   user_id: number;
-  setLogout: any;
-  setimageProfileUpdated: any;
+  setLogout: (any) => any;
+  setimageProfileUpdated: (any) => any;
   imageProfileUpdated: boolean;
 }
 

@@ -12,7 +12,7 @@ interface Files {
   [index: string]: any,
 }
 interface props {
-  setImage: any,
+  setImage: (any) => any;
   image: string,
 }
 

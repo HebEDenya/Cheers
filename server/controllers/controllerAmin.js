@@ -1,5 +1,5 @@
 const { database } = require("../database/db.js");
-const {registerInputValidation} = require('../validationInput.js');
+const { registerInputValidation } = require("../validationInput.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -94,14 +94,16 @@ const forgotPassword = (req, res) => {
 };
 
 const verifyJWT = (req, res, next) => {
-  const token = req.headers[x - access - token];
+  const token = req.headers['authorization']
+  console.log(token);
   if (!token) {
-    res.send("we need token!!!");
+    res.status(403).send("we need token!!!");
   } else {
     jwt.verify(token, process.env.HASHPASS, (err, decoded) => {
       if (err) {
         res.json({ auth: false, message: "authentication faild" });
       } else {
+        //get the user from the database
         req.userId = decoded.id;
         next();
       }
@@ -124,6 +126,7 @@ const userLogin = (req, res) => {
         bcrypt.compare(user_password, result[0].password, (err, response) => {
           if (response) {
             //create jwt token
+            console.log(response);
             const id = result[0].id;
             const token = jwt.sign({ id }, process.env.HASHPASS, {
               expiresIn: 300,
@@ -138,21 +141,19 @@ const userLogin = (req, res) => {
               type_user,
               username,
             } = result[0];
-            res
-              .status(200)
-              .json({
-                auth: true,
-                token: token,
-                result: {
-                  user_id,
-                  image,
-                  description,
-                  coins_quantity,
-                  numberOfFollowers,
-                  type_user,
-                  username,
-                },
-              });
+            res.status(200).json({
+              auth: true,
+              token: token,
+              result: {
+                user_id,
+                image,
+                description,
+                coins_quantity,
+                numberOfFollowers,
+                type_user,
+                username,
+              },
+            });
           } else {
             res.status(203).json({ message: "wrong password..." });
           }
@@ -166,8 +167,8 @@ const userRegister = (req, res) => {
   const user_name = req.body.username;
   const user_email = req.body.email;
   const user_password = req.body.password;
-  const { error } = registerInputValidation(req.body)
-  if (error) return res.status(203).send(error.details[0].message)
+  const { error } = registerInputValidation(req.body);
+  if (error) return res.status(203).send(error.details[0].message);
   //hashing password
   bcrypt.hash(user_password, saltRounds, (err, hash) => {
     if (err) {
@@ -200,7 +201,6 @@ const updatePassword = (req, res) => {
           `UPDATE USERS SET password = '${hash}' WHERE user_id = '${userId}'`
         )
         .then((result) => {
-          console.log(result);
           res.send(result);
         });
     }

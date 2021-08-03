@@ -65,8 +65,7 @@ const getVoteEvent = (req, res) => {
   const { event_id, user_id } = req.params;
   selectFollowers(event_id, user_id).then((result) => {
     if (result.length) {
-      deleteFollowers(event_id, user_id).then((result) => {
-      });
+      deleteFollowers(event_id, user_id).then((result) => {});
       unvoteEvent(req)
         .then((result) => {
           res.status(200).send("Unfollowed");
@@ -75,8 +74,7 @@ const getVoteEvent = (req, res) => {
           res.status(400).send(err);
         });
     } else {
-      insertFollower(event_id, user_id).then((result) => {
-      });
+      insertFollower(event_id, user_id).then((result) => {});
       voteEvent(req)
         .then((result) => {
           res.status(200).send("Followed");
@@ -89,13 +87,13 @@ const getVoteEvent = (req, res) => {
 };
 
 const verifyFollowed = (req, res) => {
-  const { event_id, user_id} = req.params;
+  const { event_id, user_id } = req.params;
   selectFollowers(event_id, user_id)
     .then((result) => {
       if (result.length) {
         res.status(200).send("Followed");
       } else {
-        res.status(200).send("Unfollowed")
+        res.status(200).send("Unfollowed");
       }
     })
     .catch((err) => {
@@ -105,13 +103,13 @@ const verifyFollowed = (req, res) => {
 
 const getFollowedEvents = (req, res) => {
   followedEvents(req)
-  .then((result) => {
-    res.status(200).send(result)
-  })
-  .catch((err) => {
-    res.status(400).send(err)
-  })
-}
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    });
+};
 
 module.exports = {
   selectRequest,
@@ -120,5 +118,5 @@ module.exports = {
   getPageEventRequest,
   getVoteEvent,
   verifyFollowed,
-  getFollowedEvents
+  getFollowedEvents,
 };

@@ -21,7 +21,7 @@ import "./Admin.scss";
 import Cookies from "js-cookie";
 
 interface adminProps {
-  setLogout: any;
+  setLogout: (any) => any;
   type_user: string;
 }
 

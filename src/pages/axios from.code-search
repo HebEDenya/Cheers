@@ -1,0 +1,109 @@
+# Query: axios from
+# ContextLines: 1
+
+21 results - 21 files
+
+src/App.tsx:
+  23  import UpdateProfil from "./components/UpdateProfil";
+  24: import axios from "axios";
+  25  import MyEvents from "./components/MyEvents";
+
+src/components/Category.tsx:
+  17  import "./Category.scss";
+  18: import axios from "axios";
+  19  
+
+src/components/Coins.tsx:
+  37  import { diamondOutline } from "ionicons/icons";
+  38: import axios from "axios";
+  39  import "./CreateEvent.scss";
+
+src/components/ConfirmedPayment.tsx:
+  1  import { IonPage, IonContent, IonCard,IonCardHeader,IonLabel,IonButton,IonIcon, } from '@ionic/react';
+  2: import axios from 'axios';
+  3  import Cookies from "js-cookie";
+
+src/components/CreateEvent.Part1.tsx:
+  6  import ImageContainer from './CreateEventImage';
+  7: import axios from 'axios';
+  8  import moment from 'moment';
+
+src/components/EventPage.tsx:
+  2  import { useHistory } from "react-router-dom";
+  3: import axios from "axios";
+  4  import { Link } from 'react-router-dom';
+
+src/components/FollowedEvents.tsx:
+  21  import "./FollowedEvents.scss";
+  22: import axios from "axios";
+  23  import { useHistory } from "react-router";
+
+src/components/MyEvents.tsx:
+  21  import "./MyEvents.scss";
+  22: import axios from "axios";
+  23  import { useHistory } from "react-router";
+
+src/components/SingleCategory.tsx:
+  17  } from "@ionic/react";
+  18: import axios from 'axios';
+  19  
+
+src/components/SingleEvent.tsx:
+  19  import "./SingleEvent.scss";
+  20: import axios from "axios";
+  21  interface ContainerProps {
+
+src/components/UpdateProfil.tsx:
+  22  import ImageContainer from "./CreateEventImage";
+  23: import axios from "axios";
+  24  
+
+src/pages/AdminTab2.tsx:
+  26  import { trash } from "ionicons/icons";
+  27: import axios from "axios";
+  28  import "./Admin.scss";
+
+src/pages/AdminTab3.tsx:
+  33  } from "ionicons/icons";
+  34: import axios from "axios";
+  35  import Cookies from "js-cookie";
+
+src/pages/Chat.tsx:
+  18  } from "@ionic/react";
+  19: import axios from "axios";
+  20  import {
+
+src/pages/ForgotPassword.tsx:
+  17  //import ExploreContainer from '../components/ExploreContainer';
+  18: import axios from "axios";
+  19  import { lockClosed, person, mailOpen } from "ionicons/icons";
+
+src/pages/Login.tsx:
+  2  //import ExploreContainer from '../components/ExploreContainer';
+  3: import axios from 'axios';
+  4  import React, { useState, useEffect } from 'react';
+
+src/pages/NewPass.tsx:
+  17  //import ExploreContainer from '../components/ExploreContainer';
+  18: import axios from "axios";
+  19  import { lockClosed, person, mailOpen } from "ionicons/icons";
+
+src/pages/Register.tsx:
+  17  //import ExploreContainer from '../components/ExploreContainer';
+  18: import axios from "axios";
+  19  import { lockClosed, person, mailOpen } from "ionicons/icons";
+
+src/pages/Tab1.tsx:
+  29  import "./Tab1.scss";
+  30: import axios from "axios";
+  31  interface ContainerProps {
+
+src/pages/Tab2.tsx:
+  18  import "./Tab2.scss";
+  19: import axios from "axios";
+  20  
+
+src/pages/Tab3.tsx:
+  4  import { useHistory } from 'react-router-dom';
+  5: import axios from 'axios';
+  6  import moment from "moment";

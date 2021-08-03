@@ -7,10 +7,10 @@ import moment from "moment";
 import './Tab3.scss';
 
 interface ContainerProps {
-  user_id: number,
-  setviewEvent:any,
-  viewEvent:number,
-  setPath: any,
+  user_id: number;
+  setviewEvent:(any) => any;
+  viewEvent:number;
+  setPath: (any) => any;
 }
 
 const Tab3: React.FC<ContainerProps> = ({user_id, setviewEvent, viewEvent, setPath}) => {

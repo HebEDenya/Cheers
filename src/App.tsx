@@ -136,7 +136,7 @@ const App: React.FC = () => {
   // to get all events
   useEffect(() => {
     const user_id = Cookies.get("user_id");
-    axios.get(`/api/home?user_id=${user_id}`).then((result) => {
+    axios.get(`/api/home/${user_id}`).then((result) => {
      setEvents(result.data)
      setEventAdded(false) 
     })

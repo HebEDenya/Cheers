@@ -30,12 +30,12 @@ import "./Tab1.scss";
 import axios from "axios";
 interface ContainerProps {
   events: Array<any>;
-  setviewEvent: any;
+  setviewEvent: (any) => any;
   viewEvent: number;
-  setCategories: any;
+  setCategories: (any) => any;
   categories: Array<any>;
   user_id: number;
-  setPath: any;
+  setPath: (any) => any;
 }
 
 const Tab1: React.FC<ContainerProps> = ({
@@ -88,7 +88,7 @@ const Tab1: React.FC<ContainerProps> = ({
       </IonHeader>
       &nbsp;
       <IonList>
-        <IonSlides className="container">
+        <IonSlides pager={true} className="container">
           <IonSlide className="box">
             {/* <img className='categoryImg' onClick={() => {setCategoryChosen(category.category_name)}} src={category.category_image} alt="categoryImg"/> */}
             <IonLabel

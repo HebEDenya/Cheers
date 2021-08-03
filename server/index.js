@@ -9,6 +9,7 @@ const routesB = require("./routers/routerB");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const routesAmin = require("./routers/routerAmin.js");
+const {verifyJWT} = require("./controllers/controllerAmin");
 require("dotenv").config();
 const port = process.env.PORT || 3001;
 const app = express();

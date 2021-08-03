@@ -21,7 +21,6 @@ import axios from "axios";
 interface ContainerProps {
   event: any;
   setPath: (any) => any;
-
   setviewEvent: React.Dispatch<React.SetStateAction<number>>;
 }
 const SingleEvent: React.FC<ContainerProps> = ({
@@ -96,7 +95,7 @@ const SingleEvent: React.FC<ContainerProps> = ({
           }}
           src={event.image}
           alt=""
-          className="favorite_img_size_cat"
+          className="favorite_img_size-cat"
         />
         <IonCardHeader>
           <IonCardSubtitle className="title_category_style_card">
@@ -164,8 +163,7 @@ const SingleEvent: React.FC<ContainerProps> = ({
               id="#heart_favorite_cat-hover_liked"
             />
               }</IonGrid> */}
-{/*          
-rojlaaaaaaaaaaaaaa     
+         
                <IonIcon
                     onClick={() => {
                       // if(liked === true){
@@ -179,22 +177,8 @@ rojlaaaaaaaaaaaaaa
                     }}
                     icon={event.isFavorite ? heart:heartOutline }
                     id="heart_favorite_cat-hover"
-                  /> */}
-                  {event.isFavorite ? 
-                  <IonIcon
-                  onClick={() => {
-                    addToFavorite(event.event_id);
-                  }}
-                  icon={heart}
-                  id="heart_favorite_cat-hover"
-                /> : 
-                <IonIcon
-                    onClick={() => {
-                      addToFavorite(event.event_id);
-                    }}
-                    icon={heart}
-                    id="heart_favorite_cat-hover"
-                  /> }
+                  />
+                
             </IonRow>
           </IonGrid>
         </IonCardHeader>

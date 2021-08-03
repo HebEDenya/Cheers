@@ -163,8 +163,7 @@ const SingleEvent: React.FC<ContainerProps> = ({
               id="#heart_favorite_cat-hover_liked"
             />
               }</IonGrid> */}
-{/*          
-rojlaaaaaaaaaaaaaa     
+         
                <IonIcon
                     onClick={() => {
                       // if(liked === true){
@@ -178,22 +177,8 @@ rojlaaaaaaaaaaaaaa
                     }}
                     icon={event.isFavorite ? heart:heartOutline }
                     id="heart_favorite_cat-hover"
-                  /> */}
-                  {event.isFavorite ? 
-                  <IonIcon
-                  onClick={() => {
-                    addToFavorite(event.event_id);
-                  }}
-                  icon={heart}
-                  id="heart_favorite_cat-hover"
-                /> : 
-                <IonIcon
-                    onClick={() => {
-                      addToFavorite(event.event_id);
-                    }}
-                    icon={heart}
-                    id="heart_favorite_cat-hover"
-                  /> }
+                  />
+                
             </IonRow>
           </IonGrid>
         </IonCardHeader>

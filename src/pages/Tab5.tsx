@@ -23,10 +23,10 @@ import { useHistory } from "react-router";
 import "./Tab3.scss";
 
 interface searchProps {
-  events: Array<any>,
-  setviewEvent: any,
-  viewEvent: number,
-  setPath: any,
+  events: Array<any>;
+  setviewEvent: (any) => any;
+  viewEvent: number;
+  setPath: (any) => any;
 }
 
 const Tab5: React.FC<searchProps> = ({ events, setviewEvent, setPath }) => {
@@ -81,7 +81,7 @@ const Tab5: React.FC<searchProps> = ({ events, setviewEvent, setPath }) => {
                     onClick={() => {
                       setviewEvent(item.event_id);
                       setbuttontoviewevent(true);
-                      setPath('search')
+                      setPath("search");
                     }}
                   />
                   <IonCardHeader>

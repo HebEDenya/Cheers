@@ -6,8 +6,8 @@ const database = new Prohairesis(DATABASE_URL);
 
 // USER TABLE
 database.query(`CREATE TABLE IF NOT EXISTS USERS (
-    user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(120) NOT NULL,
+    user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY UNIQUE,
+    email VARCHAR(120) NOT NULL UNIQUE,
     type_user VARCHAR(50),
     username VARCHAR(200),
     password VARCHAR (500) NOT NULL,

@@ -8,14 +8,15 @@ import axios from 'axios';
 import moment from 'moment';
 
 interface props {
-  setCoinsUser: any,
-  coinsUser:number,
-  user_id:number,
-  setEventAdded:any
+  setCoinsUser: (any) => any;
+  coinsUser:number;
+  user_id:number;
+  setEventAdded:(any) => any;
+  categories: any[]
 }
 
 
-const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id, setEventAdded}) => {
+const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id, setEventAdded, categories}) => {
   const [present] = useIonAlert();
   const [spiner, setSpiner] = useState<boolean>(false)
   const [title, setTitle] = useState<string>();
@@ -26,7 +27,7 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id,
   const [selectedStartDate, setSelectedStartDate] = useState<string>('');
   const [selectEndDate,setSelectEndDate]= useState<string>('');
   const [selectPrice,setSelectPrice]= useState<string>('');
-  const [quantity, setQuantity] = useState<number >(-1);
+  const [quantity, setQuantity] = useState<number | null>(null);
   const [price, setPrice] = useState<number | null>(null);
   const [buttonClick, setButtonClick] = useState<boolean | null>(false);
   const [switchPagesCreateEvent, setSwitchPageCreateEvent]= useState<boolean>(false);
@@ -48,7 +49,7 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id,
     setSelectedStartDate('');
     setSelectEndDate('');
     setSelectPrice('');
-    setQuantity(-1);
+    setQuantity(null);
     setPrice(null);
     setImage('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/55a27373859093.5ea2b801a2781.png')
   }
@@ -69,11 +70,14 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id,
   const postReaquestHandler = () => {
     let selectedAdress = adress;
     let eventPrice = ""+price;
+    let places = quantity;
     if (location === "online") {
       selectedAdress = "online"
     } if (selectPrice === "Free") {
         eventPrice = selectPrice;
-    } 
+    }  if (places === null) {
+      places = -1;
+    }
     let infoStore = {
       title: title, 
       description: description, 
@@ -82,9 +86,10 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id,
       price:eventPrice,
       start_time: selectedStartDate,
       end_time: selectEndDate,
-      available_places : quantity,
+      available_places : places,
       image: image,
       user_id:user_id,
+      
     } 
     axios.post('/api/postEvent', infoStore).then((result) => {
       
@@ -93,6 +98,7 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id,
         setSpiner(false)
         setCoinsUser(coinsUser-2)
         setButtonClick(true)
+        setQuantity(null);
         refreshInfoAfterSubmit()
         present('Event created successfully 👌')
       } 
@@ -147,14 +153,9 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id,
         <IonItem className="input_create_Event">
          &nbsp;
              <IonLabel className="color_subtitle_create">Categories <span className="obligatoire">*</span> </IonLabel>
-             <IonSelect value={categorie} okText="Okay"  onIonChange={e => {setCategorie(e.detail.value); console.log(categorie);
-             }}>
-               <IonSelectOption value="Music">Music</IonSelectOption>
-               <IonSelectOption value="Food&Drink">Food & Drink</IonSelectOption>
-               <IonSelectOption value="Cultural">Cultural</IonSelectOption>
-               <IonSelectOption value="Sport">Sport</IonSelectOption>
-               <IonSelectOption value="Gaming">Gaming</IonSelectOption>
+             <IonSelect value={categorie} okText="Okay"  onIonChange={e => {setCategorie(e.detail.value); console.log(categorie);}}>
                <IonSelectOption value="Others">Others</IonSelectOption>
+               {categories&& categories.map((category,i) => <IonSelectOption key={i} value={category.category_name}>{category.category_name}</IonSelectOption>)}
              </IonSelect>
            </IonItem>
         &nbsp;
@@ -215,7 +216,7 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id,
         </IonItem>
         <IonItem className="input_create_Event"  >
           <IonLabel className="color_subtitle_create">Start time</IonLabel><IonIcon size="small" icon={time} />
-          <IonDatetime displayFormat="h:mm a"   value={selectedStartDate} onIonChange={e => setSelectedStartDate(e.detail.value!)}></IonDatetime>
+          <IonDatetime displayFormat="HH:mm "   value={selectedStartDate} onIonChange={e => setSelectedStartDate(e.detail.value!)}></IonDatetime>
         </IonItem>
         {/* {ent date and time of the event } */}
         <IonItem  className="input_create_Event" lines="none">
@@ -224,7 +225,7 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id,
         </IonItem>
         <IonItem className="input_create_Event" lines="none">
           <IonLabel className="color_subtitle_create">End time</IonLabel><IonIcon size="small" icon={time} />
-          <IonDatetime displayFormat="h:mm a" value={selectEndDate} onIonChange={e => setSelectEndDate(e.detail.value!)}></IonDatetime>
+          <IonDatetime displayFormat="HH:mm " value={selectEndDate} onIonChange={e => setSelectEndDate(e.detail.value!)}></IonDatetime>
         </IonItem>
        &nbsp;
        {/* {Price and Free } */}
@@ -255,7 +256,7 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id,
         </IonInput>
         </IonItem> : ""}
         <IonItem className="input_create_Event">
-        <IonLabel position="floating" className="color_subtitle_create"> Available places or quantities  </IonLabel>
+        <IonLabel  position="floating" className="color_subtitle_create"> Available places or quantities  </IonLabel>
         <IonInput type="number" name="quantity"  value={quantity} onIonChange={e => setQuantity(+e.detail.value!) } 
         clearInput  > 
         </IonInput>

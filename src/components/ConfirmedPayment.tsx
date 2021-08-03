@@ -1,11 +1,11 @@
-import { IonPage, IonContent, IonCard,IonCardHeader,IonLabel,IonButton,IonIcon } from '@ionic/react';
+import { IonPage, IonContent, IonCard,IonCardHeader,IonLabel,IonButton,IonIcon, } from '@ionic/react';
 import axios from 'axios';
 import Cookies from "js-cookie";
 import { alertCircle } from 'ionicons/icons';
-
+import {useEffect} from 'react';
 interface coinsProps {
-  setCoinsUser:any,
-  setuser_id:any,
+  setCoinsUser:(any) => any;
+  setuser_id:(any) => any;
   coinsUser:number
 }
 
@@ -20,6 +20,10 @@ const ConfirmedPayment: React.FC<coinsProps> = ({setCoinsUser,setuser_id}) => {
       Cookies.remove("coins")   
     })
   }
+
+  useEffect(() => {
+    updateCoins()
+  }, [])
  
   return (
     <IonPage>
@@ -30,8 +34,7 @@ const ConfirmedPayment: React.FC<coinsProps> = ({setCoinsUser,setuser_id}) => {
           <IonCardHeader>
           <IonLabel className="no_title_fav">Payment completed !</IonLabel>
           <IonLabel className="no_title_fav"></IonLabel>
-          <IonButton color="danger" fill="outline" expand="full" routerLink="/CoinsPurchase" onClick={() => {updateCoins()}}> <IonIcon size="large" slot="start" icon={alertCircle}  /> 
-          Click here to update your coins</IonButton>
+          <IonButton color="primary" fill="outline" expand="full" routerLink="/CoinsPurchase" >  Check your coins</IonButton>
         </IonCardHeader>
         </IonCard>
         </IonContent>

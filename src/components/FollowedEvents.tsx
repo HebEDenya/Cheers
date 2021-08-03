@@ -24,10 +24,10 @@ import { useHistory } from "react-router";
 
 interface props {
   user_id: number;
-  setviewEvent: any;
+  setviewEvent: (any) => any;
   viewEvent: number;
   eventAdded: boolean;
-  setPath: any;
+  setPath: (any) => any;
   followedEvents: any[]
   
 }

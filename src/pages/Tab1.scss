@@ -1,17 +1,16 @@
-
-
 .container{
     position: relative;
     height: 75px;
     width: 350px;
     justify-content: 5px;
     display: flex;
+    
 }
 .container .box {
     position: relative;
     width: calc(175px - 7px);
     height: calc(60px - 7px);
-    background: #ce93d8;
+    background: #ecc3f3;
     box-sizing: border-box;
     overflow: hidden;
     border-radius: 5px;
@@ -22,9 +21,17 @@
     // left: 0;
     // animation: 20s slider infinite; 
 }
-.i{
-    background: #ce93d8;
-    color: black;
+
+
+.category_name {
+    background-image: #ce93d8 ;
+    color: white;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
 }
+
+
     
   

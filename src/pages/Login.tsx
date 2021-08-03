@@ -25,12 +25,10 @@ const Login: React.FC<loginProps> = ({ login, setLogin, setuser_id }) => {
   const [present] = useIonAlert();
 
   const userLogin = () => {
-    console.log('clicked')
     axios.post("http://localhost:3001/api/user/login", {
       username: username,
       password: password
     }).then((response) => {
-      console.log(response, 'hhhhhhh')
       if (response.data.message) {
         setLoginStatus(false);
         present(`${response.data.message}`, [{ text: 'Ok' }])
@@ -56,7 +54,6 @@ const Login: React.FC<loginProps> = ({ login, setLogin, setuser_id }) => {
   return (
     <IonPage>
       <IonHeader className="ion-header ion-no-border">
-      
       </IonHeader>
       <IonContent>
         <br /><br /><br /><br /><br /><br /><br />
@@ -66,45 +63,36 @@ const Login: React.FC<loginProps> = ({ login, setLogin, setuser_id }) => {
         </IonToolbar>
         <IonGrid>
           <br /><br /><br />
-
           <IonRow>
             <IonCol>
-              <IonList className="--padding-bottom">
-                
+              <IonList>
                 <IonItem>
                 <IonLabel position="floating">Username</IonLabel>
                   <IonInput clearInput type="text" value={username} placeholder="Enter Username..." onIonChange={e => setUsername(e.detail.value!)}>
                   <IonIcon size="small" slot="start" icon={person} />
                   </IonInput>
                 </IonItem>
-                
                 <IonItem>
-                <IonLabel position="floating">Password :</IonLabel>
-                <IonIcon name="lockClosed"></IonIcon>
+                <IonLabel position="floating">Password </IonLabel>
                   <IonInput clear-input type="password" value={password} placeholder="Enter Password..." onIonChange={e => setPassword(e.detail.value!)}>
                     <IonIcon size="small" slot="start" icon={lockClosed} /></IonInput>
                 </IonItem>
-                
                 <br />
                 <IonList>
-                
                   <IonItem lines="none" >
                   <IonLabel>Remember me</IonLabel> 
                     <IonCheckbox onIonChange={(e)=>{setRememberMe(e.detail.checked)}} checked={rememberMe} slot="start" />
                   </IonItem>
-                
-                
                 </IonList>
                 <br /><br />
                 <div className="ion-text-center custom-font">
-                <IonButton onClick={userLogin}  size="small" fill="solid" >  Login  </IonButton>
+                <IonButton onClick={userLogin}  size="default" fill="solid" >  Login  </IonButton>
                 </div>
               </IonList>
               <IonToolbar>
             <div className="ion-text-center custom-font" ><Link to="/password">Forgot password ? <IonIcon size="small" slot="start" icon={lockClosed} /></Link></div>
           </IonToolbar>
             </IonCol>
-
           </IonRow>
         </IonGrid>
         <br /><br /><br /><br /><br />
@@ -114,9 +102,6 @@ const Login: React.FC<loginProps> = ({ login, setLogin, setuser_id }) => {
             <div className="ion-text-center custom-font">New Here? <Link to="/register">Register</Link></div>
           </IonToolbar>
         </IonFooter>
-
-
-        {/* <IonButton color="secondary">Secondary</IonButton> */}
       </IonContent>
 
     </IonPage>

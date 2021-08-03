@@ -18,7 +18,7 @@ import {
 import axios from "axios";
 import { lockClosed, person, mailOpen } from "ionicons/icons";
 import React, { useState } from "react";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { Link, RouteComponentProps, useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 
 interface resetProps
@@ -33,7 +33,7 @@ const Forgot: React.FC<resetProps> = ({ match }) => {
   const [newPassword, setNewPassword] = useState<string>();
   const [isRegistred, setIsregistred] = useState<boolean>(false);
   const [present] = useIonAlert();
-
+  const history = useHistory()
   const forgotPassword = () => {
     console.log("clicked");
     axios
@@ -42,9 +42,12 @@ const Forgot: React.FC<resetProps> = ({ match }) => {
         newPassword: newPassword,
       })
       .then((response) => {
-        console.log(response);
         setIsregistred(true);
-        present(`${response.data.message}`, [{ text: "Ok" }]);
+        if (response.data.affectedRows ===1) {
+        present(`Password updated  ✔`, [{ text: "Ok" }]); }
+        else {
+          present(`Try again 👁‍🗨`, [{ text: "Ok" }]);  
+        }
       });
   };
 
@@ -60,7 +63,7 @@ const Forgot: React.FC<resetProps> = ({ match }) => {
 
         <IonToolbar>
           <IonTitle className="ion-text-center custom-font ">
-            Reset Password {match.params.id}{" "}
+            Reset Password 
           </IonTitle>
         </IonToolbar>
         <br />
@@ -71,7 +74,7 @@ const Forgot: React.FC<resetProps> = ({ match }) => {
 
         <IonList className="ion-padding-bottom ion-margin-horizontal">
           <IonItem>
-            <IonLabel position="floating">Password :</IonLabel>
+            <IonLabel position="floating">Password</IonLabel>
             <IonIcon name="lockClosed"></IonIcon>
             <IonInput
               clear-input
@@ -91,6 +94,7 @@ const Forgot: React.FC<resetProps> = ({ match }) => {
             onClick={() => {
               Cookies.set("reset", "false");
               forgotPassword();
+            
             }}
             size="small"
             fill="solid"
@@ -106,7 +110,7 @@ const Forgot: React.FC<resetProps> = ({ match }) => {
 
         <IonToolbar>
           <div className="ion-text-center custom-font">
-            Have an account? <Link to="/login">Login</Link>
+            Go to  <a href="/login">Login</a>
           </div>
         </IonToolbar>
       </IonContent>

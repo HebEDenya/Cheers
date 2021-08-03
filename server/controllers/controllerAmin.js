@@ -23,24 +23,22 @@ const getMessages = (req, res) => {
 };
 const forgotPassword = (req, res) => {
   /*forgot password*/
-  console.log("reset started");
   let email = req.body.email;
   var transporter = nodemailer.createTransport({
     service: "gmail",
 
     auth: {
-      user: "khemissimohamedamin@gmail.com",
-      pass: "Amin+21696546196",
+      user: process.env.MAIL,
+      pass: process.env.MAIL_PASSWORD,
     },
   });
+  console.log(transporter);
 
   database
     .query(`SELECT * FROM USERS WHERE email = '${email}'`)
     .then((result) => {
       if (result.length > 0) {
-        //get id user by email
-        //console.log(result);
-        // res.send(result)
+        console.log(result[0].username);
         var htmlMail = "";
         htmlMail = "";
         htmlMail = htmlMail + "Hello " + result[0].username + ", \n";
@@ -48,9 +46,8 @@ const forgotPassword = (req, res) => {
           htmlMail +
           'To Reset your Password, please click on this Link:<b> <a href="http://localhost:3000/reset">Here </a></b>';
         htmlMail = htmlMail + " \nBest Regards, \nCheers Team";
-
         var mailOptions = {
-          from: "khemissimohamedamin@gmail.com",
+          from: process.env.MAIL,
           to: email,
           subject: "Reset your password for Cheers account",
           text:
@@ -61,30 +58,23 @@ const forgotPassword = (req, res) => {
             "\nBest Regards, \nCheers Team",
           // html: htmlMail,
         };
+        console.log(mailOptions);
         transporter.sendMail(mailOptions, function (err, info) {
           if (err) {
-            console.log(
-              "There no Cheers account associate to the provided email !",
-              err
-            );
             res.send({
               message:
-                "There no Cheers account associate to the provided email !",
+                "An error has occured!",
               status: "ko",
             });
           } else {
-            console.log("Email sent: ", info);
             res.send({
               message:
                 "Please check your emails we just sent you a reset password link !",
-              status: "ok",
+              status: "ok", 
             });
           }
         });
       } else {
-        console.log(
-          "There no Cheers account associate to the provided email !"
-        );
         res.send({
           message: "There no Cheers account associate to the provided email !",
           status: "ko",

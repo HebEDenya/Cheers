@@ -83,6 +83,7 @@ const App: React.FC = () => {
     },2000);
   },[])
 
+  
 
   // add id to cookies 
       if ( login.auth && login.result.rememberMe) {
@@ -202,9 +203,11 @@ const App: React.FC = () => {
           <Route path="/tab5">
             <Tab5 events={events} setviewEvent={setviewEvent} viewEvent={viewEvent} setPath={setPath} />
           </Route>
-          <Route path="/chat">
+          {/* <Route path="/chat">
             <Chat />
-          </Route>
+          </Route> */}
+           <Route exact path="/chat" render={() => {return <Chat />}} />
+            
          {Cookies.get("type_user") === "superAdmin" ||  Cookies.get("type_user") === "Admin"?<Route exact path="/">
             <Redirect to="/adminTab1" />
           </Route> :  <Route exact path="/">

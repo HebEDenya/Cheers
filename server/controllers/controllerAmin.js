@@ -252,7 +252,7 @@ const sendMessage = (req, res) => {
   const senderid = req.body.senderid;
   const receiverid = req.body.receiverid;
   const eventid = req.body.eventid;
-  const time = moment(new Date()).format("YYYY-MM-DD");
+  const time = moment().format();
   const text = req.body.text;
   //hashing password
 

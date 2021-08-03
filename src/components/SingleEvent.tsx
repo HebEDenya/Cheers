@@ -32,6 +32,7 @@ const SingleEvent: React.FC<ContainerProps> = ({
   //  const [heartButtonClick, setHeartButtonClick] = useState(false)
   const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
   const [isFav, setIsFav] = useState<number>();
+  const [liked, setLiked] = useState<boolean|null>(null)
   const [checker, setChecker] = useState<{
     checker: boolean | null;
     event_id: number | null;
@@ -44,19 +45,13 @@ const SingleEvent: React.FC<ContainerProps> = ({
     history.push("/eventpage");
     setbuttontoviewevent(false);
   }
-  useEffect(() => {
-    axios
-      .get("/api/home")
-      .then((result) => {
-        setOneEvent(result.data);
-        seteventId(result.data[0].event_id);
-        verifyFollow();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [eventId]);
 
+  // const checkLike = (event_id,user_id) => {
+  //   axios.get(`/api/verifying/${eventId}/${user_id}`).then((result) => {
+  //     console.log(result);
+  //   }).catch((err) => console.log(err)
+  //   )
+  // }
   const addToFavorite = (event_id) => {
     const user_id = Cookies.get("user_id");
     if (user_id) {
@@ -66,30 +61,30 @@ const SingleEvent: React.FC<ContainerProps> = ({
           console.log(res);
           setIsFav(event_id);
           if (res.data === "removed") {
-            setChecker({ checker: false, event_id: event_id });
+            setLiked(false);
           } else {
-            setChecker({ checker: true, event_id: event_id });
+            setLiked(true);
           }
         })
         .catch((err) => console.log(err));
     }
   };
 
-  const verifyFollow = () => {
-    const user_id = Cookies.get("user_id");
-    axios
-      .get(`/api/singlefavorite/${eventId}/${+user_id}`)
-      .then((result) => {
-        if (result.data === "Favorite") {
-          setChecker({ checker: true, event_id: null });
-        } else {
-          setChecker({ checker: false, event_id: null });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const verifyFollow = () => {
+  //   const user_id = Cookies.get("user_id");
+  //   axios
+  //     .get(`/api/singlefavorite/${eventId}/${+user_id}`)
+  //     .then((result) => {
+  //       if (result.data === "Favorite") {
+  //         setChecker({ checker: true, event_id: null });
+  //       } else {
+  //         setChecker({ checker: false, event_id: null });
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
   return (
     <>
       <IonCard>
@@ -124,10 +119,12 @@ const SingleEvent: React.FC<ContainerProps> = ({
                   {event.price === "Free" ? "Free" : event.price + " DT"}
                 </IonLabel>
               </IonCol>
+              {/* <IonGrid>{!liked ?
               <IonCol>
                 {!checker.checker ? (
                   <IonIcon
                     onClick={() => {
+                      // makeLike(event.event_id);
                       addToFavorite(event.event_id);
                       if (isFav === event.event_id) {
                         setChecker({ checker: true, event_id: event.event_id });
@@ -139,6 +136,7 @@ const SingleEvent: React.FC<ContainerProps> = ({
                 ) : (
                   <IonIcon
                     onClick={() => {
+                      // makeLike(event.event_id);
                       addToFavorite(event.event_id);
                       if (isFav === event.event_id) {
                         setChecker({
@@ -151,7 +149,52 @@ const SingleEvent: React.FC<ContainerProps> = ({
                     id="heart_favorite_cat-hover"
                   />
                 )}
-              </IonCol>
+              </IonCol> : 
+              <IonIcon
+              onClick={() => {
+                addToFavorite(event.event_id);
+                if (isFav === event.event_id) {
+                  setChecker({
+                    checker: false,
+                    event_id: event.event_id,
+                  });
+                }
+              }}
+              icon={heart}
+              id="#heart_favorite_cat-hover_liked"
+            />
+              }</IonGrid> */}
+{/*          
+rojlaaaaaaaaaaaaaa     
+               <IonIcon
+                    onClick={() => {
+                      // if(liked === true){
+                      //   setLiked(false);
+                      // } else if (liked === null){
+                      //   setLiked(true)
+                      // } else if(event.isFavorite && liked){
+                      //   setLiked(false)
+                      // }
+                      addToFavorite(event.event_id);
+                    }}
+                    icon={event.isFavorite ? heart:heartOutline }
+                    id="heart_favorite_cat-hover"
+                  /> */}
+                  {event.isFavorite ? 
+                  <IonIcon
+                  onClick={() => {
+                    addToFavorite(event.event_id);
+                  }}
+                  icon={heart}
+                  id="heart_favorite_cat-hover"
+                /> : 
+                <IonIcon
+                    onClick={() => {
+                      addToFavorite(event.event_id);
+                    }}
+                    icon={heart}
+                    id="heart_favorite_cat-hover"
+                  /> }
             </IonRow>
           </IonGrid>
         </IonCardHeader>
@@ -160,3 +203,6 @@ const SingleEvent: React.FC<ContainerProps> = ({
   );
 };
 export default SingleEvent;
+
+
+

@@ -36,6 +36,10 @@ interface ContainerProps {
   categories: Array<any>;
   user_id: number;
   setPath: (any) => any;
+  verifyDeleteBtn: boolean;
+  setVerifyDeleteBtn: (any) => any;
+  setTest:(any)=> any;
+  test: number | null
 }
 
 const Tab1: React.FC<ContainerProps> = ({
@@ -45,7 +49,11 @@ const Tab1: React.FC<ContainerProps> = ({
   viewEvent,
   categories,
   setCategories,
-  user_id,
+  verifyDeleteBtn,
+setVerifyDeleteBtn,
+setTest,
+test
+  
 }) => {
   //  const [heartButtonClick, setHeartButtonClick] = useState(false)
   const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
@@ -90,7 +98,6 @@ const Tab1: React.FC<ContainerProps> = ({
       <IonList>
         <IonSlides pager={true} className="container">
           <IonSlide className="box">
-            {/* <img className='categoryImg' onClick={() => {setCategoryChosen(category.category_name)}} src={category.category_image} alt="categoryImg"/> */}
             <IonLabel
               className="category_name"
               onClick={() => {
@@ -101,7 +108,6 @@ const Tab1: React.FC<ContainerProps> = ({
             </IonLabel>
           </IonSlide>
           <IonSlide className="box">
-            {/* <img className='categoryImg' onClick={() => {setCategoryChosen(category.category_name)}} src={category.category_image} alt="categoryImg"/> */}
             <IonLabel
               className="category_name"
               onClick={() => {
@@ -114,7 +120,6 @@ const Tab1: React.FC<ContainerProps> = ({
           </IonSlide>
           {categories.map((category, index) => (
             <IonSlide className="box" key={index}>
-              {/* <img className='categoryImg' onClick={() => {setCategoryChosen(category.category_name)}} src={category.category_image} alt="categoryImg"/> */}
               <IonLabel
                 className="category_name"
                 onClick={() => {
@@ -142,6 +147,10 @@ const Tab1: React.FC<ContainerProps> = ({
               event={event}
               key={i}
               setPath={setPath}
+              verifyDeleteBtn ={verifyDeleteBtn}
+              setVerifyDeleteBtn = {setVerifyDeleteBtn}
+              test={test}
+              setTest={setTest}
             />
           ))}
       </IonContent>

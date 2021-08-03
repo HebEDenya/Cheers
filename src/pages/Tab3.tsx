@@ -11,27 +11,26 @@ interface ContainerProps {
   setviewEvent:(any) => any;
   viewEvent:number;
   setPath: (any) => any;
+  setVerifyDeleteBtn: (any) => any;
+  verifyDeleteBtn: boolean;
+  favoriteEvent: any[];
+  setFavoriteEvent: (any) => any;
+  setTest: (any)=> any;
 }
 
-const Tab3: React.FC<ContainerProps> = ({user_id, setviewEvent, viewEvent, setPath}) => {
+const Tab3: React.FC<ContainerProps> = ({user_id, setviewEvent, viewEvent, setPath, setVerifyDeleteBtn, verifyDeleteBtn,favoriteEvent, setFavoriteEvent, setTest}) => {
   const [heartButtonClick, setHeartButtonClick]= useState<{clicked:boolean, btn_Id: number | null}>({clicked:false, btn_Id:null })
-  const [favoriteEvent, setFavoriteEvent]=useState<Array<any>>([])
   const [present] = useIonAlert();
   const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
   const history = useHistory();
-  
+
   // if we click on img cart w go to the event page
   if(buttontoviewevent) {
     history.push('/eventpage')
     setbuttontoviewevent(false)
   }
 
-  useEffect(()=> {
-    if (user_id) {
-    axios.get(`/api/favoriteevent/${user_id}`).then((result) => {
-      setFavoriteEvent(result.data) 
-    })}
-  }, [])
+  
   useEffect(() => {
     if (user_id) {
     setFavoriteEvent(favoriteEvent.filter((item)=> item.event_id !==heartButtonClick.btn_Id))
@@ -72,7 +71,7 @@ const Tab3: React.FC<ContainerProps> = ({user_id, setviewEvent, viewEvent, setPa
             <IonLabel id="price_favorite_size">{item.price=== "Free"? "Free" : item.price +' DT'}</IonLabel>
           </IonCol>
             <IonCol>
-          <IonIcon onClick={()=> {setHeartButtonClick({clicked:true, btn_Id:item.event_id})}} icon={heart}  id="heart_favorite-hover"/> 
+          <IonIcon onClick={()=> {setHeartButtonClick({clicked:true, btn_Id:item.event_id}); setTest(item.event_id)}} icon={heart}  id="heart_favorite-hover"/> 
           </IonCol>
             </IonRow>
             </IonGrid>     

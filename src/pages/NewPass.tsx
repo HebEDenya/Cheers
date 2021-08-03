@@ -90,7 +90,7 @@ const NewPass: React.FC = () => {
         <div className="ion-text-center custom-font">
           <IonButton
             onClick={() => {
-              Cookies.set("reset", "true");
+              Cookies.set("reset", "null");
               resetPassword();
             }}
             size="small"

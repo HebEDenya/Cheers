@@ -13,7 +13,7 @@ import {
 } from "@ionic/react";
 import { useState, useEffect } from "react";
 import ExploreContainer from "../components/ExploreContainer";
-import { chevronForwardOutline, logOut } from "ionicons/icons";
+import { chevronForwardOutline } from "ionicons/icons";
 import { useHistory } from "react-router";
 import "./Tab2.scss";
 import axios from "axios";

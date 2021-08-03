@@ -49,9 +49,9 @@ const Register: React.FC = () => {
           present("Password minimum 8 characters ❌");
         } else if (
           response.data ===
-          '"username" length must be at least 6 characters long'
+          '"username" length must be at least 5 characters long'
         ) {
-          present("Username minimum 8 characters ❌");
+          present("Username minimum 5 characters ❌");
         } else if (response.data.message && response.statusText === "OK") {
           setIsregistred(true);
           present(`${response.data.message}`, [{ text: "Ok" }]);

@@ -124,7 +124,6 @@ test
                 className="category_name"
                 onClick={() => {
                   setCategoryChosen(category.category_name);
-                  console.log(categoryChosen);
                 }}
               >
                 {category.category_name}

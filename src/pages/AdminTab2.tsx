@@ -23,17 +23,16 @@ import {
 } from "@ionic/react";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
-import ExploreContainer from "../components/ExploreContainer";
 import { trash } from "ionicons/icons";
 import axios from "axios";
 import "./Admin.scss";
 
 interface adminProps {
   events: Array<any>;
-  setEvents: any;
-  setviewEvent: any;
+  setEvents: (any) => any;
+  setviewEvent: (any) => any;
   viewEvent: number;
-  setPath: any;
+  setPath: (any) => any;
 }
 
 const AdminTab2: React.FC<adminProps> = ({

@@ -5,8 +5,9 @@ const {cloudinary} =require('../../cloudinary')
 
 
 const homeGet = (req, res) => {
-  console.log(req.query)
-    getHome(req.query.user_id).then((result) => {
+  console.log(req.params)
+    getHome(req.params.user_id).then((result) => {
+      console.log(result);
     res.send(result);
     });
   };

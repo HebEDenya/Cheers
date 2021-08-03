@@ -38,7 +38,7 @@ interface adminProps {
   type_user: string;
 }
 
-const AdminTab3: React.FC<adminProps> = ({ type_user }) => {
+const AdminTab3: React.FC<adminProps> = () => {
   const [adminList, setAdminList] = useState<Array<any>>([]);
   const [removeButton, setremoveButton] = useState<{
     clicked: boolean;
@@ -115,8 +115,8 @@ const AdminTab3: React.FC<adminProps> = ({ type_user }) => {
              present("Email not valid 🛑");
           } else if (result.data === '"password" length must be at least 8 characters long') {
             present("Password minimum 8 characters 🛑");
-          }  else if (result.data === '"username" length must be at least 6 characters long') {
-            present("Username minimum 6 characters 🛑");
+          }  else if (result.data === '"username" length must be at least 5 characters long') {
+            present("Username minimum 5 characters 🛑");
           }
          else  if (result.data === "added") {
             present("Admin added successfully");

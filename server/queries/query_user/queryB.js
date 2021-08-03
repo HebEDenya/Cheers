@@ -1,7 +1,7 @@
 const {database} = require('../../database/db.js');
 
-const getHome = (user_id=0) => {
-    return database.query(`SELECT EVENT.*,  FAVORITE.user_id = ${user_id} AS isFavorite  FROM EVENT LEFT JOIN FAVORITE ON (FAVORITE.event_id=EVENT.event_id)`)
+const getHome = (user_id) => {
+    return database.query(`SELECT EVENT.*,  FAVORITE.user_id = ${user_id} AS isFavorite  FROM EVENT LEFT JOIN (select *  from FAVORITE where FAVORITE.user_id= ${user_id}) as FAVORITE  ON (FAVORITE.event_id=EVENT.event_id)`)
 }
 
 const postCategory = (body) => {

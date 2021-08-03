@@ -24,9 +24,9 @@ import "./Tab3.scss";
 
 interface searchProps {
   events: Array<any>;
-  setviewEvent: any;
+  setviewEvent: (any) => any;
   viewEvent: number;
-  setPath: any;
+  setPath: (any) => any;
 }
 
 const Tab5: React.FC<searchProps> = ({ events, setviewEvent, setPath }) => {

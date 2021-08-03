@@ -42,8 +42,8 @@ const NewPass: React.FC = () => {
           {
             text: "Ok",
             handler: (d) => {
-              console.log("ok pressed");
-              if (response.data.status === "ok") history.push("/reset");
+              console.log(response.data);
+              // if (response.data.status === "ok") history.push(`/reset/`);
             },
           },
         ]);
@@ -90,7 +90,7 @@ const NewPass: React.FC = () => {
         <div className="ion-text-center custom-font">
           <IonButton
             onClick={() => {
-              Cookies.set("reset", "null");
+              Cookies.set("reset", "true");
               resetPassword();
             }}
             size="small"

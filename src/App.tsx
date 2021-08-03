@@ -66,7 +66,7 @@ const App: React.FC = () => {
   const [eventAdded, setEventAdded] = useState<boolean>(false)
   const [imageProfileUpdated, setimageProfileUpdated] = useState<boolean>(false)
   const reset = Cookies.get("reset")
-  Cookies.set("reset", `null`) 
+  // Cookies.set("reset", `null`) 
   const [btnpath, setPath] = useState<string>('');
   const [followedEvents, setFollowedEvents]=useState<Array<any>>([]);
   const [verifyDeleteBtn, setVerifyDeleteBtn] = useState<boolean>(false);
@@ -179,10 +179,10 @@ const App: React.FC = () => {
     <Route exact path="/login">
     <Login  login={login} setLogin={setLogin} setuser_id={setuser_id} /> 
     </Route>
-    <Route exact path='/reset/:id' component={ForgotPassword} />
+    {/* <Route exact path='/reset/:id' component={ForgotPassword} /> */}
      <Route exact path='/password' component= {NewPass} />
    
-    {reset === 'true'? <Redirect exact from="/" to="/reset/:id"></Redirect>: <Redirect exact from="/tab2" to="/login"></Redirect> }
+    {reset === 'true'? <Redirect exact from="/" to="/reset/:id"></Redirect>: <Redirect  from="/" to="/login"></Redirect> }
     
     </IonReactRouter>
      :
@@ -246,6 +246,7 @@ const App: React.FC = () => {
           <Route path="/NotconfirmedPayment" >
             <NotConfirmedPayment />
           </Route>
+          
         </IonRouterOutlet>
        {Cookies.get("type_user") === "superAdmin" || Cookies.get("type_user") === "Admin"? 
         <IonTabBar slot="bottom" >

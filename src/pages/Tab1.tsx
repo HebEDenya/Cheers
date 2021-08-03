@@ -96,7 +96,7 @@ test
       </IonHeader>
       &nbsp;
       <IonList>
-        <IonSlides className="container">
+        <IonSlides pager={true} className="container">
           <IonSlide className="box">
             <IonLabel
               className="category_name"

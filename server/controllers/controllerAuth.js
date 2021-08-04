@@ -109,7 +109,6 @@ const userLogin = (req, res) => {
         bcrypt.compare(user_password, result[0].password, (err, response) => {
           if (response) {
             //create jwt token
-            console.log(response);
             const id = result[0].id;
             const token = jwt.sign({ id }, process.env.HASHPASS, {
               expiresIn: 300,
@@ -204,7 +203,6 @@ const getMyChat = (req, res) => {
   database
     .query(`SELECT * FROM MESSAGE WHERE sender_id = '${receiver_id}'`)
     .then((result) => {
-      console.log(result);
 
       var mailOptions = {
         from: data.email,
@@ -225,14 +223,12 @@ const getMyChat = (req, res) => {
       };
       transporter.sendMail(mailOptions, function (err, info) {
         if (err) {
-          console.log("There no email !", err);
           res.send({
             message:
               "There no Cheers account associate to the provided email !",
             status: "ko",
           });
         } else {
-          console.log("Email sent: ", info);
           res.send({
             message: "Please check your emails we just sent you a Message !",
             status: "ok",
@@ -251,19 +247,17 @@ const sendMessage = (req, res) => {
 
   database
     .query(
-      `INSERT INTO MESSAGE (sender_id,receiver_id, event_id,time,text) VALUES ('${senderid}','${receiverid}','${eventid}','${time}','${text}')`
+      `INSERT INTO MESSAGE (sender_id,receiver_id, event_id,time,text) VALUES ('${senderid}','${receiverid}','${eventid}','${time}',"${text}")`
     )
     .then(() => {
       res.status(200).send({ message: "messgage saved" });
     })
     .catch((error) => {
       res.status(400).send(error);
-      console.log(error.message);
     });
 };
 const getUser = (req, res) => {
   const user_id = req.body.userid;
-  console.log(user_id);
   database
     .query(`SELECT * FROM USERS WHERE user_id = '${user_id}'`)
     .then((result) => {

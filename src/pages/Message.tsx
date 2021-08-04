@@ -51,7 +51,6 @@ const Message: React.FC<messageProps> = ({ item }) => {
 
   const getSenderInfo = async (varIdUser) => {
     await axios.get("/api/user/" + varIdUser).then((response) => {
-      // console.log(response)
       setuserNameSender(response.data[0].username);
       setuserPhotSender(response.data[0].user_image);
     });
@@ -59,7 +58,6 @@ const Message: React.FC<messageProps> = ({ item }) => {
 
   const getRecieverInfo = async (varIdUser) => {
     await axios.get("/api/user/" + varIdUser).then((response) => {
-      // console.log(response.data[0].username)
       setuserNameReciever(response.data[0].username);
     });
   };
@@ -86,7 +84,7 @@ const Message: React.FC<messageProps> = ({ item }) => {
 
         <div>{item.text}</div>
         <div style={{ fontSize: "0.5rem" }} className="ion-float-right">
-          {moment(item.time).format("MMMM Do YYYY, h:mm:ss a")}
+          {moment(item.time).format("h:mm a")}
         </div>
         <br></br>
         {/* <div>{moment(

@@ -111,7 +111,6 @@ const Tab1: React.FC<ContainerProps> = ({
               className="category_name"
               onClick={() => {
                 setCategoryChosen("Others");
-                console.log(categoryChosen);
               }}
             >
               {"Others"}

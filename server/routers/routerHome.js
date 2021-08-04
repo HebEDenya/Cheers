@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const controlerB = require('../controllers/controlB.js');
+const controlerB = require('../controllers/controlHome.js');
 
 router.get('/home/:user_id', controlerB.homeGet);
 router.post('/admin/postCategory', controlerB.CategoryPosting);

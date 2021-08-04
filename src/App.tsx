@@ -3,19 +3,17 @@ import { Redirect, Route, useHistory } from "react-router-dom";
 import {
   IonApp,
   IonIcon,
-  IonLabel,
   IonRouterOutlet,
   IonTabBar,
   IonTabButton,
   IonTabs,
-  IonToolbar,
    
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import CreateEventComponenetPart1 from "./components/CreateEvent.Part1";
 import CoinsPurchaser from "./components/Coins";
 import "./App.css";
-import { heart, person, home, chatboxEllipses, search, personAdd,build } from "ionicons/icons";
+import { heart, person, home, search, personAdd,build } from "ionicons/icons";
 import Tab1 from "./pages/Tab1";
 import Tab2 from "./pages/Tab2";
 import Tab3 from "./pages/Tab3";

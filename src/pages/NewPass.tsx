@@ -13,6 +13,7 @@ import {
   IonItemDivider,
   IonButton,
   IonFooter,
+  IonImg,
 } from "@ionic/react";
 //import ExploreContainer from '../components/ExploreContainer';
 import axios from "axios";
@@ -21,8 +22,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import Cookies from "js-cookie";
-// import './Register.scss';
-//import { star } from 'ionicons/icons';
+import "./NewPass.scss";
+import forgotimage from "../photos/forgot.png";
 const NewPass: React.FC = () => {
   const [email, setEmail] = useState<string>();
   const [user_id, setUser_id] = useState<string>();
@@ -31,40 +32,30 @@ const NewPass: React.FC = () => {
   const [present] = useIonAlert();
   const history = useHistory();
   const resetPassword = () => {
-    console.log("dsfbkk");
     axios
       .post("http://localhost:3001/api/user/mail", {
         email: email,
       })
       .then((response) => {
-        console.log(response);
         present(`${response.data.message}`, [
           {
             text: "Ok",
             handler: (d) => {
-              console.log(response.data);
               // if (response.data.status === "ok") history.push(`/reset/`);
             },
           },
         ]);
       });
   };
-
   return (
     <IonPage>
-      <IonHeader className="ion-no-border"></IonHeader>
       <IonContent>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-
-        <IonToolbar>
-          <IonTitle className="ion-text-center custom-font ">
-            Forgot Password
-          </IonTitle>
-        </IonToolbar>
+        <IonImg
+          src={forgotimage}
+          alt="forgot_password"
+          className="newpass_image"
+        />
+        <IonLabel className="forgot_title">Forgot Password?</IonLabel>
         <br />
         <br />
         <br />
@@ -87,14 +78,15 @@ const NewPass: React.FC = () => {
         </IonList>
         <br />
         <br />
-        <div className="ion-text-center custom-font">
+        <div className="login_button">
           <IonButton
             onClick={() => {
               Cookies.set("reset", "true");
               resetPassword();
             }}
-            size="small"
-            fill="solid"
+            size="large"
+            fill="outline"
+            expand="block"
           >
             Reset
           </IonButton>
@@ -107,7 +99,10 @@ const NewPass: React.FC = () => {
 
         <IonToolbar>
           <div className="ion-text-center custom-font">
-            Have an account? <Link to="/login">Login</Link>
+            Have an account?{" "}
+            <Link to="/login" className="login_btn">
+              Login
+            </Link>
           </div>
         </IonToolbar>
       </IonContent>

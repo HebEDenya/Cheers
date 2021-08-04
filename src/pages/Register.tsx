@@ -13,15 +13,18 @@ import {
   IonItemDivider,
   IonButton,
   IonFooter,
+  IonImg,
 } from "@ionic/react";
 //import ExploreContainer from '../components/ExploreContainer';
 import axios from "axios";
 import { lockClosed, person, mailOpen } from "ionicons/icons";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import "./Register.scss";
 import { resultingClientExists } from "workbox-core/_private";
 // import './Register.scss';
 //import { star } from 'ionicons/icons';
+import young from "../photos/young.png";
 
 const Register: React.FC = () => {
   const [emailReg, setemailReg] = useState<string>();
@@ -39,10 +42,8 @@ const Register: React.FC = () => {
       })
       .then((response) => {
         // console.log(response.data.sqlMessage.split(`USERS.email`).length);
-        
-        if (
-          response.data === '"email" must be a valid email'
-        ) {
+
+        if (response.data === '"email" must be a valid email') {
           present("Please verify your Email ❌");
         } else if (
           response.data ===
@@ -58,26 +59,22 @@ const Register: React.FC = () => {
           setIsregistred(true);
           present(`${response.data.message}`, [{ text: "Ok" }]);
         } else if (response.data.sqlMessage.split(`USERS.email`).length === 2) {
-          present("Email not accepted");
-        } else if (response.data.sqlMessage.split(`USERS.username`).length === 2) {
-          present("Try another username");
+          present("Email not accepted ⛔");
+        } else if (
+          response.data.sqlMessage.split(`USERS.username`).length === 2
+        ) {
+          present("Try another username ❗");
         }
-      }).catch((err) => {console.log(err);
       })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <IonPage>
-      <IonHeader className="ion-no-border"></IonHeader>
+      <IonImg className="image_register" src={young} alt="" />
       <IonContent>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-
-        <IonToolbar>
-          <IonTitle className="ion-text-center custom-font ">Register</IonTitle>
-        </IonToolbar>
+        <IonLabel className="create_account_title">Create Account</IonLabel>
         <br />
         <br />
         <br />
@@ -126,19 +123,25 @@ const Register: React.FC = () => {
         </IonList>
         <br />
         <br />
-        <div className="ion-text-center custom-font">
+        <div className="signup_btn">
           {!isRegistred ? (
-            <IonButton onClick={userRegister} size="default" fill="solid">
+            <IonButton
+              onClick={userRegister}
+              size="large"
+              fill="outline"
+              expand="block"
+            >
               Signup
             </IonButton>
           ) : (
             <IonButton
               routerLink="Login"
-              size="small"
-              shape="round"
+              size="large"
               fill="outline"
+              expand="block"
+              className="signup_btn"
             >
-              Go to log in
+              Go to Login
             </IonButton>
           )}
         </div>
@@ -150,7 +153,10 @@ const Register: React.FC = () => {
 
         <IonToolbar>
           <div className="ion-text-center custom-font">
-            Have an account? <Link to="/login">Login</Link>
+            Have an account?{" "}
+            <Link to="/login" className="login_btn">
+              Login
+            </Link>
           </div>
         </IonToolbar>
       </IonContent>

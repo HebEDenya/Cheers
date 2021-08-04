@@ -67,7 +67,6 @@ const App: React.FC = () => {
   const [imageProfileUpdated, setimageProfileUpdated] =
     useState<boolean>(false);
   const reset = Cookies.get("reset");
-  // Cookies.set("reset", `null`)
   const [btnpath, setPath] = useState<string>("");
   const [followedEvents, setFollowedEvents] = useState<Array<any>>([]);
   const [verifyDeleteBtn, setVerifyDeleteBtn] = useState<boolean>(false);

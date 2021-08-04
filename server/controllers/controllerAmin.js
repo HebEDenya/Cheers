@@ -57,20 +57,20 @@ const forgotPassword = (req, res) => {
         transporter.sendMail(mailOptions, function (err, info) {
           if (err) {
             res.send({
-              message: "An error has occured!",
+              message: "An error has occured ❗",
               status: "ko",
             });
           } else {
             res.send({
               message:
-                "Please check your emails we just sent you a reset password link !",
+                "We've just sent you an email with instructions on how to reset your password. 📩",
               status: "ok",
             });
           }
         });
       } else {
         res.send({
-          message: "There no Cheers account associate to the provided email !",
+          message: "No account associated with email address 🛑",
           status: "ko",
         });
       }
@@ -138,11 +138,11 @@ const userLogin = (req, res) => {
               },
             });
           } else {
-            res.status(203).json({ message: "wrong password..." });
+            res.status(203).json({ message: "Wrong password ⛔" });
           }
         });
       } else {
-        res.status(203).json({ message: " username not exist..." });
+        res.status(203).json({ message: " Username doesn't exist ❗" });
       }
     });
 };

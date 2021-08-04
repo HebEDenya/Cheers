@@ -49,7 +49,7 @@ const FollowedEvents: React.FC<props> = ({
     history.push("/eventpage");
     setbuttontoviewevent(false);
   }
-
+  
   return (
     <>
       <IonPage>

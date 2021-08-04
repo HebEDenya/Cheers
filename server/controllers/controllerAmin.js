@@ -9,7 +9,6 @@ const moment = require("moment");
 
 const getMessages = (req, res) => {
   const eventid = req.params.id;
-  console.log(eventid);
   database
     .query(`SELECT * FROM MESSAGE where event_id = '${eventid}'`)
     .then((result) => {
@@ -62,15 +61,14 @@ const forgotPassword = (req, res) => {
         transporter.sendMail(mailOptions, function (err, info) {
           if (err) {
             res.send({
-              message:
-                "An error has occured!",
+              message: "An error has occured!",
               status: "ko",
             });
           } else {
             res.send({
               message:
                 "Please check your emails we just sent you a reset password link !",
-              status: "ok", 
+              status: "ok",
             });
           }
         });
@@ -84,10 +82,9 @@ const forgotPassword = (req, res) => {
 };
 
 const verifyJWT = (req, res, next) => {
-  const token = req.headers['authorization']
-  console.log(token);
+  const token = req.headers["authorization"];
   if (!token) {
-    res.status(403).send("we need token!!!");
+    res.send("we need token!!!");
   } else {
     jwt.verify(token, process.env.HASHPASS, (err, decoded) => {
       if (err) {

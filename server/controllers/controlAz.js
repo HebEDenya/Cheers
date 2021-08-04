@@ -104,6 +104,7 @@ const verifyFollowed = (req, res) => {
 const getFollowedEvents = (req, res) => {
   followedEvents(req)
     .then((result) => {
+      console.log(result);
       res.status(200).send(result);
     })
     .catch((err) => {

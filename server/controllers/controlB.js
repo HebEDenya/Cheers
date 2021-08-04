@@ -6,13 +6,8 @@ const {cloudinary} =require('../../cloudinary')
 
 const homeGet = (req, res) => {
     getHome(req.params.user_id).then((result) => {
-<<<<<<< HEAD
-    res.send(result);
-    });
-=======
     res.status(200).send(result);
     }).catch(err=> res.status(401))
->>>>>>> d2f6bd91b58a4a83092cb7aa61116470ecda533e
   };
 const CategoryPosting = (req,res) => { 
        postCategory(req.body)

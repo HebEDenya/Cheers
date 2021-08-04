@@ -21,6 +21,7 @@ import {
 import "./FollowedEvents.scss";
 import axios from "axios";
 import { useHistory } from "react-router";
+import Cookies from "js-cookie";
 
 interface props {
   user_id: number;
@@ -28,7 +29,8 @@ interface props {
   viewEvent: number;
   eventAdded: boolean;
   setPath: (any) => any;
-  followedEvents: any[]
+  followedEvents: any[];
+  setFollowedEvents: (any)=> any;
   
 }
 
@@ -38,18 +40,30 @@ const FollowedEvents: React.FC<props> = ({
   viewEvent,
   eventAdded,
   setPath,
-  followedEvents
+  followedEvents,
+  setFollowedEvents
   
 }) => {
   const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
   const history = useHistory();
+  const userId = Cookies.get("user_id");
 
   // if the btn clicked we go to the event page
   if (buttontoviewevent) {
     history.push("/eventpage");
     setbuttontoviewevent(false);
   }
-  
+
+  useEffect(() => {
+    axios.get(`/api/followedevents/${+userId}`)
+        .then((res) => {
+          setFollowedEvents(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }, []);
+
   return (
     <>
       <IonPage>

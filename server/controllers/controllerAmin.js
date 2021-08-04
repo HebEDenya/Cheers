@@ -31,13 +31,10 @@ const forgotPassword = (req, res) => {
       pass: process.env.MAIL_PASSWORD,
     },
   });
-  console.log(transporter);
-
   database
     .query(`SELECT * FROM USERS WHERE email = '${email}'`)
     .then((result) => {
       if (result.length > 0) {
-        console.log(result[0].username);
         var htmlMail = "";
         htmlMail = "";
         htmlMail = htmlMail + "Hello " + result[0].username + ", \n";
@@ -46,7 +43,7 @@ const forgotPassword = (req, res) => {
           'To Reset your Password, please click on this Link:<b> <a href="http://localhost:3000/reset">Here </a></b>';
         htmlMail = htmlMail + " \nBest Regards, \nCheers Team";
         var mailOptions = {
-          from: process.env.MAIL,
+          from: `Nodemailer <noreply.${process.env.MAIL}>`,
           to: email,
           subject: "Reset your password for Cheers account",
           text:
@@ -57,7 +54,6 @@ const forgotPassword = (req, res) => {
             "\nBest Regards, \nCheers Team",
           // html: htmlMail,
         };
-        console.log(mailOptions);
         transporter.sendMail(mailOptions, function (err, info) {
           if (err) {
             res.send({
@@ -168,8 +164,8 @@ const userRegister = (req, res) => {
       .then((result) => {
         res
           .status(200)
-          .send({ message: user_name + " " + "successfully register" });
-      });
+          .send({ message: user_name + " " + "Regisration Success ✅" });
+      }).catch(err=> res.status(203).send(err))
   });
 };
 

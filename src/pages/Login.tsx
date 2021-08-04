@@ -1,13 +1,13 @@
-import { IonGrid, IonChip, IonContent, IonHeader, IonPage, useIonAlert, IonTitle, IonToolbar, IonInput, IonItem, IonFooter, IonList, IonItemDivider, IonButton, IonCol, IonRow, IonCheckbox, IonLabel, IonIcon, IonSpinner, IonRange } from '@ionic/react';
+import { IonGrid, IonImg, IonChip, IonContent, IonHeader, IonPage, useIonAlert, IonTitle, IonToolbar, IonInput, IonItem, IonFooter, IonList, IonItemDivider, IonButton, IonCol, IonRow, IonCheckbox, IonLabel, IonIcon, IonSpinner, IonRange } from '@ionic/react';
 //import ExploreContainer from '../components/ExploreContainer';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-// import './Login.scss';
+import './Login.scss';
 import Tab1 from './Tab1';
 import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router'
 import { lockClosed, person } from 'ionicons/icons';
-
+import celebration from '../photos/celebration.png'
 interface loginProps {
   login: any,
   setLogin: any,
@@ -53,16 +53,11 @@ const Login: React.FC<loginProps> = ({ login, setLogin, setuser_id }) => {
   }, [])
   return (
     <IonPage>
-      <IonHeader className="ion-header ion-no-border">
-      </IonHeader>
       <IonContent>
-        <br /><br /><br /><br /><br /><br /><br />
-        <IonToolbar>
-          <div className="ion-toolbar"></div>
-          <IonTitle className="ion-text-center custom-font"><h5>Login</h5></IonTitle>
-        </IonToolbar>
+        <br /><br /><br />
+        <IonImg src={celebration} alt="" className="login_image" />
+          <IonLabel className="login_title">Login</IonLabel>
         <IonGrid>
-          <br /><br /><br />
           <IonRow>
             <IonCol>
               <IonList>

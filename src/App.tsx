@@ -188,7 +188,6 @@ const App: React.FC = () => {
             <Route exact path="/register">
               <Register />
             </Route>
-            {/* <Redirect exact from="/" to="/register"></Redirect> */}
             <Route exact path="/login">
               <Login
                 login={login}
@@ -196,7 +195,6 @@ const App: React.FC = () => {
                 setuser_id={setuser_id}
               />
             </Route>
-            {/* <Route exact path='/reset/:id' component={ForgotPassword} /> */}
             <Route exact path="/password" component={NewPass} />
 
             {reset === "true" ? (
@@ -319,6 +317,7 @@ const App: React.FC = () => {
                     eventAdded={eventAdded}
                     setPath={setPath}
                     followedEvents={followedEvents}
+                    setFollowedEvents={setFollowedEvents}
                   />
                 </Route>
                 <Route path="/eventpage">
@@ -393,9 +392,6 @@ const App: React.FC = () => {
                   </IonTabButton>
                   <IonTabButton tab="tab3" href="/tab3">
                     <IonIcon icon={heart} />
-                  </IonTabButton>
-                  <IonTabButton tab="tab4" href="/chat">
-                    <IonIcon icon={chatboxEllipses} />
                   </IonTabButton>
                   <IonTabButton tab="tab5" href="/tab5">
                     <IonIcon icon={search} />

@@ -13,6 +13,7 @@ import {
   IonItemDivider,
   IonButton,
   IonFooter,
+  IonImg,
 } from "@ionic/react";
 //import ExploreContainer from '../components/ExploreContainer';
 import axios from "axios";
@@ -20,6 +21,8 @@ import { lockClosed, person, mailOpen } from "ionicons/icons";
 import React, { useState } from "react";
 import { Link, RouteComponentProps, useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
+import "./ForgotPassword.scss";
+import reset from "../photos/reset.png"
 
 interface resetProps
   extends RouteComponentProps<{
@@ -33,9 +36,8 @@ const Forgot: React.FC<resetProps> = ({ match }) => {
   const [newPassword, setNewPassword] = useState<string>();
   const [isRegistred, setIsregistred] = useState<boolean>(false);
   const [present] = useIonAlert();
-  const history = useHistory()
+  const history = useHistory();
   const forgotPassword = () => {
-    console.log("clicked");
     axios
       .put("http://localhost:3001/api/user/newpassword", {
         userId: match.params.id,
@@ -43,34 +45,30 @@ const Forgot: React.FC<resetProps> = ({ match }) => {
       })
       .then((response) => {
         setIsregistred(true);
-        if (response.data.affectedRows ===1) {
-        present(`Password updated  ✔`, [{ text: "Ok" }]); }
-        else {
-          present(`Try again 👁‍🗨`, [{ text: "Ok" }]);  
+        if (response.data.affectedRows === 1) {
+          present(`Password updated  ✔`, [{ text: "Ok" }]);
+        } else {
+          present(`Try again 👁‍🗨`, [{ text: "Ok" }]);
         }
       });
   };
 
   return (
     <IonPage>
-      <IonHeader className="ion-no-border"></IonHeader>
       <IonContent>
+        <IonImg src={reset} alt="" className="reset_image" />
         <br />
         <br />
         <br />
         <br />
         <br />
 
-        <IonToolbar>
-          <IonTitle className="ion-text-center custom-font ">
-            Reset Password 
-          </IonTitle>
-        </IonToolbar>
+          <IonLabel className="reset_title">
+            Reset Password
+          </IonLabel >
         <br />
         <br />
-        <br />
-        <br />
-        <br />
+     
 
         <IonList className="ion-padding-bottom ion-margin-horizontal">
           <IonItem>
@@ -89,15 +87,15 @@ const Forgot: React.FC<resetProps> = ({ match }) => {
         </IonList>
         <br />
         <br />
-        <div className="ion-text-center custom-font">
+        <div className="login_button">
           <IonButton
             onClick={() => {
               Cookies.set("reset", "false");
               forgotPassword();
-            
             }}
-            size="small"
-            fill="solid"
+            size="large"
+            fill="outline"
+            expand="block"
           >
             Submit
           </IonButton>
@@ -110,7 +108,7 @@ const Forgot: React.FC<resetProps> = ({ match }) => {
 
         <IonToolbar>
           <div className="ion-text-center custom-font">
-            Go to  <a href="/login">Login</a>
+            Go to <a href="/login" className="login_btn">Login</a>
           </div>
         </IonToolbar>
       </IonContent>

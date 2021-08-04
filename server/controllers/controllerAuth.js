@@ -9,7 +9,6 @@ const moment = require("moment");
 
 const getMessages = (req, res) => {
   const eventid = req.params.id;
-  console.log(eventid);
   database
     .query(`SELECT * FROM MESSAGE where event_id = '${eventid}'`)
     .then((result) => {
@@ -58,21 +57,20 @@ const forgotPassword = (req, res) => {
         transporter.sendMail(mailOptions, function (err, info) {
           if (err) {
             res.send({
-              message:
-                "An error has occured!",
+              message: "An error has occured ❗",
               status: "ko",
             });
           } else {
             res.send({
               message:
-                "Please check your emails we just sent you a reset password link !",
-              status: "ok", 
+                "We've just sent you an email with instructions on how to reset your password. 📩",
+              status: "ok",
             });
           }
         });
       } else {
         res.send({
-          message: "There no Cheers account associate to the provided email !",
+          message: "No account associated with email address 🛑",
           status: "ko",
         });
       }
@@ -80,10 +78,9 @@ const forgotPassword = (req, res) => {
 };
 
 const verifyJWT = (req, res, next) => {
-  const token = req.headers['authorization']
-  console.log(token);
+  const token = req.headers["authorization"];
   if (!token) {
-    res.status(403).send("we need token!!!");
+    res.send("we need token!!!");
   } else {
     jwt.verify(token, process.env.HASHPASS, (err, decoded) => {
       if (err) {
@@ -112,7 +109,6 @@ const userLogin = (req, res) => {
         bcrypt.compare(user_password, result[0].password, (err, response) => {
           if (response) {
             //create jwt token
-            console.log(response);
             const id = result[0].id;
             const token = jwt.sign({ id }, process.env.HASHPASS, {
               expiresIn: 300,
@@ -141,11 +137,11 @@ const userLogin = (req, res) => {
               },
             });
           } else {
-            res.status(203).json({ message: "wrong password..." });
+            res.status(203).json({ message: "Wrong password ⛔" });
           }
         });
       } else {
-        res.status(203).json({ message: " username not exist..." });
+        res.status(203).json({ message: " Username doesn't exist ❗" });
       }
     });
 };
@@ -167,7 +163,7 @@ const userRegister = (req, res) => {
       .then((result) => {
         res
           .status(200)
-          .send({ message: user_name + " " + "successfully register" });
+          .send({ message: user_name + " " + "Regisration Success ✅" });
       }).catch(err=> res.status(203).send(err))
   });
 };
@@ -207,7 +203,6 @@ const getMyChat = (req, res) => {
   database
     .query(`SELECT * FROM MESSAGE WHERE sender_id = '${receiver_id}'`)
     .then((result) => {
-      console.log(result);
 
       var mailOptions = {
         from: data.email,
@@ -228,14 +223,12 @@ const getMyChat = (req, res) => {
       };
       transporter.sendMail(mailOptions, function (err, info) {
         if (err) {
-          console.log("There no email !", err);
           res.send({
             message:
               "There no Cheers account associate to the provided email !",
             status: "ko",
           });
         } else {
-          console.log("Email sent: ", info);
           res.send({
             message: "Please check your emails we just sent you a Message !",
             status: "ok",
@@ -254,19 +247,17 @@ const sendMessage = (req, res) => {
 
   database
     .query(
-      `INSERT INTO MESSAGE (sender_id,receiver_id, event_id,time,text) VALUES ('${senderid}','${receiverid}','${eventid}','${time}','${text}')`
+      `INSERT INTO MESSAGE (sender_id,receiver_id, event_id,time,text) VALUES ('${senderid}','${receiverid}','${eventid}','${time}',"${text}")`
     )
     .then(() => {
       res.status(200).send({ message: "messgage saved" });
     })
     .catch((error) => {
       res.status(400).send(error);
-      console.log(error.message);
     });
 };
 const getUser = (req, res) => {
   const user_id = req.body.userid;
-  console.log(user_id);
   database
     .query(`SELECT * FROM USERS WHERE user_id = '${user_id}'`)
     .then((result) => {

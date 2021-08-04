@@ -112,7 +112,6 @@ test
               className="category_name"
               onClick={() => {
                 setCategoryChosen("Others");
-                console.log(categoryChosen);
               }}
             >
               {"Others"}

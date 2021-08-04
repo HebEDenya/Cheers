@@ -25,23 +25,14 @@ const Chat: React.FC = ({ }) => {
     const history = useHistory();
 
     const formSubmit = async () => {
-        console.log('clicked')
-        console.log('connected user', Cookies.get('user_id'))
-        console.log('event owner user', Object.values(location.state)[0])
-        console.log('event id', Object.values(location.state)[1])
-
-
         await axios.post('/api/user/message', {
             senderid: Cookies.get('user_id'),
             receiverid: Object.values(location.state)[0],
             eventid: Object.values(location.state)[1],
             text: text
         }).then((response) => {
-            //console.log(response)
             setText("")
             fetchMessages()
-
-
         })
 
     }
@@ -52,11 +43,9 @@ const Chat: React.FC = ({ }) => {
        
          axios.get('/api/users/messages/' + Object.values(location.state)[1])
             .then((response) => {
-                //console.log(response.data)
                 setMessages(response.data)
             })
             .catch(error=>{})
-           // e.targetPreventDefault()
     }
 
     useIonViewDidEnter(() => {
@@ -73,11 +62,6 @@ const Chat: React.FC = ({ }) => {
     //    })
     useEffect(() => {
         try{fetchMessages()
-            //window.location.reload()
-            console.log(location.state)
-            // console.log(Object.values(location.state))
-            //history.go(0)
-            //setTitle(Object.values(location.state)[2])
             setTitle(Object.values(location.state)[2])}
             catch(error){}
 

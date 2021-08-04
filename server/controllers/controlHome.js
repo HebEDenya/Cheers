@@ -1,5 +1,5 @@
-const { getHome,getCategory,postCategory,getCategories,PlusFavorite,SelectFav } = require("../queries/query_user/queryB.js");
-const { removeEventFromFavorite} = require('../queries/query_user/queryM.js');
+const { getHome,getCategory,postCategory,getCategories,PlusFavorite,SelectFav } = require("../queries/query_user/queryHome.js");
+const { removeEventFromFavorite} = require('../queries/query_user/queryAdminClient.js');
 const {cloudinary} =require('../../cloudinary')
 
 

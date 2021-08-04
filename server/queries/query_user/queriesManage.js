@@ -6,7 +6,7 @@ const handle = (req) => {
 
 const update = (params, body, avatarImg) => {
   return database.query(
-    `UPDATE USERS SET user_description = '${body.description}', user_image = '${avatarImg}' WHERE user_id=${params.id}`
+    `UPDATE USERS SET user_description = "${body.description}", user_image = '${avatarImg}' WHERE user_id=${params.id}`
   );
 };
 

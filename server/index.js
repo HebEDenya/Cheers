@@ -3,13 +3,12 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
 const { database } = require("./database/db.js");
-const routes = require("./routers/routerM");
-const routesAz = require("./routers/routerAz");
-const routesB = require("./routers/routerB");
+const routesAdminClient = require("./routers/routerAdminClient");
+const routesManage = require("./routers/routerManage.js");
+const routesHome = require("./routers/routerHome");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const routesAmin = require("./routers/routerAmin.js");
-const {verifyJWT} = require("./controllers/controllerAmin");
+const routesAuthChat = require("./routers/routerAuth.js");
 require("dotenv").config();
 const port = process.env.PORT || 3001;
 const app = express();
@@ -36,10 +35,10 @@ app.use(
 );
 app.use(cookieParser(process.env.SECRET));
 
-app.use("/api", routes);
-app.use("/api", routesAz);
-app.use("/api", routesB);
-app.use("/api", routesAmin);
+app.use("/api", routesAdminClient);
+app.use("/api", routesManage);
+app.use("/api", routesHome);
+app.use("/api", routesAuthChat);
 
 app.listen(port, () => {
   console.log(`I look at you port ${port}`);

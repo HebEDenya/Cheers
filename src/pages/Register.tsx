@@ -38,7 +38,7 @@ const Register: React.FC = () => {
         password: passwordReg,
       })
       .then((response) => {
-        console.log(response.data.sqlMessage.split(`USERS.email`).length);
+        // console.log(response.data.sqlMessage.split(`USERS.email`).length);
         
         if (
           response.data === '"email" must be a valid email'

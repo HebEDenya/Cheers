@@ -9,7 +9,7 @@ database.query(`CREATE TABLE IF NOT EXISTS USERS (
     user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY UNIQUE,
     email VARCHAR(120) NOT NULL UNIQUE,
     type_user VARCHAR(50),
-    username VARCHAR(200),
+    username VARCHAR(200) UNIQUE,
     password VARCHAR (500) NOT NULL,
     user_description VARCHAR (5000),
     user_image VARCHAR(5000),

@@ -45,6 +45,7 @@ import {
 } from "ionicons/icons";
 import Cookies from "js-cookie";
 import "./EventPage.scss";
+import FollowedEvents from "./FollowedEvents";
 interface ContainerProps {
   viewEvent: any;
   btnpath: string;
@@ -108,6 +109,8 @@ const EventPage: React.FC<ContainerProps> = ({
   useEffect(() => {
     getEventPage();
   }, [viewEvent]);
+
+
 
   useEffect(() => {
     if (+userId && viewEvent) {
@@ -284,6 +287,8 @@ const EventPage: React.FC<ContainerProps> = ({
     }
   };
 
+  
+
   return (
     <>
       <IonPage>
@@ -369,8 +374,8 @@ const EventPage: React.FC<ContainerProps> = ({
    
     state: { ownerid: data.user_id, eventid: viewEvent, eventtitle:data.title}
   }}>
-          <IonFabButton className="btn_eventpage" color="light" size="small">
-            <IonIcon icon={chatbubbleEllipsesOutline} size="small" />
+          <IonFabButton  className="btn_eventpage" color="light" size="small">
+            <IonIcon icon={chatbubbleEllipsesOutline} size="small"  />
           </IonFabButton>
           </Link>
           <IonLabel className="about_eventpage">About</IonLabel>

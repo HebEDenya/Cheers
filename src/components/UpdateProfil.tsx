@@ -62,7 +62,7 @@ const UpdateProfil: React.FC<ContainerProps> = ({
         .put(`/api/user/${user_id}/updateprofil`, {
           description,
           image,
-        })
+        },)
         .then((result) => {
           if (result.statusText === "OK") {
             setSpiner(false);

@@ -176,11 +176,9 @@ const App: React.FC = () => {
       <Route exact path='/register'>
     <Register /> 
     </Route>
-    {/* <Redirect exact from="/" to="/register"></Redirect> */}
     <Route exact path="/login">
     <Login  login={login} setLogin={setLogin} setuser_id={setuser_id} /> 
     </Route>
-    {/* <Route exact path='/reset/:id' component={ForgotPassword} /> */}
      <Route exact path='/password' component= {NewPass} />
    
     {reset === 'true'? <Redirect exact from="/" to="/reset/:id"></Redirect>: <Redirect  from="/" to="/login"></Redirect> }
@@ -226,7 +224,7 @@ const App: React.FC = () => {
             <MyEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} setPath={setPath} />
           </Route>
           <Route path="/followedevents" >
-            <FollowedEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} setPath={setPath} followedEvents={followedEvents}  />
+            <FollowedEvents user_id={user_id} setviewEvent={setviewEvent} viewEvent={viewEvent} eventAdded={eventAdded} setPath={setPath} followedEvents={followedEvents}  setFollowedEvents={setFollowedEvents} />
           </Route>
           <Route path="/eventpage" >
             <EventPage viewEvent={viewEvent} btnpath={btnpath} setPath={setPath}   setFollowedEvents={setFollowedEvents}/>
@@ -273,9 +271,6 @@ const App: React.FC = () => {
         </IonTabButton>
         <IonTabButton tab="tab3" href="/tab3">
           <IonIcon icon={heart} />
-        </IonTabButton>
-        <IonTabButton tab="tab4" href="/chat">
-          <IonIcon icon={chatboxEllipses} />
         </IonTabButton>
         <IonTabButton tab="tab5" href="/tab5" >
           <IonIcon icon={search} />

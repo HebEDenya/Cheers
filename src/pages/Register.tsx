@@ -38,8 +38,10 @@ const Register: React.FC = () => {
         password: passwordReg,
       })
       .then((response) => {
+        // console.log(response.data.sqlMessage.split(`USERS.email`).length);
+        
         if (
-          response.data === '"email" length must be at least 6 characters long'
+          response.data === '"email" must be a valid email'
         ) {
           present("Please verify your Email ❌");
         } else if (
@@ -55,8 +57,13 @@ const Register: React.FC = () => {
         } else if (response.data.message && response.statusText === "OK") {
           setIsregistred(true);
           present(`${response.data.message}`, [{ text: "Ok" }]);
+        } else if (response.data.sqlMessage.split(`USERS.email`).length === 2) {
+          present("Email not accepted");
+        } else if (response.data.sqlMessage.split(`USERS.username`).length === 2) {
+          present("Try another username");
         }
-      });
+      }).catch((err) => {console.log(err);
+      })
   };
   return (
     <IonPage>

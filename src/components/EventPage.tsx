@@ -45,6 +45,7 @@ import {
 } from "ionicons/icons";
 import Cookies from "js-cookie";
 import "./EventPage.scss";
+import FollowedEvents from "./FollowedEvents";
 interface ContainerProps {
   viewEvent: any;
   btnpath: string;
@@ -108,6 +109,8 @@ const EventPage: React.FC<ContainerProps> = ({
   useEffect(() => {
     getEventPage();
   }, [viewEvent]);
+
+
 
   useEffect(() => {
     if (+userId && viewEvent) {

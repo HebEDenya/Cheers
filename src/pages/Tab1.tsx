@@ -38,8 +38,8 @@ interface ContainerProps {
   setPath: (any) => any;
   verifyDeleteBtn: boolean;
   setVerifyDeleteBtn: (any) => any;
-  setTest:(any)=> any;
-  test: number | null
+  setTest: (any) => any;
+  test: number | null;
 }
 
 const Tab1: React.FC<ContainerProps> = ({
@@ -50,10 +50,9 @@ const Tab1: React.FC<ContainerProps> = ({
   categories,
   setCategories,
   verifyDeleteBtn,
-setVerifyDeleteBtn,
-setTest,
-test
-  
+  setVerifyDeleteBtn,
+  setTest,
+  test,
 }) => {
   //  const [heartButtonClick, setHeartButtonClick] = useState(false)
   const [buttontoviewevent, setbuttontoviewevent] = useState<any>(false);
@@ -147,8 +146,8 @@ test
               event={event}
               key={i}
               setPath={setPath}
-              verifyDeleteBtn ={verifyDeleteBtn}
-              setVerifyDeleteBtn = {setVerifyDeleteBtn}
+              verifyDeleteBtn={verifyDeleteBtn}
+              setVerifyDeleteBtn={setVerifyDeleteBtn}
               test={test}
               setTest={setTest}
             />

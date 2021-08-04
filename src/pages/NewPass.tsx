@@ -15,7 +15,6 @@ import {
   IonFooter,
   IonImg,
 } from "@ionic/react";
-//import ExploreContainer from '../components/ExploreContainer';
 import axios from "axios";
 import { lockClosed, person, mailOpen } from "ionicons/icons";
 import React, { useState } from "react";

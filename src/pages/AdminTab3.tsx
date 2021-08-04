@@ -110,7 +110,6 @@ const AdminTab3: React.FC<adminProps> = () => {
           password: adminPassword,
         })
         .then((result) => {
-          console.log( result.data);
           if (result.data === '"email" must be a valid email') {
              present("Email not valid 🛑");
           } else if (result.data === '"password" length must be at least 8 characters long') {

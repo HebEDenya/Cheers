@@ -1,5 +1,5 @@
 const {queryPostRequestCreateEvent, selectCoinsFromUsers, updateCoinsUsers, getCoinsUser,getFavoriteEventsOfThUser,
-  selectEventById,removeEventFromFavorite, getAdminListe, removeAdmin,addNewAdmin, deleteEventByAdmin, deleteFromFavoriteByAdmin, updateCoinsAfterPurshase,deleteCategory } = require('../queries/query_user/queryM.js')
+  selectEventById,removeEventFromFavorite, getAdminListe, removeAdmin,addNewAdmin, deleteEventByAdmin, deleteFromFavoriteByAdmin, updateCoinsAfterPurshase,deleteCategory } = require('../queries/query_user/queryAdminClient.js')
 const {cloudinary} =require('../../cloudinary')
 const bcrypt = require('bcrypt');
 const axios = require('axios');

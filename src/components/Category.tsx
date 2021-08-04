@@ -57,7 +57,6 @@ const Category: React.FC<props> = ({ user_id }) => {
       axios
         .delete(`/api/deleteCategory/${deleteCat}`)
         .then((result) => {
-          console.log(result);
           if (result.data === "deleted") {
             setSpiner(false);
             present("Category deleted 🎈", [{ text: "Ok" }]);

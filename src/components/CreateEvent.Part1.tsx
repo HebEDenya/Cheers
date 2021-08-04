@@ -71,8 +71,8 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id,
     let selectedAdress = adress;
     let eventPrice = ""+price;
     let places = quantity;
-    if (location === "online") {
-      selectedAdress = "online"
+    if (location === "Online") {
+      selectedAdress = "Online"
     } if (selectPrice === "Free") {
         eventPrice = selectPrice;
     }  if (places === null) {
@@ -102,7 +102,7 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id,
         refreshInfoAfterSubmit()
         present('Event created successfully 👌')
       } 
-    }).catch(e=> {console.log(e); present('An error has occurred ❌', [{ text: 'Ok' }]); setSpiner(false)
+    }).catch(e=> { present('An error has occurred ❌', [{ text: 'Ok' }]); setSpiner(false)
     })
   }
 
@@ -153,7 +153,7 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id,
         <IonItem className="input_create_Event">
          &nbsp;
              <IonLabel className="color_subtitle_create">Categories <span className="obligatoire">*</span> </IonLabel>
-             <IonSelect value={categorie} okText="Okay"  onIonChange={e => {setCategorie(e.detail.value); console.log(categorie);}}>
+             <IonSelect value={categorie} okText="Okay"  onIonChange={e => {setCategorie(e.detail.value); }}>
                <IonSelectOption value="Others">Others</IonSelectOption>
                {categories&& categories.map((category,i) => <IonSelectOption key={i} value={category.category_name}>{category.category_name}</IonSelectOption>)}
              </IonSelect>
@@ -180,7 +180,7 @@ const CreateEventComponenet: React.FC<props>= ({setCoinsUser,coinsUser, user_id,
            <IonSegmentButton value="venue" >
              <IonLabel>Venue</IonLabel><IonIcon icon={locate} />
            </IonSegmentButton>
-           <IonSegmentButton value="online">
+           <IonSegmentButton value="Online">
              <IonLabel>Online</IonLabel><IonIcon icon={wifi} />
            </IonSegmentButton>
          </IonSegment>

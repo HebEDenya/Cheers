@@ -4,7 +4,7 @@ const {database} = require('../../database/db.js')
 const queryPostRequestCreateEvent = (body, newImage) => {
     const {title,description,category,location,price,start_time,end_time,available_places, user_id}=body
     return database.query(`INSERT INTO EVENT (title,price,description,image,start_time,end_time,location,available_places, category, user_id) 
-    VALUES ('${title}','${price}','${description}','${newImage}','${start_time}','${end_time}','${location}','${available_places}','${category}',${user_id})`)
+    VALUES ("${title}",'${price}',"${description}",'${newImage}','${start_time}','${end_time}',"${location}",'${available_places}',"${category}",${user_id})`)
 }
 // to select the coins of each user
 const selectCoinsFromUsers = (id) => {

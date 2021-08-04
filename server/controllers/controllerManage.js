@@ -9,7 +9,7 @@ const {
   deleteFollowers,
   insertFollower,
   followedEvents,
-} = require("../queries/query_user/queriesAz.js");
+} = require("../queries/query_user/queriesManage.js");
 const { cloudinary } = require("../../cloudinary");
 
 const selectRequest = (req, res) => {
@@ -104,7 +104,6 @@ const verifyFollowed = (req, res) => {
 const getFollowedEvents = (req, res) => {
   followedEvents(req)
     .then((result) => {
-      console.log(result);
       res.status(200).send(result);
     })
     .catch((err) => {

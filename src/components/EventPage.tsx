@@ -93,9 +93,7 @@ const EventPage: React.FC<ContainerProps> = ({
         .then((result) => {
           return axios.get(`/api/followedevents/${+userId}`);
         })
-        .then((res) => {
-          console.log('adaada');
-          
+        .then((res) => {  
           setFollowedEvents(res.data);
         })
         .catch((err) => {
